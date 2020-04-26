@@ -1,0 +1,16 @@
+package DP;
+
+public class PermuteAString {
+
+	public static void main(String[] args) {
+		String s = "abcdef" ; 
+		
+		topDown(s) ; 
+		
+	}
+	
+	public static topDown(String s) {
+		
+	}
+	
+}

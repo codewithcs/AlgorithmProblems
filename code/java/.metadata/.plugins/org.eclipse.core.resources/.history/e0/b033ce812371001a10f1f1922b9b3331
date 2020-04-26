@@ -1,0 +1,14 @@
+package DP;
+
+public class NextPermutation {
+
+	public static void main(String[] args) {
+	
+		
+		
+		int permutation[] = { 6, 2, 1, 5, 4, 3, 0 }; 
+		
+		
+	}
+	
+}

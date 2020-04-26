@@ -1,0 +1,12 @@
+package DP;
+
+public class IPAddressDecomposition {
+
+	public static void main(String[] args) {
+	
+		String input = "25525511135" ; 
+		
+	}
+	
+	
+}

@@ -1,0 +1,58 @@
+package DP;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class NextPermutation {
+
+	public static void main(String[] args) {
+	
+		// Generate next permutation.  
+		
+		int permutation[] =  { 6, 2, 1, 5, 4, 3, 0 }; 
+		
+		int permutation2[] = { 0, 1, 2, 4, 3, 5, 6 } ;
+		
+		int permutation3 [] = {1, 2, 6, 5, 4, 3, 0 };  
+		
+		nextPermutation(permutation) ; 
+		
+		nextPermutation(permutation2) ;
+		
+		nextPermutation(permutation3) ; 
+	}
+	
+	public static void nextPermutation(int[] permutation) {
+		
+		int length = permutation.length;
+		
+		int lastIndex = length - 1; 
+		
+		List<Integer> list = new ArrayList<>() ; 
+ 		
+		list.add(permutation[lastIndex]) ; 
+		boolean hasDecreasing = false ;
+		
+		for( int i = lastIndex ; i >=1 ; i-- ) {
+			
+			if( permutation[i] <= permutation[i-1] ) {
+				hasDecreasing = true; 
+				continue; 
+			}
+			
+			int temp = permutation[i-1] ;  
+			permutation[i-1] = 	permutation[permutation.length-1] ;
+			permutation[permutation.length-1] = temp;
+			
+			if()
+			Arrays.sort(permutation, i, permutation.length);
+			
+			
+			
+		}
+		
+		
+	}
+	
+}

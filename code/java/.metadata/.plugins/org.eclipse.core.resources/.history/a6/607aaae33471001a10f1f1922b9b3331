@@ -1,0 +1,9 @@
+package DP;
+
+public class DecodeString {
+	
+	// total ways to decode a string. 
+	public static void main(String[] args) {
+		
+	}
+}

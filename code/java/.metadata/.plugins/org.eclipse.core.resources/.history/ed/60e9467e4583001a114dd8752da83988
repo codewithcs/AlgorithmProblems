@@ -1,0 +1,45 @@
+package DP;
+
+public class MinEditDistance {
+	
+	public static void main(String[] args) {
+		char A[] = {'b', 'e', 'n', 'y', 'a', 'm'} ; 
+		char B[] = {'e', 'p', 'h', 'r', 'e', 'm' } ; 
+		
+		
+		int[][] solution = new int[A.length][B.length] ; 
+	
+		solution[0][0] = 0; 
+		
+		for(int i=1 ; i<B.length; i++) { // Deletions
+			solution[0][i] += 1 ;  
+		}
+		for(int i=1 ; i<A.length; i++) { // Insertions 
+			solution[i][0] += 1 ;  
+		}
+		
+		System.out.println( bottomUp (A, B, solution) );
+		
+	}
+	
+	public static int bottomUp(char[] A, char[] B, int[][] solution) {
+		
+		for(int i=1; i<A.length; i++) {
+			for(int j=1; j<B.length; j++) {
+				if(A[i] == B[j]) {
+					solution[i][j] = solution[i-1][j-1]; 
+				} else {
+					
+					int min = solution[i-1][j-1] ; 
+					
+					solution[i][j] = Math.min(solution[i-1][j-1], Math.min(solution[i][j-1], solution[i-1][j] ) ) ; 
+					
+				}
+			}
+		}
+		
+		
+		return solution[A.length-1][B.length-1] ; 
+	}
+	
+}
