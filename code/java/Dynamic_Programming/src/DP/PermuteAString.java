@@ -24,7 +24,7 @@ public class PermuteAString {
 	    }
 	}
 	
-	// Solution based on Cracking The Coding Interview book. 
+	// Solution based on Cracking The Coding Interview book.  SEE THIS 
 	public static ArrayList<String> permutation(String s) {
 	    // The result
 	    ArrayList<String> res = new ArrayList<String>();
@@ -33,12 +33,16 @@ public class PermuteAString {
 	        res.add(s);
 	    } else if (s.length() > 1) {
 	        int lastIndex = s.length() - 1;
+	        
 	        // Find out the last character
 	        String last = s.substring(lastIndex);
+	        
 	        // Rest of the string
 	        String rest = s.substring(0, lastIndex);
+	        
 	        // Perform permutation on the rest string and
 	        // merge with the last character
+	        
 	        res = merge(permutation(rest), last);
 	    }
 	    return res;
@@ -87,16 +91,17 @@ public class PermuteAString {
 	      The recursion stops when we are choosing on 1 past the final "slot".
 	    */
 	    
-	    for (int i = 0; i < originalArray.length; i++) {
+	    for (int i = 0; i < originalArray.length; i++) { // won't work when there are duplicates. 
 	      
-	      int choice = originalArray[i];
+	      int choice = originalArray[i]; 
 
 	      
 	      // Skip if element already exists in 'runningChoices'
-	      if (runningChoices.contains(choice)) {
+	      if (runningChoices.contains(choice)) { 	// Good thinking 
 	        continue;
 	      }
 
+	      // Can use this approach when we have to avoid duplicating. 
 	      
 	      // 1.) Choose - Add the item to the 'runningChoices'
 	      runningChoices.add(choice);
