@@ -83,16 +83,15 @@ public static int coin_change_minimum_topDown (int[] coins, int total, int[] ans
 
 
 public static int coin_change_minimum_bottomUp (int[] coins, int total, int[] answer) {
-			
+	
+	// initialise answer[] with a large value. Update the code.
+	
 	for ( int i=1 ; i< answer.length ; i++ ) { // answer[i] represents a total which is a subproblem.  
 				
 		for ( int j=0 ; j<coins.length ; j++ ) { // We go from lowest element to highest because we are building the solution of smaller subproblems first. 			
 			if ( i-coins[j] >= 0)
 			 answer[i] = 1 + answer[i-coins[j]] ; // If we are not sorting the coins array, then we take the minimum of current min and 1+...
 			
-			if( j==0 && i-coins[j] < 0 ) {
-				answer[i] = 0; 
-			}
 		}	  
 	
 	}
