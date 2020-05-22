@@ -5,11 +5,50 @@ import java.util.Arrays;
 public class SubArraySort {
 	public static void main(String[] args) {
 		
-		int[] array = {1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19 } ; 
+		int[] array = { 1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19 } ; 
 		subarraySort(array); 
 		//System.out.println(subarraySort(array).toString());
 		
 	}
+	
+	public static void subArraySort(int[] array) {// assuming sorting means increasing. 
+		
+		int min = Integer.MAX_VALUE ;
+		int max = Integer.MIN_VALUE ; 
+		int currentMax = Integer.MIN_VALUE ;
+		int currentMin = Integer.MAX_VALUE ;
+		int minIndex = -1; int maxIndex = -1; 
+		
+		for(int i=0 ; i<array.length ; i++) {
+			
+				if(array[i]>array[i+1] ) {
+					currentMin = array[i+1] ; 
+					currentMax = array[i];
+					
+					if(currentMax > max ) {
+						max = currentMax ;
+					}
+					if(currentMin < min ) {
+						min = currentMin ; 
+					}
+					i++ ;  
+				}
+			
+		}
+		
+		for(int i=0 ; i<array.length ; i++ ) {
+			if(array[i] > min) {
+				minIndex = i ;  break ; 
+			}
+		}
+		
+		for(int i=array.length-1 ; i>=0 ; i-- ) {
+			if(array[i] < max) {
+				maxIndex = i ;  break ; 
+			}
+		}
+	}
+	
 	
 	public static void subarraySort(int[] array) {
 		
