@@ -12,30 +12,33 @@ public class MinHeapConstruction {
 	}
 	
 	static class MinHeap {
-		    List<Integer> heap = new ArrayList<>();
+		    List<Integer> heap = new ArrayList<>(); // Creating a list to store the elements. 
 	
-		    public MinHeap(List<Integer> array) {
-		      heap = buildHeap(array);
+		    public MinHeap(List<Integer> array) { 
+		      heap = buildHeap(array); 
 		    }
 	
 		    // O(n) time | O(1) space 
 		    public List<Integer> buildHeap(List<Integer> array) { // initially we have some heap, and now we insert or remove items from this heap. 
+		      
 		      int firstParentIdx = (array.size()-2)/2; 
+		      
 		      for(int currentIdx = firstParentIdx ; currentIdx >=0 ; currentIdx-- ) {
 		    	  siftDown(currentIdx, array.size()-1, array) ; 
 		      }
+		     
 		      return array;
+		    
 		    }
 	
 		    
 		    // O(logn) time | O(1) space 
 		    public void siftDown(int currentIdx, int endIdx, List<Integer> heap) {
-		    	
 		    	int childOneIdx = currentIdx*2 + 1; 
 		    	
 		    	while(childOneIdx <= endIdx ) {
 		    		
-		    		int childTwoIdx = currentIdx * 2 + 2 <= endIdx ? currentIdx * 2 + 2 : -1 ; 
+		    		int childTwoIdx = currentIdx * 2 + 2 <= endIdx ? currentIdx * 2 + 2 : -1 ;  // second child may not exist and will be -1. 
 		    		int idxToSwap;
 		    		
 		    		if(childTwoIdx != -1 && heap.get(childTwoIdx) < heap.get(childOneIdx)) {
@@ -49,7 +52,7 @@ public class MinHeapConstruction {
 		    			currentIdx = idxToSwap;
 		    			childOneIdx = currentIdx * 2 + 1; 
 		    		} else {
-		    			return ; // heap property restored. 
+		    			return ; // If the control comes here then the while loop may go into an infinite loop. (Case possible when all the heap elements are equal). 
 		    		}	    		
 		    		
 		    	}	    	
@@ -71,7 +74,7 @@ public class MinHeapConstruction {
 		      return heap.get(0);
 		    }
 	
-		    public int remove() {
+		    public int remove() { 
 		      swap(0, heap.size()-1, heap); 
 		      int valueToRemove = heap.get(heap.size()-1); 
 		      heap.remove(heap.size()-1); 

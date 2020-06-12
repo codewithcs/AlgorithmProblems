@@ -14,7 +14,7 @@ public class FourNumberSum {
 		System.out.println(fourNumberSum(array, 16));
 		
 	}
-	
+	 
 	public static List<Integer[]> fourNumberSum(int[] array, int targetSum) {
 		
 		
