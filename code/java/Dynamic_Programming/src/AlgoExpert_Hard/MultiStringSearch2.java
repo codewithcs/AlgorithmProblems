@@ -1,5 +1,6 @@
 package AlgoExpert_Hard;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,12 +13,18 @@ public class MultiStringSearch2 {
 	// Method 2: O(b^2 + ns) time | O(b^2 + n) space 
 	public static List<Boolean> multiStringSearch2(String bigString, String[] smallStrings) {
 	    
+		ModifiedSuffixTrie modifiedSuffixTrie = new ModifiedSuffixTrie(bigString);
+		List<Boolean> solution = new ArrayList<>(); 
 		
+		for(String smallString: smallStrings) {
+			solution.add(modifiedSuffixTrie.contains(smallString)); 
+		}
 		
-		return null;
+		return solution;
 	}
-		
-	static class TrieNode {
+	
+	// Not using endSymbol. 
+	static class TrieNode { 
 		Map<Character, TrieNode> children = new HashMap<>(); 
 	}
 	

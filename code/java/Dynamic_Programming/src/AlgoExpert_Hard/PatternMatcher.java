@@ -5,10 +5,12 @@ import java.util.Map;
 
 public class PatternMatcher {
 	public static void main(String[] args) {
-		
+		System.out.println(patternMatcher("xxyxxy", "gogopowerrangergogopowerranger"));
 	}
 	// O(n^2 + m) time | O(n+m) space
 	public static String[] patternMatcher(String pattern, String str) {
+		
+		// Assuming non-empty strings. 
 		if(pattern.length() > str.length()) {
 			return new String[] {}; 
 		}
@@ -24,24 +26,28 @@ public class PatternMatcher {
 		
 		if(counts.get('y') != 0 ) {
 			
-			for(int lenOfX = 1; lenOfX < str.length() ; lenOfX++) {
-				double lenOfY = ((double)str.length() - (double)lenOfX * (double)counts.get('x') ) 
+			for(int lenOfX = 1; lenOfX < str.length() ; lenOfX++) { 
+				
+				double lenOfY = ( (double)str.length() - (double)lenOfX * (double)counts.get('x') ) 
 						/ (double)counts.get('y') ;
 				
-				if(lenOfY <=0 || lenOfY % 1 != 0 ) {
+				if(lenOfY <=0 || lenOfY % 1 != 0 ) { // <=0  or a fraction. 
 					continue; 
-				}
+				}   
 				
 				int yIdx = firstYPos * lenOfX ; 
 				String x = str.substring(0, lenOfX); 
 				String y = str.substring(yIdx, yIdx + (int)lenOfY );  
-				String potentialMatch = buildPotentialMatch(newPattern, x, y) ; 
+				String potentialMatch = buildPotentialMatch(newPattern, x, y) ;
+				
 				if(str.equals(potentialMatch)) {
-					return didSwitch ? new String[] { y, x} : new String[] { x, y} ;
+					return didSwitch ? new String[] { y, x } : new String[] { x, y } ;
 				}
 			}			
-		} else {
-			
+		} 
+		
+		else {  
+			 
 			double lenOfX = str.length() / counts.get('x'); 
 			if(lenOfX % 1 == 0) {
 				String x = str.substring(0, (int)lenOfX) ; 
@@ -51,6 +57,7 @@ public class PatternMatcher {
 				}
 			}
 		}
+		
 		return new String[] {} ;
 	}
 	
@@ -60,7 +67,8 @@ public class PatternMatcher {
 		if(pattern.charAt(0) == 'x') {
 			return patternLetters; 
 		}
-		for(int i=0 ; i <patternLetters.length; i++ ) {
+		
+		for(int i=0 ; i <patternLetters.length; i++ ) { // Simple over-writing. 
 			if(patternLetters[i] == 'x') {
 				patternLetters[i] = 'y' ; 
 			} else {
@@ -82,11 +90,12 @@ public class PatternMatcher {
 				firstYPos = i; 
 			}
 		}
-		return firstYPos; 
+		
+		return firstYPos;  
 	}
 	
 	public static String buildPotentialMatch(char[] pattern, String x, String y) {
-		StringBuilder potentialMatch = new StringBuilder(); 
+		StringBuilder potentialMatch = new StringBuilder(); // Imp to use StringBuilder
 		for(char c: pattern) {
 			if( c == 'x') {
 				potentialMatch.append(x); 

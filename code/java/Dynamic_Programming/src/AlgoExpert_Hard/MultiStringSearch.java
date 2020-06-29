@@ -11,27 +11,31 @@ public class MultiStringSearch {
 	public static List<Boolean> multiStringSearch(String bigString, String[] smallStrings) {
 	    
 		List<Boolean> solution = new ArrayList<>(); 
-		for(String smallString: smallStrings) {
+		for(String smallString: smallStrings) { // O(nbs)
 			solution.add(isInBigString(bigString, smallString)); 
 		}
 		
 		return solution;
 	}
 	
-	public static boolean isInBigString(String bigString, String smallString) {
+	public static boolean isInBigString(String bigString, String smallString) { // O(bs)
 		
 		for(int i=0 ; i < bigString.length(); i++) {
+			
 			if( i + smallString.length() > bigString.length() ) {
 				break; 
 			}
+			
 			if(isInBigString(bigString, smallString, i)) {
 				return true; 
 			}
+			
 		}
+		
 		return false; 
 	}
 	
-	public static boolean isInBigString(String bigString, String smallString, int startIdx) {
+	public static boolean isInBigString(String bigString, String smallString, int startIdx) { // O(s)
 		int leftBigIdx = startIdx; 
 		int rightBigIdx = startIdx + smallString.length() - 1; 
 		int leftSmallIdx = 0 ; 

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class MultiString3 {
+public class MultiString3 { // Also see similar problem of Boggle Board. 
 	public static void main(String[] args) {
 		
 	}
@@ -27,7 +27,7 @@ public class MultiString3 {
 		
 	    List<Boolean> solution = new ArrayList<>();
 	    
-	    for(String str: smallStrings) {
+	    for(String str: smallStrings) { // Have to fill the boolean list in same order as the order of the small strings. 
 	    	solution.add(containedStrings.contains(str));
 	    }
 		
@@ -35,17 +35,25 @@ public class MultiString3 {
 	}
 	
 	public static void findSmallStringsIn(String str, int startIdx, Trie trie, Set<String> containedStrings) {
+		
 		TrieNode currentNode = trie.root; 
+		
 		for(int i= startIdx; i<str.length(); i++) {
+			
 			char currentChar = str.charAt(i); 
+			
 			if(!currentNode.children.containsKey(currentChar)) {
 				break; 
 			}
-			currentNode = currentNode.children.get(currentChar); 
+			
+			currentNode = currentNode.children.get(currentChar);  
+			
 			if(currentNode.children.containsKey(trie.endSymbol)) {
 				containedStrings.add(currentNode.word); 
 			}
+			
 		}
+		
 	}
 	
 	static class TrieNode {
@@ -53,7 +61,7 @@ public class MultiString3 {
 		String word; 
 	}
 	
-	static class Trie{
+	static class Trie {
 		TrieNode root = new TrieNode(); 
 		char endSymbol = '*' ; 
 		

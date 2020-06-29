@@ -72,7 +72,7 @@ public class UnderscorifySubstring {
 		int locationsIdx = 0; 
 		int stringIdx = 0; 
 		
-		boolean inBetweenUnderscores = false; 
+		boolean inBetweenUnderscores = false; // Made use of boolean to get to the next location index. 
 		List<String> finalChars = new ArrayList<>(); 
 		
 		int i=0; 
