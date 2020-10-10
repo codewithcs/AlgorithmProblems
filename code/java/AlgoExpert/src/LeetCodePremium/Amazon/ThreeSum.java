@@ -56,7 +56,8 @@ public class ThreeSum {
     }
 
     public static void twoSum(int[] nums, int i, List<List<Integer>> res) {
-        Set<Integer> seen = new HashSet<Integer>();
+        Set<Integer> seen = new HashSet<Integer>(); // Adding the logic of 2 sum problem using a set.
+        // Have to re-initialize the set for each call to twoSum.
 
         for (int j = i + 1; j < nums.length; ++j) {
             int complement = -nums[i] - nums[j];
@@ -103,6 +104,7 @@ public class ThreeSum {
         Set<List<Integer>> res = new HashSet<>();
         Set<Integer> dups = new HashSet<>();
         Map<Integer, Integer> seen = new HashMap<>();
+
         for (int i = 0; i < nums.length; ++i)
             if (dups.add(nums[i])) {
                 for (int j = i + 1; j < nums.length; ++j) {

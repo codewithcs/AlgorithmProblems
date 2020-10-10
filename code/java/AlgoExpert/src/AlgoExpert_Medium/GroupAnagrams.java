@@ -25,6 +25,7 @@ public class GroupAnagrams {
 		System.out.println( groupAnagramsMethod2(Arrays.asList(array)) );
 
 	}
+
 	// O(WNlogN) time and O(WN) space, w: number of words and n is the length of the longest word. 
 	public static List<List<String>> groupAnagramsMethod2(List<String> words) {
 		
@@ -66,9 +67,12 @@ public class GroupAnagrams {
 			sortedWords.add(sortedWord); 
 		}
 		
-		List<Integer> indices = IntStream.range(0, words.size()).boxed().collect(Collectors.toList()); 
+		List<Integer> indices = IntStream.range(0, words.size()).boxed().collect(Collectors.toList());
+		// create a list with values equal to indices : 0, 1, 2, 3, ...
+
 		//System.out.println("indices is : " + indices);
 		indices.sort((a, b) -> sortedWords.get(a).compareTo(sortedWords.get(b)));
+		// sort the indices list based on sortedWord list.
 		//System.out.println("indices is : " + indices);
 
 		List<List<String>> result = new ArrayList<>(); 
@@ -86,10 +90,12 @@ public class GroupAnagrams {
 			}
 			
 			result.add(currentAnagramGroup); // done filling the previous anagram group. 
-			currentAnagramGroup = new ArrayList<>(Arrays.asList(word)); // create a new group. Or could have created an empty list and then added word in it. 
+			// create a new anagram group with one word element as if we only create an empty list, then it will miss this and move to next index.
+			currentAnagramGroup = new ArrayList<>(Arrays.asList(word)); // create a new group. Or could have created an empty list and then added word in it.
 			currentAnagram = sortedWord;  			
 		}
-		
+
+		// either the above loop will finish because of continue or if would evaluate to false.
 		result.add(currentAnagramGroup); 
 		
 		return result;
