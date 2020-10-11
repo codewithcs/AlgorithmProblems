@@ -1,4 +1,4 @@
-package LeetCodePremium.Amazon;
+package LeetCodePremium.Amazon.ArrayAndStrings;
 // Easy category
 
 import java.util.Arrays;

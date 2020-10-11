@@ -1,4 +1,4 @@
-package LeetCodePremium.Amazon;
+package LeetCodePremium.Amazon.ArrayAndStrings;
 
 /*
 version1 and version2 only contain digits and '.'.
@@ -16,7 +16,7 @@ public class CompareVersionNumbers {
         String[] v1 = version1.split("\\.");
         String[] v2 = version2.split("\\.");
 
-        int[] i1 = new int[v1.length];
+        int[] i1 = new int[v1.length]; // no need to create these 2 arrays.
         int[] i2 = new int[v2.length];
 
         for (int i = 0; i < v1.length; i++) {

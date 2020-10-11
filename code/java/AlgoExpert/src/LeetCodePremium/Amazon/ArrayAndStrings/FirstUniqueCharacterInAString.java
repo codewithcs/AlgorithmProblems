@@ -1,4 +1,4 @@
-package LeetCodePremium.Amazon;
+package LeetCodePremium.Amazon.ArrayAndStrings;
 
 /*
 Given a string, find the first non-repeating character in it and return its index.

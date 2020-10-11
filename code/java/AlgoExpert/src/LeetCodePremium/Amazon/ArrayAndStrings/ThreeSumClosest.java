@@ -1,4 +1,4 @@
-package LeetCodePremium.Amazon;
+package LeetCodePremium.Amazon.ArrayAndStrings;
 
 /*
 Given an array nums of n integers and an integer target,
