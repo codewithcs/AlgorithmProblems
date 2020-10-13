@@ -23,6 +23,7 @@ public class CopyListWithRandomPointer {
         if(head == null)
             return null;
 
+        // don't really need dummy node.
         Node dummy = new Node(0), copy = dummy, temp = head;
 
         HashMap<Node, Node> map = new HashMap<>();
@@ -129,7 +130,7 @@ public class CopyListWithRandomPointer {
         second.random = first.random == null ? null : first.random.next;
 
         // Separate the two lists.
-        // Will need 2 pointers in the final third iteration. Can do with just one pointer in the above 2 iterations. 
+        // Will need 2 pointers in the final third iteration. Can do with just one pointer in the above 2 iterations.
         first = head;
         second = head.next ;
         Node third = second;
