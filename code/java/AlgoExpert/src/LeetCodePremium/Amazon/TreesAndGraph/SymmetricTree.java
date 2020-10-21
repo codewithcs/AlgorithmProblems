@@ -82,6 +82,7 @@ public class SymmetricTree {
             q.add(t1.right);
             q.add(t2.left);
         }
+
         return true;
     }
 

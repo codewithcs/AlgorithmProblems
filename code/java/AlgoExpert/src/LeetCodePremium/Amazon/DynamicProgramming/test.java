@@ -5,5 +5,9 @@ public class test {
         int max = Integer.MAX_VALUE;
 
         System.out.println(max != Integer.MAX_VALUE);
+
+        String s = "abc";
+
+        System.out.println("s is : " + s);
     }
 }
