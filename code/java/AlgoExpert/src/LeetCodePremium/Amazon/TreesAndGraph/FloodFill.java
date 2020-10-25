@@ -32,7 +32,6 @@ public class FloodFill {
     }
 
     public static void helper(int[][] image, int sr, int sc, int color, int newColor, boolean[][] visited){
-
         if(visited[sr][sc]) {
             return;
         } else{
@@ -46,23 +45,36 @@ public class FloodFill {
         image[sr][sc] = newColor;
 
         if(sc > 0 && color == image[sr][sc-1]){
-            image[sr][sc-1] = newColor;
             helper(image, sr, sc-1, color, newColor, visited);
         }
 
         if(sr< image.length-1 && color == image[sr+1][sc]){
-            image[sr+1][sc] = newColor;
             helper(image, sr+1, sc, color, newColor, visited);
         }
 
         if(sc< image[0].length-1 && color == image[sr][sc+1]){
-            image[sr][sc+1] = newColor;
             helper(image, sr, sc+1, color, newColor, visited);
         }
 
         if(sr > 0 && color == image[sr-1][sc]){
-            image[sr-1][sc] = newColor;
             helper(image, sr-1, sc, color, newColor, visited);
         }
     }
+
+    // Approach 2: No need to use a visited[][] boolean if order of recursive calls is correct.
+    public int[][] floodFill2(int[][] image, int sr, int sc, int newColor) {
+        int color = image[sr][sc];
+        if (color != newColor) dfs(image, sr, sc, color, newColor);
+        return image;
+    }
+    public void dfs(int[][] image, int r, int c, int color, int newColor) {
+        if (image[r][c] == color) { // We don't need the boolean because we set the pixel to a new colour and we have a check for that which does its work similar to that of a boolean.
+            image[r][c] = newColor;
+            if (r >= 1) dfs(image, r-1, c, color, newColor);
+            if (c >= 1) dfs(image, r, c-1, color, newColor);
+            if (r+1 < image.length) dfs(image, r+1, c, color, newColor);
+            if (c+1 < image[0].length) dfs(image, r, c+1, color, newColor);
+        }
+    }
+    // Treating each element separately in each of the recursive call. This makes the code a lot cleaner.
 }
