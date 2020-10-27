@@ -5,8 +5,16 @@ public class print {
 		String s = "abc";
 		
 		
-		System.out.println(s.charAt(0));
+		//System.out.println(s.charAt(0));
 		s= "deg"; 
-		System.out.println(s.charAt(0));
+		//System.out.println(s.charAt(0));
+		abc(s);
+
+		System.out.println("s is :" +s);
+
+	}
+
+	public static void abc(String s){
+		s= "abc";
 	}
 }
