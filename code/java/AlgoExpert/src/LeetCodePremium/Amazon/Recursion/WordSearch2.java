@@ -77,13 +77,15 @@ public class WordSearch2 {
     public void dfs(char[][] board, int i, int j, TrieNode p, List<String> res) {
         char c = board[i][j];
 
-        if (c == '#' || p.next[c - 'a'] == null) return;
+        if (c == '#' || p.next[c - 'a'] == null) return; // Either already visited or not in the Trie.
 
         p = p.next[c - 'a'];
 
+        // p.word would not be null for a node where a word ends. As we only filled the word value for a node when
+        // we finished inserting a string in the Trie.
         if (p.word != null) {   // found one
             res.add(p.word);
-            p.word = null;     // de-duplicate
+            p.word = null;    // Important Step // de-duplicate
         }
 
         board[i][j] = '#'; // mark as visited
@@ -93,7 +95,7 @@ public class WordSearch2 {
         if (i < board.length - 1) dfs(board, i + 1, j, p, res);
         if (j < board[0].length - 1) dfs(board, i, j + 1, p, res);
 
-        board[i][j] = c; // Backtrack to Original 
+        board[i][j] = c; // Backtrack to Original
     }
 
     public TrieNode buildTrie(String[] words) {
@@ -165,8 +167,8 @@ public class WordSearch2 {
         this._board[row][col] = '#';
 
         // explore neighbor cells in around-clock directions: up, right, down, left
-        int[] rowOffset = {-1, 0, 1, 0};
-        int[] colOffset = {0, 1, 0, -1};
+        int[] rowOffset = { -1, 0, 1, 0 };
+        int[] colOffset = {  0, 1, 0, -1 };
         for (int i = 0; i < 4; ++i) {
             int newRow = row + rowOffset[i];
             int newCol = col + colOffset[i];

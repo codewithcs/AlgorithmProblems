@@ -16,7 +16,7 @@ public class QuickSort {
 	}
 
 	public static void partition(int[] array, int start, int end){
-		if(start>=end){
+		if(start>=end){ // Recursion Base Case.
 			return; 
 		}
 		int pivot = array[start] ; 
@@ -24,7 +24,6 @@ public class QuickSort {
 		int right = end;
 	
 		while(left<=right){
-			
 				if(array[left]>pivot && array[right]<pivot){
 					int temp = array[left]; 
 					array[left] = array[right];
