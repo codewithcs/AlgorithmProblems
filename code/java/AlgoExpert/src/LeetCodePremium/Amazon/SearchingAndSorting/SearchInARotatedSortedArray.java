@@ -19,6 +19,7 @@ public class SearchInARotatedSortedArray {
     int [] nums;
     int target;
 
+    // Find rotated index using Binary Search.
     public int find_rotate_index(int left, int right) {
         if (nums[left] < nums[right])
             return 0;
@@ -38,9 +39,7 @@ public class SearchInARotatedSortedArray {
     }
 
     public int search(int left, int right) {
-    /*
-    Binary search
-    */
+    /*   Binary search */
         while (left <= right) {
             int pivot = (left + right) / 2;
             if (nums[pivot] == target)
@@ -69,19 +68,25 @@ public class SearchInARotatedSortedArray {
         int rotate_index = find_rotate_index(0, n - 1);
 
         // if target is the smallest element
-        if (nums[rotate_index] == target)
+        if (nums[rotate_index] == target) {
             return rotate_index;
+        }
+
         // if array is not rotated, search in the entire array
-        if (rotate_index == 0)
+        if (rotate_index == 0) { // Normal Binary Search.
             return search(0, n - 1);
-        if (target < nums[0])
+        }
+
+        if (target < nums[0]) {
             // search in the right side
             return search(rotate_index, n - 1);
+        }
+
         // search in the left side
         return search(0, rotate_index);
     }
 
-    // Approach 2:
+    // Approach 2: Easy to Understand.
     public int search2(int[] nums, int target) {
         int start = 0, end = nums.length - 1;
         while (start <= end) {
