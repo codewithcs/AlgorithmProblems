@@ -5,7 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SerializeAndDeserializeBinaryTree {
-    public String rserialize(TreeNode root, String str) {
+    public String rserialize(TreeNode root, String str) { // We can avoid storing "null", Can replace "null" with some other symbol.
+                                                            // can also store number of children.
         // Recursive serialization.
         if (root == null) {
             str += "null,";
@@ -37,7 +38,6 @@ public class SerializeAndDeserializeBinaryTree {
     public String serialize2(TreeNode root) {
         return rserialize2(root, new StringBuilder()).toString();
     }
-
 
     public TreeNode rdeserialize(List<String> l) {
         // Recursive deserialization.
