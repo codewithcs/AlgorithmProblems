@@ -11,7 +11,8 @@ If there is a tie for most frequent element, the element closest to the top of t
 
 Note:
 Calls to FreqStack.push(int x) will be such that 0 <= x <= 10^9.
-It is guaranteed that FreqStack.pop() won't be called if the stack has zero elements.
+It is guaranteed that FreqStack.pop() won't be called if the stack has zero elements: Important Point to Note.
+
 The total number of FreqStack.push calls will not exceed 10000 in a single test case.
 The total number of FreqStack.pop calls will not exceed 10000 in a single test case.
 The total number of FreqStack.push and FreqStack.pop calls will not exceed 150000 across all test cases
@@ -43,7 +44,7 @@ public class MaximumFrequencyStack {
     public int pop() {
         int x = group.get(maxfreq).pop();
         freq.put(x, freq.get(x) - 1);
-        if (group.get(maxfreq).size() == 0) { // interesting
+        if (group.get(maxfreq).size() == 0) { // important
             maxfreq--;
         }
         return x;
