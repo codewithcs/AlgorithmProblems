@@ -120,4 +120,6 @@ public class DesignTicTacToe {
 
         return false;
     }
+
+    // Can do better in O(n) time and O(1) respectively.
 }
