@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class LRUCache {
 
+    // Can also use 2 extra dummy nodes, head and tail. Node next to head will be most recently used and previous to tail will be least recently used.
     static class LRUCache1{
         Map<String, DoublyLinkedListNode> cache = new HashMap<>();
         int maxSize;
