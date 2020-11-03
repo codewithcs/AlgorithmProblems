@@ -14,8 +14,8 @@ getMin() -- Retrieve the minimum element in the stack.
 Constraints:
 Methods pop, top and getMin operations will always be called on non-empty stacks.
  */
-public class MinStack {
-    // Cannot use a map as we cannot store duplicate keys in a map. 
+public class MinStack { // O(1) time operations and O(n) space.
+    // Cannot use a map as we cannot store duplicate keys in a map.
     private Stack<int[]> stack = new Stack<>();
 
     public MinStack() { }
