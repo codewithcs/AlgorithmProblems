@@ -2,13 +2,17 @@ package LeetCodePremium.Amazon.Others;
 
 /*
 Given a 32-bit signed integer, reverse digits of an integer.
-
 Note:
 Assume we are dealing with an environment that could only store
 integers within the 32-bit signed integer range: [−2^31,  2^31 − 1].
 For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.
+
+Do not use long since we  are only allowed to use 32-bit int.
  */
+
 public class ReverseInteger {
+
+    //best solution.
     public int reverse(int x) {
         boolean negativeFlag = false;
         int num = x;
@@ -22,7 +26,7 @@ public class ReverseInteger {
         int reverse = 0;
 
         while (num != 0){
-            int current = num%10;
+            int current = num % 10;
             reverse = (reverse*10) + current;
 
             // checking if the reverse overflowed or not.
@@ -38,5 +42,21 @@ public class ReverseInteger {
         }
 
         return (negativeFlag == true)? -reverse : reverse;
+    }
+
+    // O(log(x)), Roughly log10(x) digits in x.
+    // Space: O(1)
+    // 2147483647
+    // -2147483648
+    public int reverse2(int x) {
+        int rev = 0;
+        while (x != 0) {
+            int pop = x % 10;
+            x /= 10;
+            if (rev > Integer.MAX_VALUE/10 || (rev == Integer.MAX_VALUE / 10 && pop > 7)) return 0;
+            if (rev < Integer.MIN_VALUE/10 || (rev == Integer.MIN_VALUE / 10 && pop < -8)) return 0;
+            rev = rev * 10 + pop;
+        }
+        return rev;
     }
 }
