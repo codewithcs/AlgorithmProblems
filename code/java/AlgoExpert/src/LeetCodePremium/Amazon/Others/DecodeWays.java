@@ -50,6 +50,7 @@ public class DecodeWays {
         return value >=1 && value <= 26;
     }
 
+    // Bottom Up Approach.
     public int numDecodings2(String s) {
 
         if(s == null || s.length() == 0) {
