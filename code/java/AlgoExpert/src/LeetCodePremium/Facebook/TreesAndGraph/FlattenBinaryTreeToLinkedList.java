@@ -45,7 +45,7 @@ public class FlattenBinaryTreeToLinkedList {
         root = start.right ;
     }
 
-    // in-place solution.
+    // in-place solution. Morris Traversal.
     // O(n) time complexity, O(1) space.
     // We process each node of the tree at most twice.
     public void flatten2(TreeNode root) {
@@ -114,4 +114,17 @@ public class FlattenBinaryTreeToLinkedList {
         this.flattenTree(root);
     }
 
+    // Can be solved using Right, Left, Root traversal (Reversed Pre-Order traversal).
+    private TreeNode prev = null;
+
+    public void flatten4(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        flatten4(root.right);
+        flatten4(root.left);
+        root.right = prev;
+        root.left = null;
+        prev = root;
+    }
 }
