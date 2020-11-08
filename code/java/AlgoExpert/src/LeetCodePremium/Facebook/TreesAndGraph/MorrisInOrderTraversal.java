@@ -10,6 +10,7 @@ public class MorrisInOrderTraversal {
     // In-Order Morris Traversal.
     public void inorder(Node root) {
         Node current = root;
+
         while(current != null) {
             //left is null then print the node and go to right
             if (current.left == null) {
@@ -23,6 +24,7 @@ public class MorrisInOrderTraversal {
                 while(predecessor.right != current && predecessor.right != null){
                     predecessor = predecessor.right;
                 }
+
                 //if right node is null then go left after establishing link from predecessor to current.
                 if(predecessor.right == null){
                     predecessor.right = current;
@@ -32,7 +34,9 @@ public class MorrisInOrderTraversal {
                     System.out.print(current.data + " ");
                     current = current.right;
                 }
+
             }
+
         }
     }
 
