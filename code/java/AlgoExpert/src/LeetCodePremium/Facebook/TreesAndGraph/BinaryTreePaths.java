@@ -21,7 +21,7 @@ public class BinaryTreePaths {
             this.right = right;
         }
     }
-    
+
     public List<String> binaryTreePaths(TreeNode root) {
         List<String> list = new ArrayList<>();
         if(root==null){
