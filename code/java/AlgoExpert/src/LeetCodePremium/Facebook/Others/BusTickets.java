@@ -1,6 +1,7 @@
 package LeetCodePremium.Facebook.Others;
 
-public class Bus {
+// AllInCall Assessment: Best Bus Tickets.
+public class BusTickets {
     static int count = 0;
 
     public static void main(String[] args) {

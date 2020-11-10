@@ -1,9 +1,6 @@
 package LeetCodePremium.Facebook.TreesAndGraph;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /*
 Constraints:
@@ -100,4 +97,35 @@ public class CloneGraph {
 
         return cloneNode;
     }
+
+    // DFS using Stack.
+    public Node cloneGraph3(Node node) {
+        if (node == null) {
+            return node;
+        }
+
+        Map<Node, Node> map = new HashMap<>();
+
+        map.put(node, new Node(node.val));
+
+        Stack<Node> stack = new Stack<>();
+        stack.push(node);
+
+        while(!stack.isEmpty()){
+            Node current = stack.pop();
+
+            for(Node neighbor : current.neighbors){
+                if(!map.containsKey(neighbor)){
+                    Node newNeighbor = new Node(neighbor.val);
+                    map.put(neighbor, newNeighbor);
+                    stack.push(neighbor);
+                }
+                map.get(current).neighbors.add(map.get(neighbor));
+            }
+        }
+
+
+        return map.get(node);
+    }
+
 }
