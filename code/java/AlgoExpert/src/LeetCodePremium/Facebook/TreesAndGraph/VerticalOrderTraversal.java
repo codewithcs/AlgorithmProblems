@@ -71,7 +71,7 @@ public class VerticalOrderTraversal {
         return list;
     }
 
-    // Using BFS and without sorting.
+    // Using BFS and without sorting. We achieve ordering using [minColumn, maxColumn]
     public List<List<Integer>> verticalOrder2(TreeNode root) {
         List<List<Integer>> output = new ArrayList();
         if (root == null) {
@@ -84,7 +84,7 @@ public class VerticalOrderTraversal {
         int column = 0;
         queue.offer(new Pair(root, column));
 
-        int minColumn = 0, maxColumn = 0;
+        int minColumn = 0, maxColumn = 0; // Running minimums and maximums.
 
         while (!queue.isEmpty()) {
             Pair<TreeNode, Integer> p = queue.poll();
@@ -92,10 +92,7 @@ public class VerticalOrderTraversal {
             column = p.getValue();
 
             if (root != null) {
-                if (!columnTable.containsKey(column)) {
-                    columnTable.put(column, new ArrayList<Integer>());
-                }
-                columnTable.get(column).add(root.val);
+                columnTable.computeIfAbsent(column, x-> new ArrayList<Integer>()).add(root.val);
                 minColumn = Math.min(minColumn, column);
                 maxColumn = Math.max(maxColumn, column);
 
@@ -116,14 +113,11 @@ public class VerticalOrderTraversal {
     int minColumn = 0, maxColumn = 0;
 
     private void DFS(TreeNode node, Integer row, Integer column) {
-        if (node == null)
+        if (node == null){
             return;
-
-        if (!columnTable.containsKey(column)) {
-            this.columnTable.put(column, new ArrayList<Pair<Integer, Integer>>());
         }
 
-        this.columnTable.get(column).add(new Pair<Integer, Integer>(row, node.val));
+        this.columnTable.computeIfAbsent(column, x->new ArrayList<Pair<Integer, Integer>>()).add(new Pair<Integer, Integer>(row, node.val));
         this.minColumn = Math.min(minColumn, column);
         this.maxColumn = Math.max(maxColumn, column);
         // preorder DFS traversal
