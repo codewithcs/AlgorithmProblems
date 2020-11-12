@@ -27,12 +27,13 @@ public class CourseSchedule2 {
             graph.put(i, new Node());
         }
 
-        // Keep an eye on constraints. 
+        // Keep an eye on constraints.
         for(int[] element: prerequisites){
             int current = element[1];
             int next = element[0];
             graph.computeIfAbsent(current, x->new Node()).outnodes.add(next);
             graph.computeIfAbsent(next, x->new Node()).indegree++;
+            // Don't really need to worry about if the key is present in the map or not.
         }
 
         Queue<Integer> queue = new LinkedList<>();
