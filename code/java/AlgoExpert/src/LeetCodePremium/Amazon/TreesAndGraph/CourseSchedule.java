@@ -28,6 +28,7 @@ public class CourseSchedule {
         public List<Integer> outNodes = new LinkedList<Integer>();
     }
 
+    // O(2E+V) time and O(E+2V) space
     public boolean canFinish(int numCourses, int[][] prerequisites) {
 
         if (prerequisites.length == 0)
@@ -94,7 +95,7 @@ public class CourseSchedule {
         return node;
     }
 
-    // Approach 2: Backtracking
+    // Approach 2: Backtracking: Check whether a cycle exists or not.
     public boolean canFinish2(int numCourses, int[][] prerequisites) {
         // course -> list of next courses
         HashMap<Integer, List<Integer>> courseDict = new HashMap<>();
@@ -126,19 +127,16 @@ public class CourseSchedule {
     /*
      * backtracking method to check that no cycle would be formed starting from currCourse
      */
-    protected boolean isCyclic(
-            Integer currCourse,
-            HashMap<Integer, List<Integer>> courseDict,
-            boolean[] path) {
-
+    protected boolean isCyclic(Integer currCourse, HashMap<Integer, List<Integer>> courseDict, boolean[] path) {
         if (path[currCourse]) {
             // come across a previously visited node, i.e. detect the cycle
             return true;
         }
 
         // no following courses, no loop.
-        if (!courseDict.containsKey(currCourse))
+        if (!courseDict.containsKey(currCourse)) {
             return false;
+        }
 
         // before backtracking, mark the node in the path
         path[currCourse] = true;
@@ -147,8 +145,9 @@ public class CourseSchedule {
         boolean ret = false;
         for (Integer nextCourse : courseDict.get(currCourse)) {
             ret = this.isCyclic(nextCourse, courseDict, path);
-            if (ret)
+            if (ret) {
                 break;
+            }
         }
         // after backtracking, remove the node from the path
         path[currCourse] = false;
@@ -156,7 +155,6 @@ public class CourseSchedule {
     }
 
     // Approach 3: Post-Order Depth First Search
-
     public boolean canFinish3(int numCourses, int[][] prerequisites) {
 
         // course -> list of next courses
@@ -174,8 +172,10 @@ public class CourseSchedule {
             }
         }
 
-        boolean[] checked = new boolean[numCourses];
-        boolean[] path = new boolean[numCourses];
+        boolean[] checked = new boolean[numCourses]; // Like visited, we set it to true at the end.
+        // true means we have visited the Recursive path starting from this node.
+
+        boolean[] path = new boolean[numCourses]; // Like visiting, we set it to false at the end.
 
         for (int currCourse = 0; currCourse < numCourses; ++currCourse) {
             if (this.isCyclic(currCourse, courseDict, checked, path))
