@@ -69,6 +69,7 @@ public class AlienDictionary {
     public String alienOrder2(String[] words) {
         Map<Character, Node> graph = new HashMap<>();
 
+        // First, add in the individual nodes and then add the edges.
         for(String word: words){
             for(Character c: word.toCharArray()){
                 graph.computeIfAbsent(c, x-> new Node());
