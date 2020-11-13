@@ -125,4 +125,45 @@ public class NumberOfIslands {
 
         return num_islands;
     }
+
+    // Simple BFS: O(MN) time and O(min(M, N)) space.
+    public int numIslands3(char[][] grid) {
+        int rows = grid.length ;
+        int columns =  grid[0].length ;
+        int count = 0;
+        for(int i=0 ; i< rows; i++){
+            for(int j=0; j<columns; j++){
+                if(grid[i][j] == '1' ){
+                    count += traverseGrid(grid, rows, columns, i, j);
+                }
+            }
+        }
+        return count;
+    }
+
+    public int traverseGrid(char[][] grid, int rows, int columns, int startingRow, int startingColumn){
+
+        int[] dx = {0, 1, -1, 0};
+        int[] dy = {1, 0, 0, -1};
+
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[]{startingRow, startingColumn});
+
+        while(!queue.isEmpty()){
+            int[] current = queue.poll();
+
+            for(int i=0 ; i<4; i++){
+                int x = current[0] + dx[i];
+                int y = current[1] + dy[i];
+                if(x>=0 && x<rows && y>=0 && y<columns){
+                    if(grid[x][y] == '1'){
+                        queue.add(new int[]{x, y});
+                        grid[x][y] = '2';
+                    }
+                }
+            }
+        }
+
+        return 1;
+    }
 }

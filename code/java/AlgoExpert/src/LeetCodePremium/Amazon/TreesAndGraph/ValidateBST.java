@@ -101,4 +101,33 @@ public class ValidateBST {
           this.right = right;
       }
   }
+
+
+    public boolean isValidBST4(TreeNode root) {
+        if(root == null) return true;
+
+        return helper4(root, null, null);
+    }
+
+    public boolean helper4(TreeNode node, TreeNode leftBound, TreeNode rightBound){
+        if(node == null) return true;
+
+        boolean b1  = false; boolean b2 = false;
+
+        if(leftBound != null ) {
+            if(node.val <= leftBound.val) {
+                return false;
+            }
+        }
+        if( rightBound != null){
+            if(node.val >= rightBound.val){
+                return false;
+            }
+        }
+
+        b1 = helper4(node.left, leftBound, node);
+        b2 = helper4(node.right, node, rightBound);
+
+        return b1 && b2;
+    }
 }
