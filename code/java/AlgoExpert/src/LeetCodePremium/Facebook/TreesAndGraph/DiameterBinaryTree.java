@@ -1,4 +1,4 @@
-package practice;
+package LeetCodePremium.Facebook.TreesAndGraph;
 
 public class DiameterBinaryTree {
     class TreeNode{
@@ -18,10 +18,10 @@ public class DiameterBinaryTree {
         int leftHeight=0; int rightHeight = 0;
 
         if(node.left != null){
-            leftHeight = 1 + findHeight(node.left, 0); // correct way of writing, do not pass 1 since initial height is always 0.
+            leftHeight =  findHeight(node.left, 1); // data passed in the recursion is actually depth.
         }
         if(node.right != null){
-            rightHeight = 1 + findHeight(node.right, 0);
+            rightHeight =  findHeight(node.right, 1);
         }
 
         int leftDiameter = 0; int rightDiameter = 0;
