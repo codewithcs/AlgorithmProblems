@@ -107,7 +107,7 @@ public class ShortestDistanceFromAllBuildings {
                         } else if (grid[x][y] == 1) {
                             housesReachableFromStartingPoint++;
                             visited[x][y] = 1;
-                        }
+                        } // If the value is 2, we don't mark it as visited. 
                     }
                 }
             }
