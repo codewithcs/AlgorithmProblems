@@ -2,8 +2,8 @@ package practice;
 
 public class print {
 	public static void main(String[] args) {
-		int s[] = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
-		int d[] = { 15, 25, 35, 45, 55, 65, 75, 85, 95, 105};
+		int s[] = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 };
+		int d[] = { 15, 25, 35, 45, 55, 65, 75, 85, 95, 105 };
 
 		int source_arr[], sourcePos, dest_arr[], destPos, len;
 		source_arr = s;

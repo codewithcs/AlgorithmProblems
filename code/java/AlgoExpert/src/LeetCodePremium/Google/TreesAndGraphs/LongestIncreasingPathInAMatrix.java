@@ -174,4 +174,72 @@ public class LongestIncreasingPathInAMatrix {
         return height;
     }
 
+
+    public int longestIncreasingPath5(int[][] matrix) {
+        if(matrix.length == 0) return 0;
+
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+
+        int[] dx = { 0, -1, 1, 0 };
+        int[] dy = { 1, 0, 0, -1 };
+
+        int m = rows+2;
+        int n = columns+2;
+        int[][] grid = new int[m][n];
+
+        for(int[] row: grid){
+            Arrays.fill(row, Integer.MIN_VALUE);
+        }
+
+        int[][] indegrees = new int[m][n];
+
+        for(int i=0 ; i<rows; i++){
+            System.arraycopy(matrix[i], 0, grid[i+1], 1, columns);
+        }
+
+        for(int i=1; i<m-1; i++){
+            for(int j=1; j<n-1; j++){
+                for(int k=0; k<4; k++){
+                    if( grid[i][j] < grid[i+dx[k]][j+dy[k]] ){
+                        indegrees[i][j]++;
+                    }
+                }
+            }
+        }
+
+        Queue<int[]> queue = new LinkedList<>();
+
+        for(int i=1; i<m-1;i++){
+            for(int j=1; j<n-1; j++){
+                if(indegrees[i][j] == 0){
+                    queue.add(new int[]{i, j});
+                }
+            }
+        }
+
+        int length = 0;
+
+        // Level Order Traversal.
+        while(!queue.isEmpty()){
+            length++;
+            int size = queue.size();
+            for(int k=0; k<size; k++){
+                int[] current = queue.poll();
+                for(int i=0; i<4; i++){
+                    int x = current[0] + dx[i];
+                    int y = current[1] + dy[i];
+                    if(grid[x][y] < grid[current[0]][current[1]] ){
+                        if(--indegrees[x][y] == 0){
+                            queue.add(new int[]{x, y});
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+        return length;
+    }
 }
