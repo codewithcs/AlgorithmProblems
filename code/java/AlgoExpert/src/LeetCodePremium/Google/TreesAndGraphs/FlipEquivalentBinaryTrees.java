@@ -165,7 +165,7 @@ public class FlipEquivalentBinaryTrees {
                 dfs(root.left, list);
             }
 
-            list.add(null); // Encode both when we enter and leave a particular node. 
+            list.add(null); // Encode both when we enter and leave a particular node.
         }
     }
 
