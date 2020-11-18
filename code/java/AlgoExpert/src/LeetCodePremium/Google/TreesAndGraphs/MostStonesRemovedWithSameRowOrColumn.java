@@ -121,7 +121,8 @@ public class MostStonesRemovedWithSameRowOrColumn {
 
         while(!stack.isEmpty()){
             int current = stack.pop();
-            visited[current] = true;
+            visited[current] = true; // should mark here and not inside the if. because if this vertex has no neighbors then it will be left.
+            // other logic: once a vertex comes out of a stack, mark it as visited.
             for(int k=1; k<=graph[current][0] ; k++){
                 if(!visited[graph[current][k]]){
                     stack.add(graph[current][k]);
