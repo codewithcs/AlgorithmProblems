@@ -110,5 +110,41 @@ public class tp1 {
         return countA ;
     }
 
+    public int findJudge(int N, int[][] trust) {
+        if(trust.length == 0){
+            return -1;
+        }
+
+        Map<Integer, Integer[]> map = new HashMap<>();
+
+        for(int i=0; i<trust.length; i++){
+
+            int first = trust[i][0];
+            int second = trust[i][1];
+
+            if(!map.containsKey(first)){
+                map.put(first, new Integer[2]);
+            }
+
+            if(!map.containsKey(second)){
+                map.put(second, new Integer[2]);
+            }
+
+            map.get(first)[1]++; // [1] outdegree
+            map.get(second)[0]++; // [0] indegree
+
+        }
+
+
+        for(int key: map.keySet()){
+            if(map.get(key)[0] == N-1  && map.get(key)[1] == 0){
+                return key;
+            }
+        }
+
+
+
+        return -1;
+    }
 
 }

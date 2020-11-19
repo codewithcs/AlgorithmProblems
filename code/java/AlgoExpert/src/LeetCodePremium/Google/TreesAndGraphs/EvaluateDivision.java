@@ -71,8 +71,6 @@ public class EvaluateDivision {
     }
 
     private double backtrackEvaluate(HashMap<String, HashMap<String, Double>> graph, String currNode, String targetNode, double accProduct, Set<String> visited) {
-
-        // mark the visit
         visited.add(currNode);
         double ret = -1.0;
 
@@ -92,8 +90,82 @@ public class EvaluateDivision {
             }
         }
 
-        // unmark the visit, for the next backtracking
-        visited.remove(currNode);
-        return ret;
+        return ret; // Important Note: Don't need to unmark the node.
     }
+
+    // Backtracking using a Stack.
+    public double[] calcEquation2(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        HashMap<String, HashMap<String, Double>> graph = new HashMap<>();
+
+        for(int i=0; i < equations.size() ; i++){
+            String first = equations.get(i).get(0);
+            String second = equations.get(i).get(1);
+
+            if(!graph.containsKey(first)){
+                graph.put(first, new HashMap<String, Double>());
+            }
+            if(!graph.containsKey(second)){
+                graph.put(second, new HashMap<String, Double>());
+            }
+
+            graph.get(first).put(second, values[i]);
+            graph.get(second).put(first, 1/values[i]);
+        }
+
+        double[] answer = new double[queries.size()];
+
+        for(int i=0; i<queries.size(); i++){
+            String start = queries.get(i).get(0);
+            String end = queries.get(i).get(1);
+            if(!graph.containsKey(start) || !graph.containsKey(end)){
+                answer[i] = -1.0;
+            }
+            else if(start.equals(end)){
+                answer[i] = 1.0;
+            }
+            else {
+                answer[i] = dfs(start, end, graph);
+            }
+        }
+
+        return answer;
+    }
+
+    class Node{
+        String name;
+        Double cost;
+        public Node(String name, Double cost){
+            this.name = name;
+            this.cost = cost;
+        }
+    }
+
+    public double dfs(String start, String end, HashMap<String, HashMap<String, Double>> graph){
+        double answer = 1.0;
+
+        Stack<Node> stack = new Stack<>();
+        stack.push(new Node(start, 1.0));
+        Set<String> visited = new HashSet<>();
+
+        while(!stack.isEmpty()){
+            Node current = stack.pop();
+            String currentName = current.name;
+            Double currentCost = current.cost;
+            visited.add(currentName);
+
+            if(graph.get(currentName).containsKey(end)){
+                return currentCost * graph.get(currentName).get(end);
+            } else {
+                for(String neighbor : graph.get(currentName).keySet()){
+                    if(!visited.contains(neighbor)){
+                        double cost = currentCost * graph.get(currentName).get(neighbor);
+                        stack.push(new Node(neighbor, cost));
+                    }
+                }
+            }
+        }
+
+        return -1.0;
+    }
+
 }
