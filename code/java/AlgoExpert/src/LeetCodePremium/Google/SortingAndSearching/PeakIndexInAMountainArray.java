@@ -14,6 +14,8 @@ Constraints:
 3 <= arr.length <= 104
 0 <= arr[i] <= 106
 arr is guaranteed to be a mountain array.
+
+Similar problem on Algo Expert (multiple peaks). 
  */
 public class PeakIndexInAMountainArray {
     public int peakIndexInMountainArray(int[] arr) {
@@ -54,6 +56,6 @@ public class PeakIndexInAMountainArray {
     Here if we have start as element 1 and end as 2 then mid will be 0 index and mid-1 would be -1, leading to problem.
 
     If [1, 2] however belong to the end, then mid will never be the last index because integer Mathematics will save us.
-    As integer values will round to a lower value. 
+    As integer values will round to a lower value.
      */
 }
