@@ -15,9 +15,10 @@ Constraints:
 0 <= arr[i] <= 106
 arr is guaranteed to be a mountain array.
 
-Similar problem on Algo Expert (multiple peaks). 
+Similar problem on Algo Expert (multiple peaks).
  */
 public class PeakIndexInAMountainArray {
+    // O(n) time.
     public int peakIndexInMountainArray(int[] arr) {
         int index  = -1;
         for(int i=0 ; i<arr.length-2; i++){
@@ -28,6 +29,7 @@ public class PeakIndexInAMountainArray {
         return index;
     }
 
+    // O(logn) time and O(1) space.
     public int peakIndexInMountainArray2(int[] arr) {
         int start = 1; // cannot be 0.
         int end = arr.length-1; // also works for arr.length-2
@@ -58,4 +60,20 @@ public class PeakIndexInAMountainArray {
     If [1, 2] however belong to the end, then mid will never be the last index because integer Mathematics will save us.
     As integer values will round to a lower value.
      */
+
+    // We can binary search over this array of comparisons, to find the largest index i such that A[i] < A[i+1]. Answer would be i+1.
+    public int peakIndexInMountainArray3(int[] A) {
+        int low = 0, high = A.length - 1;
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (A[mid] < A[mid + 1]) {
+                low = mid + 1;
+            }
+            else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+
 }
