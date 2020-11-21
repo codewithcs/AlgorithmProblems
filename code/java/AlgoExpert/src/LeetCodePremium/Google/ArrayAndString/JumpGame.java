@@ -76,4 +76,17 @@ public class JumpGame {
         memo[memo.length - 1] = Index.GOOD;
         return canJumpFromPosition(0, nums);
     }
+
+    // Solving Bottom Up. Can also solve by using a cache and checking cache[0] == Index.GOOD.
+    public boolean canJump4(int[] nums) {
+        int lastPosition = nums.length - 1;
+
+        for(int j = nums.length-1; j>=0 ; j--){
+            if(j + nums[j] >= lastPosition){
+                lastPosition = j;
+            }
+        }
+
+        return lastPosition == 0;
+    }
 }
