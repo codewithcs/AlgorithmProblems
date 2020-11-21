@@ -18,7 +18,8 @@ Both num1 and num2 do not contain any leading zero, except the number 0 itself.
  */
 public class MultiplyStrings {
     public static void main(String[] args) {
-        System.out.println(multiply("123456789", "987654321"));
+       // System.out.println(multiply("123456789", "987654321"));
+        System.out.println(multiply2("999", "0"));
     }
 
     public static String multiply(String num1, String num2) {
@@ -34,7 +35,7 @@ public class MultiplyStrings {
         }
         int listIndex = 0;
 
-        for(int i=num2.length()-1; i >=0 && listIndex < list.size(); i--, listIndex++){
+        for(int i=num2.length()-1; i >=0 ; i--, listIndex++){
             if(listIndex > 0){
                 int amount = listIndex;
                 for(int a = 1; a<=amount ; a++){
@@ -85,10 +86,11 @@ public class MultiplyStrings {
         return sb.reverse().substring(0, sb.length()-1).toString();
     }
 
-    // Interesting solution
-    public String multiply2(String num1, String num2) {
+    // Interesting solution: We can separate multiplication into additions.
+    public static String multiply2(String num1, String num2) {
         int n1 = num1.length(), n2 = num2.length();
         int[] products = new int[n1 + n2];
+
         for (int i = n1 - 1; i >= 0; i--) {
             for (int j = n2 - 1; j >= 0; j--) {
                 int d1 = num1.charAt(i) - '0';
