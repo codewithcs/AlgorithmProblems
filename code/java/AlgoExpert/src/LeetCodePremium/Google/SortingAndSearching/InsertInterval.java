@@ -49,6 +49,8 @@ public class InsertInterval {
         return output.toArray(new int[output.size()][2]);
     }
 
+    // Uses merge interval, application of merge interval
+    // First insert the interval and then merge.
     public int[][] insert2(int[][] intervals, int[] newInterval) {
         int index  = 0;
         List<int[]> output = new ArrayList<>();
