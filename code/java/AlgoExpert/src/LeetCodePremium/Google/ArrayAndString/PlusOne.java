@@ -22,6 +22,7 @@ public class PlusOne {
         int[] answer = plusOne(new int[]{ 9, 9, 9 });
     }
 
+    // O(n) time and O(n) space.
     public static int[] plusOne(int[] digits) {
         int carry = 0;
         int value = carry + ++digits[digits.length-1];
@@ -43,7 +44,7 @@ public class PlusOne {
             answer.add(0, 1);
         }
 
-        answer.remove(answer.size()-1); // remove the dummy node as we don't need it in the final answer. 
+        answer.remove(answer.size()-1); // remove the dummy node as we don't need it in the final answer.
         int[] output = new int[answer.size()];
         for(int j=0 ; j<output.length; j++){
             output[j] = answer.get(j);
@@ -51,4 +52,30 @@ public class PlusOne {
 
         return output;
     }
+
+    // We can do this in O(1) space.
+    public int[] plusOne2(int[] digits) {
+        int n = digits.length;
+
+        // move along the input array starting from the end
+        for (int idx = n - 1; idx >= 0; --idx) {
+            // set all the nines at the end of array to zeros
+            if (digits[idx] == 9) {
+                digits[idx] = 0;
+            }
+            // here we have the rightmost not-nine
+            else {
+                // increase this rightmost not-nine by 1
+                digits[idx]++;
+                // and the job is done
+                return digits;
+            }
+        }
+
+        // We are here because all the digits are nines
+        digits = new int[n + 1];
+        digits[0] = 1;
+        return digits;
+    }
+
 }
