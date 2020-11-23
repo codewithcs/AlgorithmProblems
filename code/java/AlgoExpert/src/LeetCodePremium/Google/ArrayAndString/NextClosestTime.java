@@ -102,13 +102,21 @@ public class NextClosestTime {
             allowed.add(c - '0');
         }
 
-        for (int h1: allowed) for (int h2: allowed) if (h1 * 10 + h2 < 24) {
-            for (int m1: allowed) for (int m2: allowed) if (m1 * 10 + m2 < 60) {
-                int cur = 60 * (h1 * 10 + h2) + (m1 * 10 + m2);
-                int candElapsed = Math.floorMod(cur - start, 24 * 60);
-                if (0 < candElapsed && candElapsed < elapsed) {
-                    ans = cur;
-                    elapsed = candElapsed;
+        for (int h1: allowed) {
+            for (int h2: allowed) {
+                if (h1 * 10 + h2 < 24) {
+                    for (int m1: allowed) {
+                        for (int m2: allowed) {
+                            if (m1 * 10 + m2 < 60) {
+                                int cur = 60 * (h1 * 10 + h2) + (m1 * 10 + m2);
+                                int candElapsed = Math.floorMod(cur - start, 24 * 60);
+                                if (0 < candElapsed && candElapsed < elapsed) {
+                                    ans = cur;
+                                    elapsed = candElapsed;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
