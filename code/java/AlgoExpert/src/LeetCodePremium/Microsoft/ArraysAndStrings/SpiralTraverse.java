@@ -15,23 +15,47 @@ public class SpiralTraverse {
             return new ArrayList<Integer>();
         }
 
-        int row = 0; int column = 0 ;
         int rowCount = matrix.length;
         int columnCount = matrix[0].length;
-        System.out.println();
-        System.out.println("rowCount is : " + rowCount);
-        System.out.println("column count is : " + columnCount);
-        System.out.println();
+
         List<Integer> answer = new ArrayList<>();
 
-        traverse(answer, 0, 0, row, column, rowCount, columnCount, matrix);
+        int rowStart = 0;
+        int rowEnd = rowCount-1;
+        int columnStart = 0;
+        int columnEnd = columnCount-1;
+
+        while(rowStart >=0 && rowStart<= rowEnd && columnStart >=0 && columnStart <= columnEnd){
+
+            for(int i= columnStart; i<=columnEnd ;i++){
+                if(matrix[rowStart][i] != -200){
+                    answer.add(matrix[rowStart][i]);
+                    matrix[rowStart][i] = -200;
+                }
+            }
+            for(int i=rowStart ; i<=rowEnd; i++){
+                if(matrix[i][columnEnd] != -200){
+                    answer.add(matrix[i][columnEnd]);
+                    matrix[i][columnEnd] = -200;
+                }
+            }
+            for(int i=columnEnd-1; i>=0; i--){
+                if(matrix[rowEnd][i] != -200){
+                    answer.add(matrix[rowEnd][i]);
+                    matrix[rowEnd][i] = -200;
+                }
+            }
+            for(int i=rowEnd-1; i>=0; i--){
+                if(matrix[i][columnStart] != -200){
+                    answer.add(matrix[i][columnStart]);
+                    matrix[i][columnStart] = -200;
+                }
+            }
+
+            rowStart = rowStart+1; rowEnd = rowEnd-1;
+            columnStart = columnStart+1;  columnEnd = columnEnd-1;
+        }
 
         return answer;
-
     }
-
-    public static void traverse(List<Integer> answer, int visitedNodes, int currentDirection, int row, int column, int rowBound, int columnBound, int[][] matrix){
-
-    }
-
 }
