@@ -100,8 +100,10 @@ public class NextClosestTime {
         int ans = start;
         int elapsed = 24 * 60;
         Set<Integer> allowed = new HashSet();
-        for (char c: time.toCharArray()) if (c != ':') {
-            allowed.add(c - '0');
+        for (char c: time.toCharArray()){
+            if (c != ':') {
+                allowed.add(c - '0');
+            }
         }
 
         for (int h1: allowed) {

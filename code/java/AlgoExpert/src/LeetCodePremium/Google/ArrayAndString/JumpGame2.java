@@ -9,7 +9,7 @@ public class JumpGame2 {
         if(nums.length == 1) return 0;
 
         int lastPosition =nums.length-1;
-        int[] cache = new int[nums.length-1];
+        int[] cache = new int[nums.length-1]; // stores minimum number of jumps from this index to the destination.
 
         for(int i=nums.length-2; i>=0 ; i--){
             if(i + nums[i] >= nums.length-1){
