@@ -74,7 +74,8 @@ public class NextClosestTime {
             digits.add(current-'0');
         }
 
-        while(true){
+        while(true){ // Can use an infinite loop as we are assuming that the input will always be valid, that is we will reach a case when
+                     // isValid will be set to true;
             minutes = (minutes + 1) % (24 * 60);
             int[] nextTime = { minutes / 60 / 10, minutes / 60 % 10, minutes % 60 / 10, minutes % 60 % 10 };
 
@@ -82,6 +83,7 @@ public class NextClosestTime {
             for(int digit: nextTime){
                 if(!digits.contains(digit)){
                     isValid = false;
+                    break;
                 }
             }
 
