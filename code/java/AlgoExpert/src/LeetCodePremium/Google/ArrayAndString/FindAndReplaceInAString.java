@@ -32,6 +32,8 @@ sources[i] and targets[i] consist of only lowercase English letters.
  */
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FindAndReplaceInAString {
     public static void main(String[] args) {
@@ -137,6 +139,29 @@ public class FindAndReplaceInAString {
                 i = i + sources[match[i]].length();
             } else {
                 sb.append(S.charAt(i)); i++;
+            }
+        }
+
+        return sb.toString();
+    }
+
+    public String findReplaceString4(String S, int[] indexes, String[] sources, String[] targets) {
+        Map<Integer, String> map = new HashMap<>();
+        Map<Integer, Integer> length = new HashMap<>();
+        for (int i = 0; i < indexes.length; i++) {
+            if (S.substring(indexes[i], indexes[i] + sources[i].length()).equals(sources[i])) {
+                map.put(indexes[i], targets[i]);
+                length.put(indexes[i], sources[i].length());
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < S.length(); i++) {
+            if (map.containsKey(i)) {
+                sb.append(map.get(i));
+                i += length.get(i) - 1;
+            } else {
+                sb.append(S.charAt(i));
             }
         }
 
