@@ -55,6 +55,7 @@ public class ExpressiveWords {
             startIndices.add(0);
             boolean found = false;
 
+            // check number of groups.
             for(int j=1; j<current.length(); j++){
                 if(current.charAt(j) != current.charAt(j-1)){
                     startIndices.add(j);
@@ -63,6 +64,7 @@ public class ExpressiveWords {
 
             if(numberOfGroups != startIndices.size()) continue;
 
+            // check character at starting index of each group.
             for(int j=0; j< groupStartIndices.size(); j++){
                 if(S.charAt(groupStartIndices.get(j)) != current.charAt(startIndices.get(j)) ) {
                     found = true; break;
@@ -79,6 +81,7 @@ public class ExpressiveWords {
 
             groupLengths[groupLengths.length-1] = current.length() - startIndices.get(groupLengths.length-1);
 
+            // final group lengths check.
             for(int j=0 ; j<lengthOfGroups.length; j++){
                 if(lengthOfGroups[j] < groupLengths[j] || (lengthOfGroups[j] > groupLengths[j] && lengthOfGroups[j] < 3) )  {
                     found = true; break;
