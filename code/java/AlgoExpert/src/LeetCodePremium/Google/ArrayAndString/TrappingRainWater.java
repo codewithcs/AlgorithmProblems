@@ -11,7 +11,7 @@ n == height.length
  */
 
 import java.util.Arrays;
-// See the stack approach for knowledge. 
+// See the stack approach for knowledge.
 public class TrappingRainWater {
     // O(n) time and O(1) space.
     public int trap(int[] height) {
