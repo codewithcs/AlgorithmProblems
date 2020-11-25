@@ -1,6 +1,7 @@
 package LeetCodePremium.Google.ArrayAndString;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /*
@@ -21,6 +22,43 @@ Note:
 Answers within 10^-5 of the correct answer will be considered correct.
  */
 public class MinimumCostToHireKWorkers {
+
+    // O(N^2 * logN) Time, O(N) Space
+    public double mincostToHireWorkers1(int[] quality, int[] wage, int K) {
+        int N = quality.length;
+        double ans = 1e9;
+
+        for (int captain = 0; captain < N; ++captain) {
+            // Must pay at least wage[captain] / quality[captain] per quality.
+            double factor = (double) wage[captain] / quality[captain];
+
+            double prices[] = new double[N];
+            int t = 0;
+
+            for (int worker = 0; worker < N; ++worker) {
+                double price = factor * quality[worker];
+                if (price < wage[worker]) {
+                    continue;
+                }
+                prices[t++] = price;
+            }
+
+            if (t < K) {
+                continue;
+            }
+            Arrays.sort(prices, 0, t);
+
+            double cand = 0;
+            for (int i = 0; i < K; ++i) {
+                cand += prices[i];
+            }
+            ans = Math.min(ans, cand);
+        }
+
+        return ans;
+    }
+
+    // O(N*logN) time, O(N) space
     public double mincostToHireWorkers(int[] quality, int[] wage, int K) {
         int N = quality.length;
         Worker[] workers = new Worker[N];
@@ -29,7 +67,7 @@ public class MinimumCostToHireKWorkers {
         }
         Arrays.sort(workers);
 
-        double ans = 1e9;
+        double ans = 1e9; // 10^9.
         int sumq = 0;
 
         PriorityQueue<Integer> pool = new PriorityQueue();
@@ -39,6 +77,39 @@ public class MinimumCostToHireKWorkers {
             sumq += worker.quality;
             if (pool.size() > K) {
                 sumq += pool.poll();
+            }
+            if (pool.size() == K) {
+                ans = Math.min(ans, sumq * worker.ratio());
+            }
+        }
+
+        return ans;
+    }
+
+    // Using a Max Heap:
+    public double mincostToHireWorkers2(int[] quality, int[] wage, int K) {
+        int N = quality.length;
+        Worker[] workers = new Worker[N];
+        for (int i = 0; i < N; ++i) {
+            workers[i] = new Worker(quality[i], wage[i]);
+        }
+        Arrays.sort(workers);
+
+        double ans = 1e9; // 10^9.
+        int sumq = 0;
+
+        PriorityQueue<Integer> pool = new PriorityQueue(new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return (Integer)o2 - (Integer)o1;
+            }
+        });
+
+        for (Worker worker: workers) {
+            pool.offer(worker.quality);
+            sumq += worker.quality;
+            if (pool.size() > K) {
+                sumq -= pool.poll();
             }
             if (pool.size() == K) {
                 ans = Math.min(ans, sumq * worker.ratio());
@@ -64,4 +135,3 @@ class Worker implements Comparable<Worker> {
         return Double.compare(ratio(), other.ratio());
     }
 }
-
