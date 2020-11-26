@@ -98,13 +98,7 @@ public class MinimumCostToHireKWorkers {
         double ans = 1e9; // 10^9.
         int sumq = 0;
 
-        PriorityQueue<Integer> pool = new PriorityQueue(new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                return (Integer)o2 - (Integer)o1;
-            }
-        });
-
+        PriorityQueue<Integer> pool = new PriorityQueue<>( (a, b) -> Integer.compare(b, a));
         for (Worker worker: workers) {
             pool.offer(worker.quality);
             sumq += worker.quality;
