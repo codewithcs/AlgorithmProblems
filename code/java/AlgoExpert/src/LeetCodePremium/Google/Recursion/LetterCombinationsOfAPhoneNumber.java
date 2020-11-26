@@ -29,14 +29,20 @@ public class LetterCombinationsOfAPhoneNumber {
         map.put(8, Arrays.asList(new Character[]{'t', 'u', 'v'}));
         map.put(9, Arrays.asList(new Character[]{'w', 'x', 'y', 'z'}));
 
-
-
         List<String> answer = new ArrayList<>();
-
+        traverse(answer, map, "", digits);
         return answer;
     }
 
-    public void traverse(List<String> answer, Map<Integer, List<Character>> map){
+    public void traverse(List<String> answer, Map<Integer, List<Character>> map, String current, String digits){
+        if(digits.length() == 0){
+            answer.add(current);
+            return;
+        }
 
+        int firstDigit = digits.charAt(0) - '0';
+        for(char currentCharacter: map.get(firstDigit)){
+            traverse(answer, map, current + currentCharacter, digits.substring(1));
+        }
     }
 }

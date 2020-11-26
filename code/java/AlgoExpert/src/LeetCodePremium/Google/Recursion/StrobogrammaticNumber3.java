@@ -1,19 +1,21 @@
 package LeetCodePremium.Google.Recursion;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /*
 A strobogrammatic number is a number that looks the same when
 rotated 180 degrees (looked at upside down).
 
-Find all strobogrammatic numbers that are of length = n.
+Write a function to count the total strobogrammatic numbers
+that exist in the range of low <= num <= high.
+
+Note:
+Because the range might be a large number, the low and high
+numbers are represented as string.
  */
-public class StrobogrammaticNumber2 {
-    public List<String> findStrobogrammatic(int n) {
-        List<String> answer = new ArrayList<>();
+public class StrobogrammaticNumber3 {
+    public int strobogrammaticInRange(String low, String high) {
         Map<Character, Character> map = new HashMap<>();
         map.put('1','1');
         map.put('8','8');
@@ -21,6 +23,8 @@ public class StrobogrammaticNumber2 {
         map.put('9','6');
         map.put('0','0');
 
-        return answer;
+
+
+        return 0;
     }
 }

@@ -37,11 +37,12 @@ public class WordSearch {
         return b1 || b2 || b3 || b4;
     }
 
-    // 3 Important Optimizations:
+    // 4 Important Optimizations:
     /*
       1: Matching the individual characters rather than the whole string.
       2. Returning before going into unwanted recursive calls if previous call returned true.
       3.  Good way of marking visited by using '#'
+      4. Do the Clean Up if necessary. Break using a loop instead of return.
      */
     public boolean traverse2( char[][] board, int i, int j, String word, int currentIndex){
         if(i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != word.charAt(currentIndex)) return false;
@@ -110,7 +111,7 @@ public class WordSearch {
         for (int d = 0; d < 4; ++d) {
             ret = this.backtrack(row + rowOffsets[d], col + colOffsets[d], word, index + 1);
             if (ret)
-                break; // break rather than return true. Done in order to do the clean up on line 117. 
+                break; // break rather than return true. Done in order to do the clean up on line 117.
         }
 
         /* Step 4). clean up and return the result. */

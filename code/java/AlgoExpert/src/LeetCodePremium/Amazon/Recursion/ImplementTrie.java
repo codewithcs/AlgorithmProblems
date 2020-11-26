@@ -5,7 +5,7 @@ public class ImplementTrie {
         // R links to node children
         private TrieNode[] links;
 
-        private final int R = 26;
+        private final int R = 26; // assuming lowercase latin characters.
 
         private boolean isEnd;
 
