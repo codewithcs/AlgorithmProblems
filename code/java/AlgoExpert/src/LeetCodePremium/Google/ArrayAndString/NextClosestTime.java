@@ -156,4 +156,45 @@ public class NextClosestTime {
         }
         return String.valueOf(res);
     }
+
+    // Using Binary Search.
+    public String nextClosestTime5(String time) {
+        char[] result = time.toCharArray();
+        char[] digits = new char[]{result[0], result[1], result[3], result[4]};
+        Arrays.sort(digits);
+
+        // find next digit for HH:M_
+        // e.g. 23:43 -> 23:44
+        // no upperLimit for this digit, i.e. 0-9
+        result[4] = findNext(result[4], (char) ('9' + 1), digits);
+        if (result[4] > time.charAt(4)) return String.valueOf(result);
+
+        // find next digit for HH:_M
+        // e.g. 14:29 -> 14:41
+        result[3] = findNext(result[3], '5', digits);
+        if (result[3] > time.charAt(3)) return String.valueOf(result);
+
+        // find next digit for H_:MM
+        // e.g. 02:37 -> 03:00
+        result[1] = result[0] == '2' ? findNext(result[1], '3', digits) : findNext(result[1], (char) ('9' + 1), digits);
+        if (result[1] > time.charAt(1)) return String.valueOf(result);
+
+        // find next digit for _H:MM
+        // e.g. 19:59 -> 11:11
+        result[0] = findNext(result[0], '2', digits);
+        return String.valueOf(result);
+    }
+
+    private char findNext(char current, char upperLimit, char[] digits) {
+        if (current == upperLimit) {
+            return digits[0];
+        }
+
+        int pos = Arrays.binarySearch(digits, current) + 1;
+        // traverse one by one to find next greater digit
+        while (pos < 4 && (digits[pos] > upperLimit || digits[pos] == current)) {
+            pos++;
+        }
+        return pos == 4 ? digits[0] : digits[pos];
+    }
 }
