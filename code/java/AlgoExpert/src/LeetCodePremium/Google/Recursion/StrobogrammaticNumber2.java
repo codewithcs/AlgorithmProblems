@@ -26,9 +26,11 @@ public class StrobogrammaticNumber2 {
                 ans.add(curr);
                 continue;
             }
+
             if(curr.length() < n-2){  // append '0' to all internal letters - except outermost letters. e.g. 010 is not a valid answer for n=3
                 q.add("0" + curr + "0");
             }
+
             q.add("1" + curr + "1");
             q.add("8" + curr + "8");
             q.add("6" + curr + "9");
@@ -75,7 +77,7 @@ public class StrobogrammaticNumber2 {
             if (n - 2 == middle.length() && key == "0") { // skip zeros on both ends
                 continue;
             }
-            generate(key + middle + map.get(key), n, result); // imp that we append key and map.get(key). 
+            generate(key + middle + map.get(key), n, result); // imp that we append key and map.get(key).
         }
     }
 
