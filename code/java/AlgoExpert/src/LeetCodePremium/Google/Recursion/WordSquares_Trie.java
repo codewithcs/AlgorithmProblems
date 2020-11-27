@@ -7,7 +7,7 @@ import java.util.List;
 
 class TrieNode {
     HashMap<Character, TrieNode> children = new HashMap<Character, TrieNode>();
-    List<Integer> wordList = new ArrayList<Integer>();
+    List<Integer> wordList = new ArrayList<Integer>(); // instead of storing full word, just store its index.
 
     public TrieNode() {}
 }

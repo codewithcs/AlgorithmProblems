@@ -23,6 +23,7 @@ Each word contains only lowercase English alphabet a-z.
 
 // IMP Note: Using ArrayList instead of LinkedList leads to Ouput Limit Exceeded even though adding and removing will be O(1) in both.
 // Why ? Investigate this.
+// See the time complexity again.
 public class WordSquares {
     int N = 0;
     String[] words = null;
