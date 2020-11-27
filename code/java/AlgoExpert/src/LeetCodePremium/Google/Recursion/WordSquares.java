@@ -20,6 +20,9 @@ All words will have the exact same length.
 Word length is at least 1 and at most 5.
 Each word contains only lowercase English alphabet a-z.
  */
+
+// IMP Note: Using ArrayList instead of LinkedList leads to Ouput Limit Exceeded even though adding and removing will be O(1) in both.
+// Why ? Investigate this.
 public class WordSquares {
     int N = 0;
     String[] words = null;
@@ -40,6 +43,7 @@ public class WordSquares {
         return results;
     }
 
+    // We go into a "step" only when it is possible.
     protected void backtracking(int step, LinkedList<String> wordSquares,
                                 List<List<String>> results) {
         if (step == N) {
@@ -80,5 +84,9 @@ public class WordSquares {
     protected List<String> getWordsWithPrefix(String prefix) {
         List<String> wordList = this.prefixHashTable.get(prefix);
         return (wordList != null ? wordList : new ArrayList<String>());
+        /// if the prefix is not contained as a key, we should either call containsKey() method or
+        // return a new ArrayList to avoid null in the for each loop above.
     }
+
+    // Approach 2: Backtracking Using Trie
 }
