@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Set;
 
 public class RemoveInvalidParentheses2 {
-    private Set<String> validExpressions = new HashSet<String>();
 
+    // Approach 3: Limited Backtracking
+    private Set<String> validExpressions = new HashSet<String>();
     private void recurse(String s, int index, int leftCount, int rightCount, int leftRem, int rightRem, StringBuilder expression) {
         // If we reached the end of the string, just check if the resulting expression is
         // valid or not and also if we have removed the total number of left and right
@@ -19,7 +20,6 @@ public class RemoveInvalidParentheses2 {
         } else {
             char character = s.charAt(index);
             int length = expression.length();
-
             // The discard case. Note that here we have our pruning condition.
             // We don't recurse if the remaining count for that parenthesis is == 0.
             if ((character == '(' && leftRem > 0) || (character == ')' && rightRem > 0)) {

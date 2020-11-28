@@ -19,7 +19,7 @@ public class RemoveInvalidParentheses {
         return res;
     }
     private void recur(String s,int left,int right,char[] paranthesis){
-        int len=s.length();int val=0;
+        int len=s.length(); int val=0;
 
         for(;right<len;right++){
             char ch=s.charAt(right);
@@ -28,6 +28,7 @@ public class RemoveInvalidParentheses {
             } else if(ch==paranthesis[1]) {
                 val--;
             }
+
             if(val<0) {
                 break;
             }
@@ -98,6 +99,8 @@ public class RemoveInvalidParentheses {
             } else {
                 // Recursion where we delete the current character and move forward
                 this.recurse(s, index + 1, leftCount, rightCount, expression, removedCount + 1);
+
+                // Taking this character
                 expression.append(currentCharacter);
 
                 // If it's an opening parenthesis, consider it and recurse
