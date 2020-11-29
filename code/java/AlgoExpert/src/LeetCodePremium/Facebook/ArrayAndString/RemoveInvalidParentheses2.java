@@ -30,7 +30,7 @@ public class RemoveInvalidParentheses2 {
                         expression);
             }
 
-            expression.append(character);
+            expression.append(character); //
 
             // Simply recurse one step further if the current character is not a parenthesis.
             if (character != '(' && character != ')') {
