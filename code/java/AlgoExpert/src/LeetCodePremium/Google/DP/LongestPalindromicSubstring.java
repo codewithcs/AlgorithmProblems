@@ -5,6 +5,7 @@ public class LongestPalindromicSubstring {
         System.out.println(longestPalindrome("cbbd"));
     }
 
+    // O(n^2) time and O(1) space.
     public static String longestPalindrome(String s) {
         if(s.length() == 1) return s;
 
@@ -31,12 +32,6 @@ public class LongestPalindromicSubstring {
                 maxEvenPalindrome = currentLength;
             }
         }
-
-        System.out.println("maxEvenPalindrome is : " + maxEvenPalindrome);
-        System.out.println("maxOddPalindrome is : " + maxOddPalindrome);
-
-        System.out.println("leftEvenIndex is : " + leftEvenIndex);
-        System.out.println("rightEvenIndex is : " + rightEvenIndex);
 
         return maxEvenPalindrome > maxOddPalindrome ? s.substring(leftEvenIndex, rightEvenIndex+1) : s.substring(leftOddIndex, rightOddIndex+1) ;
     }
