@@ -12,7 +12,6 @@ public class DecodeString {
             Stack<StringBuilder> stringStack = new Stack<>();
 
             StringBuilder currentString = new StringBuilder();
-
             int k = 0;
 
             for (char ch : s.toCharArray()) {
