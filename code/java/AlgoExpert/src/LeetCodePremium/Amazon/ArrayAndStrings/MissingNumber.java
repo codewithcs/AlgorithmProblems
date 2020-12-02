@@ -46,4 +46,6 @@ public class MissingNumber {
         }
         return missing;
     }
+
+    // Can use binary search as well.
 }

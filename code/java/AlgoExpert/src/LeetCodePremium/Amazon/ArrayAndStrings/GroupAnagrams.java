@@ -14,9 +14,9 @@ public class GroupAnagrams {
     // Important technique
     // O(NW) time and O(NW) space, W is the length of strs, N is the length of longest string.
     public List<List<String>> groupAnagrams(String[] strs) {
-        if (strs.length == 0) return new ArrayList();
+        if (strs.length == 0) return new ArrayList<List<String>>();
 
-        Map<String, List> ans = new HashMap<String, List>();
+        Map<String, List<String>> ans = new HashMap<>();
 
         int[] count = new int[26];
 
@@ -30,7 +30,7 @@ public class GroupAnagrams {
                 sb.append(count[i]);
             }
             String key = sb.toString();
-            if (!ans.containsKey(key)) ans.put(key, new ArrayList());
+            if (!ans.containsKey(key)) ans.put(key, new ArrayList<String>());
             ans.get(key).add(s);
         }
 

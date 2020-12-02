@@ -10,6 +10,7 @@ public class ThreeSum {
         System.out.println(threeSum(new int[]{0, 0, 0}));
     }
 
+    // Time Limit Exceeded.
     public static List<List<Integer>> threeSum(int[] nums) {
         Map<List<Integer>, Integer> map = new HashMap<>();
 
@@ -29,7 +30,7 @@ public class ThreeSum {
                     left++;
                 } else {
                     System.out.println("sum is :" + sum);
-                    map.put(Arrays.asList(new Integer[]{nums[i], nums[left], nums[right]}), 0);
+                    map.put(Arrays.asList(nums[i], nums[left], nums[right]), 0);
                     left++;
                     right--;
                 }
@@ -49,7 +50,7 @@ public class ThreeSum {
         Arrays.sort(nums);
         List<List<Integer>> res = new ArrayList<>();
         for (int i = 0; i < nums.length && nums[i] <= 0; ++i) // Nice  optimization: nums[i] <= 0
-            if (i == 0 || nums[i - 1] != nums[i]) {
+            if (i == 0 || nums[i - 1] != nums[i]) { // Handling duplicates.
                 twoSum(nums, i, res);
             }
         return res;
@@ -75,10 +76,11 @@ public class ThreeSum {
     public List<List<Integer>> threeSum3(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> res = new ArrayList<>();
-        for (int i = 0; i < nums.length && nums[i] <= 0; ++i) // Or nums[i] <= target if some other target is given.
+        for (int i = 0; i < nums.length && nums[i] <= 0; ++i) {// Or nums[i] <= target if some other target is given.
             if (i == 0 || nums[i - 1] != nums[i]) {
                 twoSumII(nums, i, res);
             }
+        }
         return res;
     }
 

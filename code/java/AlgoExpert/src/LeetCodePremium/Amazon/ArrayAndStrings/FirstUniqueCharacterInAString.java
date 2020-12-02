@@ -23,9 +23,8 @@ public class FirstUniqueCharacterInAString {
             if (map.containsKey(c)) {
                 map.get(c).set(1, map.get(c).get(1) + 1); // ++ wont work here.
             } else {
-                map.put(c, new ArrayList<Integer>(Arrays.asList(new Integer[]{i, 1}))); // use Integer instead of int.
+                map.put(c, new ArrayList<Integer>(Arrays.asList(i, 1))); // use Integer instead of int.
             }
-
         }
 
         int index = -1;
