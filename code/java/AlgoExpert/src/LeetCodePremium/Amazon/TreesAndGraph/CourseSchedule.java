@@ -63,7 +63,7 @@ public class CourseSchedule {
         while (nodepCourses.size() > 0) {
             Integer course = nodepCourses.pop();
 
-            for (Integer nextCourse : graph.get(course).outNodes) {
+            for (Integer nextCourse : graph.get(course).outNodes) { // play with inDegrees rather than reducing outNodes using remove().
                 GNode childNode = graph.get(nextCourse);
                 childNode.inDegrees -= 1; /// remove the edge.
                 removedEdges += 1;

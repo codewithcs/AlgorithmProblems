@@ -22,13 +22,14 @@ public class FlattenBinaryTreeToLinkedList {
         if(root == null){
             return ;
         }
-
+        // Root to Leaf Depth First Traversal.
         TreeNode start = new TreeNode(-1);
         TreeNode current = start;
 
         Stack<TreeNode> stack = new Stack<>();
         stack.add(root);
-
+        // Traverse on a subtree and break it in linked list.
+        // We do not lose pointers as we store them in the Stack.
         while(!stack.isEmpty()){
             TreeNode node = stack.pop();
             current.right = node;

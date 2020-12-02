@@ -33,7 +33,7 @@ public class QuickSort {
 					left++;
 				} else if(array[right] >= pivot){
 					right--; 
-					}
+				}
 		}
 	
 		// swap pivot with right pointer

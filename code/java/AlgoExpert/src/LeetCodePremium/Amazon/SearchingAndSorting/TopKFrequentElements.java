@@ -96,7 +96,7 @@ public class TopKFrequentElements {
 
         // 1. build hash map : character and how often it appears
         // O(N) time
-        Map<Integer, Integer> count = new HashMap();
+        Map<Integer, Integer> count = new HashMap<>();
         for (int n: nums) {
             count.put(n, count.getOrDefault(n, 0) + 1);
         }

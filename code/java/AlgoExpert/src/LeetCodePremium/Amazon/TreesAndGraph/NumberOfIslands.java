@@ -142,7 +142,6 @@ public class NumberOfIslands {
     }
 
     public int traverseGrid(char[][] grid, int rows, int columns, int startingRow, int startingColumn){
-
         int[] dx = {0, 1, -1, 0};
         int[] dy = {1, 0, 0, -1};
 

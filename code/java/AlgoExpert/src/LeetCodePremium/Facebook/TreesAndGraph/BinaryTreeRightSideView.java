@@ -61,6 +61,7 @@ public class BinaryTreeRightSideView {
             rightside.add(node.val);
         }
 
+        // First calling the dfs on the right subtree.
         if (node.right != null) {
             helper(node.right, level + 1);
         }

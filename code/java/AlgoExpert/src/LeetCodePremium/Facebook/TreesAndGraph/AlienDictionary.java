@@ -55,7 +55,7 @@ public class AlienDictionary {
             }
         }
 
-        if (sb.length() < counts.size()) {
+        if (sb.length() < counts.size()) { // size less than number of unique keys.
             return "";
         }
         return sb.toString();

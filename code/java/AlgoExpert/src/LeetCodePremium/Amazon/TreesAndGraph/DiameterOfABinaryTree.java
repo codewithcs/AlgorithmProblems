@@ -18,12 +18,9 @@ public class DiameterOfABinaryTree {
 
     public int helper(TreeNode root){
         if(root == null) return 0;
-
         int currentDiameter = 2 + height(root.left, 0) + height(root.right, 0);
-
         int leftSubTreeDiameter = helper(root.left);
         int rightSubTreeDiameter = helper(root.right);
-
         return Math.max(currentDiameter, Math.max(leftSubTreeDiameter, rightSubTreeDiameter)) ;
     }
 

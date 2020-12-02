@@ -1,4 +1,4 @@
-package LeetCodePremium.Amazon.ArrayAndStrings;
+package LeetCodePremium.Amazon.Recursion;
 
 import java.util.ArrayList;
 import java.util.List;
