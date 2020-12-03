@@ -20,7 +20,7 @@ public class Merge2SortedLists {
         ListNode P2 = l2;
         ListNode previous = null ;
 
-        // In the end, I have do the converge in one list. I am converging into List P2.
+        // In the end, I have to do the converge in one list. I am converging into List P2.
 
         // Edge Case: When previous is null.
         if(P1.val <= P2.val){

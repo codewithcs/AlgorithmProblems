@@ -2,7 +2,7 @@ package LeetCodePremium.Amazon.ArrayAndStrings;
 
 /*
 Convert a non-negative integer to its english words representation.
-Given input is guaranteed to be less than 231 - 1.
+Given input is guaranteed to be less than 2^31 - 1.
 
  */
 public class IntegerToEnglishWords {
@@ -20,11 +20,12 @@ public class IntegerToEnglishWords {
     public static String numberToWords(int num) {
         if(num == 0) return "Zero";
         String s = "";
-        int i=0;
+        int i=0; // Imp variable.
 
         while(num >0) {
-            if(num %1000 != 0) // to handle edge case of 1,000,000 : We want to print 1 Million and not 1 Million Thousand.
-                s = helper(num%1000) +  thousand[i] + " "  + s; // the space before s is to separate 2 different 3 digits.
+            if(num %1000 != 0) {// to handle edge case of 1,000,000 : We want to print 1 Million and not 1 Million Thousand.
+                s = helper(num % 1000) + thousand[i] + " " + s; // the space before s is to separate 2 different 3 digits.
+            }
             num = num/1000;
             i++;
         }
