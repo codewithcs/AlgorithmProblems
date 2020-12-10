@@ -2,7 +2,7 @@ package LeetCodePremium.Facebook.Recursion;
 
 import java.util.*;
 
-/* 
+/*
 Given an array nums of distinct integers, return all the possible permutations.
 You can return the answer in any order.
 
@@ -19,7 +19,7 @@ public class Permutations {
         if (first == n) {
             output.add(new ArrayList<Integer>(nums));
         }
-        for (int i = first; i < n; i++) {
+        for (int i = first; i < n; i++) { // Important to start from "first" rather than "first+1".
             // place i-th integer first
             // in the current permutation
             Collections.swap(nums, first, i);
@@ -79,6 +79,29 @@ public class Permutations {
             // 3.) Unchoose - We have returned from the recursion, remove the choice we made.
             // The next iteration will try another item in the "slot" we are working on.
             runningChoices.remove(runningChoices.size() - 1);
+        }
+    }
+
+    // Use a LinkedHashSet.
+    public List<List<Integer>> permute3(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        traverse(result, new LinkedHashSet<Integer>(), nums);
+        return result;
+    }
+
+    public void traverse(List<List<Integer>> result, Set<Integer> current, int[] nums){
+        if(current.size() == nums.length){
+            List<Integer> list = new ArrayList<>(current);
+            result.add(new ArrayList<>(list));
+            return;
+        }
+
+        for(int i=0; i<nums.length; i++){
+            if(!current.contains(nums[i])){ // O(1)
+                current.add(nums[i]);
+                traverse(result, current, nums);
+                current.remove(nums[i]);
+            }
         }
     }
 }
