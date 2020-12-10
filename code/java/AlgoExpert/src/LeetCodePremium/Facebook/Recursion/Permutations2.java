@@ -14,6 +14,10 @@ Constraints:
 1 <= nums.length <= 8
 -10 <= nums[i] <= 10
  */
+
+// It takes N steps to generate a single permutation. Since there are in total N! possible permutations, at most it would take
+// us N * N! steps to generate all permutations, simply assuming there is no overlapping effort (which is not true).
+// O(N) space for Hash table and O(N*N!) space to hold the results.
 public class Permutations2 {
     public List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
@@ -31,7 +35,7 @@ public class Permutations2 {
             result.add(new ArrayList<>(current));
         }
 
-        for(Map.Entry<Integer, Integer> entry: map.entrySet()){ // Can also iterate over the key set as well. 
+        for(Map.Entry<Integer, Integer> entry: map.entrySet()){ // Can also iterate over the key set as well.
             Integer num = entry.getKey();
             Integer count = entry.getValue();
             if(count == 0){ // No need to remove the key from the map when the count becomes 0. If we do a remove(), then it would lead to an exception.
@@ -44,4 +48,7 @@ public class Permutations2 {
             current.remove(current.size()-1);
         }
     }
+    /*
+    We need to worry about [1, 1, 2] being repeated twice as using the above algorithm it will only be generated once.
+     */
 }
