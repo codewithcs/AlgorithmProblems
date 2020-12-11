@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+// Building the string by taking or not taking the current character.
+// Not taking the character is same as deleting the character.
 public class RemoveInvalidParentheses2 {
 
     // Approach 3: Limited Backtracking
@@ -20,20 +21,11 @@ public class RemoveInvalidParentheses2 {
             }
         } else {
             char character = s.charAt(index);
-            int length = expression.length();
-            // The discard case. Note that here we have our pruning condition.
-            // We don't recurse if the remaining count for that parenthesis is == 0.
 
-            // Imp check: leftRem >0, rightRem > 0. 
-            if ((character == '(' && leftRem > 0) || (character == ')' && rightRem > 0)) {
-                this.recurse( s, index + 1, leftCount, rightCount, leftRem - (character == '(' ? 1 : 0), rightRem - (character == ')' ? 1 : 0),
-                        expression);
-            }
+            // Take this character.
+            expression.append(character);
 
-            expression.append(character); //
-
-            // Simply recurse one step further if the current character is not a parenthesis.
-            if (character != '(' && character != ')') {
+            if (character != '(' && character != ')') { // Have to take and recurse for this character always.
                 this.recurse(s, index + 1, leftCount, rightCount, leftRem, rightRem, expression);
             } else if (character == '(') {
                 // Consider an opening bracket.
@@ -44,7 +36,15 @@ public class RemoveInvalidParentheses2 {
             }
 
             // Delete for backtracking.
-            expression.deleteCharAt(length);
+            expression.deleteCharAt(expression.length()-1);
+
+            // Don't take the character. We only delete the character if it is '(' or ')'.
+            if ((character == '(' && leftRem > 0) || (character == ')' && rightRem > 0)) {
+                this.recurse( s, index + 1, leftCount, rightCount, leftRem - (character == '(' ? 1 : 0), rightRem - (character == ')' ? 1 : 0),
+                        expression);
+            }
+
+
         }
     }
 

@@ -17,6 +17,8 @@ Do a pre-processing to find the number of invalid parentheses.
 public class RemoveInvalidParentheses {
 
     // Struggle, Failed Strategy, Can I improve this ?
+    // Here I am focussing on deleting characters from a big string and then checking whether the resulting
+    // string is valid or not.
     public static void main(String[] args) {
         System.out.println(removeInvalidParentheses(")((((((((")); // "))))ff"
     }
@@ -72,7 +74,6 @@ public class RemoveInvalidParentheses {
             return;
         }
 
-        // Remove first character
         for(int i=0; i<s.length() ; i++){
             System.out.println("[BEFORE RECURSION] s is : " + s);
             char currentChar = s.charAt(i);
