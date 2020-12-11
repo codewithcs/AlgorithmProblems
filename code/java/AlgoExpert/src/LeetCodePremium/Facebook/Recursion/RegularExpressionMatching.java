@@ -37,7 +37,7 @@ public class RegularExpressionMatching {
         }
     }
 
-    // DP solution for 3rd solution. 
+    // DP solution for 3rd solution.
     public boolean isMatch2(String text, String pattern){
         char[] textArray = text.toCharArray(); char[] patternArray = pattern.toCharArray();
         boolean[][] result = new boolean[textArray.length+1][patternArray.length+1];
