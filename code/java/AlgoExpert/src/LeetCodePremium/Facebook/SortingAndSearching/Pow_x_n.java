@@ -33,7 +33,7 @@ public class Pow_x_n {
 
     // Competitive Programming Trick.
     // Fast Power Algorithm Recursive: O(logn) time and space.
-    // O(logn) space because of Recursion.
+    // O(logn) space because of Recursion tree.
     private double fastPow(double x, int n) {
         if (n == 0) {
             return 1.0;
