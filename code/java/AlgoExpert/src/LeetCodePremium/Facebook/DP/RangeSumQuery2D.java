@@ -42,7 +42,7 @@ public class RangeSumQuery2D {
     }
 
     // Caching Smarter, O(1) time per query, O(mn) time pre-computation.
-    // O(mn) space. 
+    // O(mn) space.
     private int[][] dp2;
 
     public void setValue(int[][] matrix) {
