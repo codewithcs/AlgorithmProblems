@@ -20,10 +20,28 @@ You may assume the sum of all the numbers is in the range of a signed 32-bit int
         System.out.println(checkSubarraySum(nums, k));
     }
 
+    // O(n^3) time and O(1) space.
+    public boolean checkSubarraySum3(int[] nums, int k) {
+        for (int start = 0; start < nums.length - 1; start++) {
+            for (int end = start + 1; end < nums.length; end++) {
+                int sum = 0;
+                for (int i = start; i <= end; i++) {
+                    sum += nums[i];
+                }
+                if (sum == k || (k != 0 && sum % k == 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // O(n) time and O(min(n, k)) space.
     public static boolean checkSubarraySum(int[] nums, int k) {
         int sum = 0;
         HashMap <Integer, Integer> map = new HashMap<>();
-        map.put(0, -1); // To handle the case when the complete array is the answer. 
+        map.put(0, -1);
+        // To handle the case when the subarray which starts at index 0 is our answer.
         for (int i = 0; i < nums.length; i++) {
             sum += nums[i];
             if (k != 0) {
