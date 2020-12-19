@@ -24,7 +24,6 @@ public class IntersectionOfTwoArrays2 {
             int i=0; int j=0;
 
             boolean firstSmaller = nums1.length < nums2.length;
-            System.out.println("firstSmaller is : " + firstSmaller);
             if(firstSmaller){
                 traverse(nums2, nums1, result, current, j, i);
             } else {
