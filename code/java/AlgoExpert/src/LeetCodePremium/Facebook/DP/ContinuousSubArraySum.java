@@ -1,6 +1,7 @@
 package LeetCodePremium.Facebook.DP;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ContinuousSubArraySum {
 /*
@@ -13,12 +14,7 @@ The length of the array won't exceed 10,000.
 You may assume the sum of all the numbers is in the range of a signed 32-bit integer.
 */
     // O(n) time and O(min(n, k)) space, n: size of the nums array.
-    public static void main(String[] args) {
-        int[] nums = {23, 2, 6, 4, 7};
-        int k = 6;
 
-        System.out.println(checkSubarraySum(nums, k));
-    }
 
     // O(n^3) time and O(1) space.
     public boolean checkSubarraySum3(int[] nums, int k) {
@@ -45,7 +41,7 @@ You may assume the sum of all the numbers is in the range of a signed 32-bit int
         for (int i = 0; i < nums.length; i++) {
             sum += nums[i];
             if (k != 0) {
-                sum = sum % k;
+                sum = sum % k; //
             }
             if (map.containsKey(sum)) {
                 if (i - map.get(sum) > 1) {
@@ -71,6 +67,42 @@ You may assume the sum of all the numbers is in the range of a signed 32-bit int
                 if (summ == k || (k != 0 && summ % k == 0)) {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {0, 0, 0, 0};
+        int k = 0;
+
+        System.out.println(checkSubarraySum4(nums, k));
+    }
+
+    public static boolean checkSubarraySum4(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int sum = 0;
+
+        for(int i=0; i< nums.length ; i++){
+            sum += nums[i];
+
+            if(sum == 0 && k== 0){ // Special Case
+                if(i > 0) return true;
+            } else if(k != 0){
+                sum = sum % k;
+                if(sum == 0){ // subarray starting at index 0
+                    if(i > 0){
+                        return true;
+                    }
+                }
+            }
+
+            if(map.containsKey(sum)){
+                if(i - map.get(sum) > 1){
+                    return true;
+                }
+            } else{
+                map.put(sum, i);
             }
         }
         return false;
