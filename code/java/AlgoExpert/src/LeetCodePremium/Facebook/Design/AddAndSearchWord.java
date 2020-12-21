@@ -103,7 +103,7 @@ public class AddAndSearchWord {
                 node = node.children.get(current);
             } else {
                 if(current == '.' && node.children.size() > 0){
-                    for(char key: node.children.keySet()){
+                    for(char key: node.children.keySet()){ // iterate over potential matches. Any other character can come after a .
                         if(searchRefactored(word.substring(i+1), node.children.get(key))){
                             return true;
                         }
