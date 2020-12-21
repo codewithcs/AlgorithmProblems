@@ -36,7 +36,8 @@ You may assume the sum of all the numbers is in the range of a signed 32-bit int
     public static boolean checkSubarraySum(int[] nums, int k) {
         int sum = 0;
         HashMap <Integer, Integer> map = new HashMap<>();
-        map.put(0, -1);
+        map.put(0, -1); // To handle the case sum = nk which could lead to a subarray starting at index 0.
+        // Since sum % k would be zero, that is why we choose the key to be 0.
         // To handle the case when the subarray which starts at index 0 is our answer.
         for (int i = 0; i < nums.length; i++) {
             sum += nums[i];
