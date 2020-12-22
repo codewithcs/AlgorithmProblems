@@ -10,6 +10,8 @@ the digits so they evaluate to the target value.
 Constraints:
 0 <= num.length <= 10
 num only contain digits.
+
+After a bit thinking, this looked like a DP problem to me. 
  */
 public class ExpressionAddOperators{
     public List<String> addOperators(String num, int target) {

@@ -20,6 +20,7 @@ public class VerifyAlienDictionary {
             }
         }
 
+        // Ask the interviewer about whether there can be duplicates in words[].
         for(int i=0 ; i<words.length-1 ; i++){
             String first = words[i];
             String second = words[i+1];

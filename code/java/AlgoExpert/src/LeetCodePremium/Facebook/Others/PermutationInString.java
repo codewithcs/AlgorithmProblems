@@ -14,6 +14,7 @@ The length of both given strings is in range [1, 10,000].
 Same as: Find All Anagrams in a String problem.
  */
 public class PermutationInString {
+
     public boolean checkInclusion(String s1, String s2) {
         if(s1.length() > s1.length()){
             return false;
