@@ -1,5 +1,8 @@
 package LeetCodePremium.Facebook.Others;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 Given two lists of closed intervals, each list of intervals is pairwise disjoint and in sorted order.
 Return the intersection of these two interval lists.
@@ -15,6 +18,45 @@ Note:
  */
 public class IntervalListIntersections {
     public int[][] intervalIntersection(int[][] A, int[][] B) {
-        return null;
+        List<int[]> list = new ArrayList<>();
+        int i=0; int j=0;
+
+        while(i < A.length && j < B.length ){
+            if(A[i][0] < B[j][0]){
+                list.add(A[i]);
+                i++;
+            } else {
+                list.add(B[j]);
+                j++;
+            }
+        }
+
+        while(i < A.length){
+            list.add(A[i]);
+            i++;
+        }
+
+        while(j < B.length){
+            list.add(B[j]);
+            j++;
+        }
+
+
+        List<int[]> result = new ArrayList<>();
+
+        for(int k=0; k< list.size()-1; ){
+            System.out.print(" [" + list.get(k)[0] + ", " + list.get(k)[1] + "]  ");
+            int[] first = list.get(k);
+            int[] second = list.get(k+1);
+
+            if(first[0] <= second[0] && first[1] >= second[1]){
+                result.add(new int[]{second[0], second[1]});
+            } else if(first[1] >= second[0]){
+                result.add(new int[]{second[0], first[1]}); k++;
+            }
+
+        }
+
+        return result.toArray(new int[result.size()][]);
     }
 }
