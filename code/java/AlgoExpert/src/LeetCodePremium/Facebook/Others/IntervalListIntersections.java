@@ -17,44 +17,27 @@ Note:
 0 <= A[i].start, A[i].end, B[i].start, B[i].end < 10^9
  */
 public class IntervalListIntersections {
-    public int[][] intervalIntersection(int[][] A, int[][] B) {
-        List<int[]> list = new ArrayList<>();
-        int i=0; int j=0;
 
+    // O(m+n) time and space. 
+    public int[][] intervalIntersection(int[][] A, int[][] B) {
+        List<int[]> result = new ArrayList<>();
+        int i=0; int j=0;
         while(i < A.length && j < B.length ){
-            if(A[i][0] < B[j][0]){
-                list.add(A[i]);
+            int[] first = A[i];
+            int[] second = B[j];
+            int low = Math.max(first[0], second[0]);
+            int high = Math.min(first[1], second[1]);
+
+            if(high >= low){
+                result.add(new int[]{low, high});
+            }
+
+            // Remove the interval with a smaller endpoint.
+            if(first[1] < second[1]){
                 i++;
-            } else {
-                list.add(B[j]);
+            } else{
                 j++;
             }
-        }
-
-        while(i < A.length){
-            list.add(A[i]);
-            i++;
-        }
-
-        while(j < B.length){
-            list.add(B[j]);
-            j++;
-        }
-
-
-        List<int[]> result = new ArrayList<>();
-
-        for(int k=0; k< list.size()-1; ){
-            System.out.print(" [" + list.get(k)[0] + ", " + list.get(k)[1] + "]  ");
-            int[] first = list.get(k);
-            int[] second = list.get(k+1);
-
-            if(first[0] <= second[0] && first[1] >= second[1]){
-                result.add(new int[]{second[0], second[1]});
-            } else if(first[1] >= second[0]){
-                result.add(new int[]{second[0], first[1]}); k++;
-            }
-
         }
 
         return result.toArray(new int[result.size()][]);
