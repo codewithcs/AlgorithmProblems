@@ -20,6 +20,7 @@ public class BasicCalculator2 {
         System.out.println(calculate("1*2-3/4+5*6-7*8+9/10"));
     }
 
+    // Doing some stupid but conceptual mistake for the above case ?
     public static int evaluate(int first, int second, char operator){
         if(operator == '+'){
             return second+first;
