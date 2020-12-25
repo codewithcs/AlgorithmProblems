@@ -20,8 +20,8 @@ public class BasicCalculator {
         return num1-num2;
     }
 
-    public int calculate(String s) {
-        Deque<Integer> nums = new ArrayDeque();
+    public static int calculate(String s) {
+        Deque<Integer> nums = new ArrayDeque(); // Can simply use a Stack.
         Deque<Character> operator = new ArrayDeque();
 
         for (int i = 0, n=s.length() ; i < n; i++) {
