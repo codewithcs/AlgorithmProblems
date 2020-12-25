@@ -12,6 +12,7 @@ Constraints:
 num only contain digits.
 
 After a bit thinking, this looked like a DP problem to me.
+Looks like backtracking as well. 
  */
 public class ExpressionAddOperators{
     public List<String> addOperators(String num, int target) {

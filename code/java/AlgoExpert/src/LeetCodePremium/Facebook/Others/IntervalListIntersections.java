@@ -18,7 +18,7 @@ Note:
  */
 public class IntervalListIntersections {
 
-    // O(m+n) time and space. 
+    // O(m+n) time and space.
     public int[][] intervalIntersection(int[][] A, int[][] B) {
         List<int[]> result = new ArrayList<>();
         int i=0; int j=0;
