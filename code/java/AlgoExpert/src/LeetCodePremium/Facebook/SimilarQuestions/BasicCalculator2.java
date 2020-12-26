@@ -19,8 +19,7 @@ public class BasicCalculator2 {
     public static void main(String[] args) {
         System.out.println(calculate("1*2-3/4+5*6-7*8+9/10"));
     }
-
-    // Doing some stupid but conceptual mistake for the above case ?
+    
     public static int evaluate(int first, int second, char operator){
         if(operator == '+'){
             return second+first;
@@ -75,5 +74,37 @@ public class BasicCalculator2 {
         }
 
         return numbers.peek();
+    }
+
+    // Without Stack: O(n) time and O(1) space.
+    public int calculate2(String s) {
+        if (s == null || s.isEmpty()) {
+            return 0;
+        }
+        int length = s.length();
+        int currentNumber = 0, lastNumber = 0, result = 0;
+        char operation = '+'; // previous operation
+
+        for (int i = 0; i < length; i++) {
+            char currentChar = s.charAt(i);
+
+            if (Character.isDigit(currentChar)) {
+                currentNumber = (currentNumber * 10) + (currentChar - '0');
+            }
+            if (!Character.isDigit(currentChar) && !Character.isWhitespace(currentChar) || i == length - 1) {
+                if (operation == '+' || operation == '-') {
+                    result += lastNumber;
+                    lastNumber = (operation == '+') ? currentNumber : -currentNumber;
+                } else if (operation == '*') {
+                    lastNumber = lastNumber * currentNumber;
+                } else if (operation == '/') {
+                    lastNumber = lastNumber / currentNumber;
+                }
+                operation = currentChar;
+                currentNumber = 0;
+            }
+        }
+        result += lastNumber;
+        return result;
     }
 }
