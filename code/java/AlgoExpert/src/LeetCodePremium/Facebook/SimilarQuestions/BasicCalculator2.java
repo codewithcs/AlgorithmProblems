@@ -1,6 +1,8 @@
 package LeetCodePremium.Facebook.SimilarQuestions;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.Stack;
 
 /*
@@ -19,7 +21,12 @@ public class BasicCalculator2 {
     public static void main(String[] args) {
         System.out.println(calculate("1*2-3/4+5*6-7*8+9/10"));
     }
-    
+
+    public static int getPriority(char c){
+        if(c == '+' || c == '-') return 1;
+        else return 2;
+    }
+
     public static int evaluate(int first, int second, char operator){
         if(operator == '+'){
             return second+first;
@@ -32,9 +39,10 @@ public class BasicCalculator2 {
         }
     }
 
+    // Works correctly now.
     public static int calculate(String s) {
-        Stack<Integer> numbers = new Stack<>();
-        Stack<Character> operators = new Stack<>();
+        Deque<Integer> numbers = new ArrayDeque<>();
+        Deque<Character> operators = new ArrayDeque<>();
 
         for(int i=0; i< s.length() ; i++){
             char current = s.charAt(i);
@@ -52,14 +60,14 @@ public class BasicCalculator2 {
                 numbers.push(value);
 
             } else { // operator
-                if(current == '+' || current == '-'){
-                    if(!operators.isEmpty()){
-                        numbers.push(evaluate(numbers.pop(), numbers.pop(), operators.pop()));
-                    }
+                if(operators.isEmpty()){
                     operators.push(current);
-                } else {
-                    if(!operators.isEmpty() && (operators.peek() == '*' || operators.peek() == '/')){
+                } else{
+                    char previousOperator = operators.peek();
+                    while(!operators.isEmpty() && getPriority(previousOperator) >= getPriority(current)){ // need a while and not an if here.
                         numbers.push(evaluate(numbers.pop(), numbers.pop(), operators.pop()));
+                        if(operators.isEmpty()) break;
+                        previousOperator = operators.peek();
                     }
                     operators.push(current);
                 }

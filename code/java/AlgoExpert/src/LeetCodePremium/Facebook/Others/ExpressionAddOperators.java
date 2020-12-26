@@ -2,8 +2,7 @@ package LeetCodePremium.Facebook.Others;
 
 import javafx.util.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /*
 Given a string that contains only digits 0-9 and a target value,
@@ -49,6 +48,68 @@ public class ExpressionAddOperators{
             generateString(index+1, num, current, operators, result, target);
             current = original;
         }
+    }
+
+    public static int getPriority(char c){
+        if(c == '+' || c == '-') return 1;
+        else return 2;
+    }
+
+    public static int evaluate(int first, int second, char operator){
+        if(operator == '+'){
+            return second+first;
+        } else if(operator == '-'){
+            return second-first;
+        } else if(operator == '*'){
+            return second*first;
+        } else {
+            return second/first;
+        }
+    }
+
+    public static boolean calculate(String s, int target) {
+        Deque<Integer> numbers = new ArrayDeque<>();
+        Deque<Character> operators = new ArrayDeque<>();
+
+        for(int i=0; i< s.length() ; i++){
+            char current = s.charAt(i);
+
+            if(current == ' ') continue;
+
+            else if(Character.isDigit(current)){
+                int value = 0; int index = i; boolean startsWithAZero = false; int numDigits = 0;
+
+                while(i < s.length() && Character.isDigit(s.charAt(i))){
+                    value = value*10 + (s.charAt(i) - '0');
+                    i++;
+                    numDigits++;
+                    if(value == 0 && i == index){
+                        startsWithAZero = true;
+                    }
+                }
+                if(numDigits > 1 && startsWithAZero) return false; // Handle the case "00", "05"
+
+                i--;
+                numbers.push(value);
+
+            } else { // operator
+                if(operators.isEmpty()){
+                    operators.push(current);
+                } else{
+                    while(!operators.isEmpty() && getPriority(operators.peek()) >= getPriority(current)){
+                        numbers.push(evaluate(numbers.pop(), numbers.pop(), operators.pop()));
+                    }
+                    operators.push(current);
+                }
+            }
+
+        }
+
+        while(!operators.isEmpty()){
+            numbers.push(evaluate(numbers.pop(), numbers.pop(), operators.pop()));
+        }
+
+        return numbers.peek() == target;
     }
 
     // not completely correct.
