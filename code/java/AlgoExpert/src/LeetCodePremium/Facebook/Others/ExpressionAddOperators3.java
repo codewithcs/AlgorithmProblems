@@ -17,6 +17,7 @@ public class ExpressionAddOperators3 {
         return expressions;
     }
 
+    // Generating Substrings.
     // Calculating the current value on the fly, that is in the recursion itself.
     private static void addOperators(String num, int target, int index, long currentValue, long lastValue, String expression, List<String> result) {
         /**
@@ -25,7 +26,7 @@ public class ExpressionAddOperators3 {
          */
         if (index == num.length()) {
             /**
-             * Out Goal:
+             * Our Goal:
              * 1. once we form a expression, if that expression evaluates to our "target" then this is our solution.
              */
             if (currentValue == target) {
@@ -44,9 +45,11 @@ public class ExpressionAddOperators3 {
              * We don't consider a operand which is 0 as single digit operand, as operand like 0 or 01 , 023... does not make sense
              *  To avoid cases where we have 1 + 05 or 1 * 05 since 05 won't be a
              */
-            if (i != index && num.charAt(index) == '0') {
+            if (i != index && num.charAt(index) == '0') { // Substrings that can start with a 0. "0" is valid but "0xyz" is not.
                 break;
             }
+
+            /// Ask the interviewer about whether the number can overflow.
             long currentDigitsValue = Long.parseLong(num.substring(index, i + 1));
 
             /**
