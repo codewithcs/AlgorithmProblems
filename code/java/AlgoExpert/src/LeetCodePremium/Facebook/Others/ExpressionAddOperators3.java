@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExpressionAddOperators3 {
-    public List<String> addOperators(String num, int target) {
+    public static void main(String[] args) {
+        System.out.println(addOperators("224", 16));
+    }
+
+    public static List<String> addOperators(String num, int target) {
         List<String> expressions = new ArrayList<>();
         if (num == null || num.isEmpty()) {
             return expressions;
@@ -13,7 +17,8 @@ public class ExpressionAddOperators3 {
         return expressions;
     }
 
-    private void addOperators(String num, int target, int index, long currentValue, long lastValue, String expression, List<String> result) {
+    // Calculating the current value on the fly, that is in the recursion itself.
+    private static void addOperators(String num, int target, int index, long currentValue, long lastValue, String expression, List<String> result) {
         /**
          * Our Constraints:
          * 1. We can't take more numbers than given in input string ( index >= input.length)
@@ -59,7 +64,7 @@ public class ExpressionAddOperators3 {
                  * Plus operator application '+'; Current value become = so far value + current digit value and last value would be the current digit value
                  * current Value = 12
                  * last Value = 2 ( say we did like 10 + 2 )
-                 * currentDigitvalue = 5 then expression is 10 + 2 + 5 = 17
+                 * currentDigitsValue = 5 then expression is 10 + 2 + 5 = 17
                  * So last value would be 5
                  */
                 addOperators(num, target, i + 1, currentValue + currentDigitsValue, currentDigitsValue, expression + "+" + currentDigitsValue, result);
@@ -68,7 +73,7 @@ public class ExpressionAddOperators3 {
                  * Minus operator application '-'; Current value become = so far value - current digit value and last value would be the -current digit value
                  * current Value = 12
                  * last Value = 2 ( say we did like 10 + 2 )
-                 * currentDigitvalue = 5 then expression is 10 + 2 - 5 = 7
+                 * currentDigitsValue = 5 then expression is 10 + 2 - 5 = 7
                  * So last value would be -5
                  */
                 addOperators(num, target, i + 1, currentValue - currentDigitsValue, -currentDigitsValue, expression + "-" + currentDigitsValue, result);
@@ -76,7 +81,7 @@ public class ExpressionAddOperators3 {
 
                 /**
                  * Multiply operator application '*'; As this has the highest precedence then + and -, we simply can't apply * on last and current value.
-                 * Current value become = currentValue - lastValue + last*currentDigitvalue;
+                 * Current value become = currentValue - lastValue + last*currentDigitsValue;
                  * For example
                  * current value = 12 ,
                  * last value = 2 ( let say we applied + as 10 + 2 )
