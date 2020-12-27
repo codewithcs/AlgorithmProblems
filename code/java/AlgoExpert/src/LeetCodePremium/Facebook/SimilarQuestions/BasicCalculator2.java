@@ -18,10 +18,6 @@ All the integers in the expression are non-negative integers in the range [0, 2^
 The answer is guaranteed to fit in a 32-bit integer.
  */
 public class BasicCalculator2 {
-    public static void main(String[] args) {
-        System.out.println(calculate("1*2-3/4+5*6-7*8+9/10"));
-    }
-
     public static int getPriority(char c){
         if(c == '+' || c == '-') return 1;
         else return 2;
@@ -60,17 +56,10 @@ public class BasicCalculator2 {
                 numbers.push(value);
 
             } else { // operator
-                if(operators.isEmpty()){
-                    operators.push(current);
-                } else{
-                    char previousOperator = operators.peek();
-                    while(!operators.isEmpty() && getPriority(previousOperator) >= getPriority(current)){ // need a while and not an if here.
-                        numbers.push(evaluate(numbers.pop(), numbers.pop(), operators.pop()));
-                        if(operators.isEmpty()) break;
-                        previousOperator = operators.peek();
-                    }
-                    operators.push(current);
+                while(!operators.isEmpty() && getPriority(operators.peek()) >= getPriority(current)){
+                    numbers.push(evaluate(numbers.pop(), numbers.pop(), operators.pop()));
                 }
+                operators.push(current);
             }
 
             System.out.println("Stack is : " + Arrays.asList(numbers.toArray()));
@@ -84,8 +73,12 @@ public class BasicCalculator2 {
         return numbers.peek();
     }
 
+    public static void main(String[] args) {
+        System.out.println(calculate2("2+3*5"));
+    }
+
     // Without Stack: O(n) time and O(1) space.
-    public int calculate2(String s) {
+    public static int calculate2(String s) {
         if (s == null || s.isEmpty()) {
             return 0;
         }
@@ -111,8 +104,49 @@ public class BasicCalculator2 {
                 operation = currentChar;
                 currentNumber = 0;
             }
+            System.out.println("Result is : " + result);
         }
         result += lastNumber;
+        return result;
+    }
+
+    // Using a single Stack for numbers: First evaluate higher precedence operators * and / and then reduce everything to additions.
+    public int calculate3(String s) {
+        if (s == null || s.isEmpty()){
+            return 0;
+        }
+        int len = s.length();
+        Stack<Integer> stack = new Stack<Integer>();
+
+        int currentNumber = 0;
+        char operation = '+';
+        for (int i = 0; i < len; i++) {
+            char currentChar = s.charAt(i);
+
+            if (Character.isDigit(currentChar)) {
+                currentNumber = (currentNumber * 10) + (currentChar - '0');
+            }
+            if (!Character.isDigit(currentChar) && !Character.isWhitespace(currentChar) || i == len - 1) {
+                if (operation == '-') {
+                    stack.push(-currentNumber);
+                }
+                else if (operation == '+') {
+                    stack.push(currentNumber);
+                }
+                else if (operation == '*') {
+                    stack.push(stack.pop() * currentNumber);
+                }
+                else if (operation == '/') {
+                    stack.push(stack.pop() / currentNumber);
+                }
+                operation = currentChar;
+                currentNumber = 0;
+            }
+        }
+        int result = 0;
+        while (!stack.isEmpty()) {
+            result += stack.pop();
+        }
         return result;
     }
 }

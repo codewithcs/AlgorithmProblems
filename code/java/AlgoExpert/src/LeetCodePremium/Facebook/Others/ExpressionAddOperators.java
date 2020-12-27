@@ -21,17 +21,21 @@ Looks like backtracking as well. Can we optimize backtracking using DP ?
  */
 public class ExpressionAddOperators{
     public static void main(String[] args) {
-        System.out.println(checkExpression("1*2*3*4*5", 12));
+        System.out.println(calculate("1*2*3*4*5", 120));
     }
 
     public static List<String> addOperators(String num, int target) {
         List<String> result = new ArrayList<>();
+        if (num.length() == 0) {
+            return result;
+        }
         String current = "";
         String[] operators = { "", "+", "-", "*" };
         generateString(0, num, current, operators, result, target);
         return result;
     }
 
+    /// Output Limit Exceeded
     public static void generateString(int index, String num, String current, String[] operators, List<String> result, int target){
         if(index == num.length() -1){
             current += (num.charAt(num.length()-1));
@@ -47,6 +51,40 @@ public class ExpressionAddOperators{
             current += (num.charAt(index) + operator);
             generateString(index+1, num, current, operators, result, target);
             current = original;
+        }
+    }
+
+    public static List<String> addOperators2(String num, int target) {
+        List<String> result = new ArrayList<>();
+        if (num.length() == 0) {
+            return result;
+        }
+        StringBuilder current = new StringBuilder();
+        String[] operators = { "", "+", "-", "*" };
+        generateString2(0, num, current, operators, result, target);
+        return result;
+    }
+
+    // Output Limit Exceeded.
+    public static void generateString2(int index, String num, StringBuilder current, String[] operators, List<String> result, int target){
+        if(index == num.length() -1){
+            current.append(num.charAt(num.length()-1));
+            System.out.println("current is : " + current);
+            if(checkExpression(current.toString(), target) ){
+                result.add(current.toString());
+            }
+            return;
+        }
+
+        for(String operator: operators){
+            current.append( (num.charAt(index) + operator));
+            generateString2(index+1, num, new StringBuilder(current), operators, result, target);
+            if(operator.equals("")){
+                current.deleteCharAt(current.length()-1);
+            } else{
+                current.deleteCharAt(current.length()-1);
+                current.deleteCharAt(current.length()-1);
+            }
         }
     }
 
@@ -81,11 +119,11 @@ public class ExpressionAddOperators{
 
                 while(i < s.length() && Character.isDigit(s.charAt(i))){
                     value = value*10 + (s.charAt(i) - '0');
-                    i++;
                     numDigits++;
                     if(value == 0 && i == index){
                         startsWithAZero = true;
                     }
+                    i++;
                 }
                 if(numDigits > 1 && startsWithAZero) return false; // Handle the case "00", "05"
 
@@ -93,14 +131,10 @@ public class ExpressionAddOperators{
                 numbers.push(value);
 
             } else { // operator
-                if(operators.isEmpty()){
-                    operators.push(current);
-                } else{
-                    while(!operators.isEmpty() && getPriority(operators.peek()) >= getPriority(current)){
-                        numbers.push(evaluate(numbers.pop(), numbers.pop(), operators.pop()));
-                    }
-                    operators.push(current);
+                while(!operators.isEmpty() && getPriority(operators.peek()) >= getPriority(current)){
+                    numbers.push(evaluate(numbers.pop(), numbers.pop(), operators.pop()));
                 }
+                operators.push(current);
             }
 
         }
