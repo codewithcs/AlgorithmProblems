@@ -53,7 +53,7 @@ public class TargetSum {
             for (int j = -sum; j <= sum; j++) {
                 if (dp[i-1][j+sum] != 0) {
                     int n = nums[i];
-                    dp[i][j+sum+n] += dp[i-1][j+sum];
+                    dp[i][j+sum+n] += dp[i-1][j+sum]; // to push the value >=0 we add +sum as indices are non-negative.
                     dp[i][j+sum-n] += dp[i-1][j+sum];
                 }
             }
@@ -61,34 +61,33 @@ public class TargetSum {
         return dp[nums.length-1][S+sum];
     }
 
-    public static int count(int[] arr, int difference) {
-        System.out.println("abcd");
+    public int findTargetSumWays3(int[] nums, int S) {
         int sum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            sum += arr[i];
+        for(int i=0;i<nums.length;i++){
+            sum += nums[i];
+        }
+        if( S > sum || S < -sum){
+            return 0;
         }
 
-        int[][] T = new int[arr.length + 1][sum + 1];
+        int[][] dp = new int[nums.length+1][sum*2+1];
+        dp[0][0+sum] = 1; // shifting to the right by "sum" as indices >= 0.
 
-        for (int i = 0; i <= arr.length; i++) {
-            T[i][0] = 1;
-        }
-
-        for (int i = 1; i <= arr.length; i++) {
-            for (int j = 1; j <= sum; j++) {
-                if (j - arr[i - 1] >= 0) {
-                    T[i][j] = T[i - 1][j - arr[i - 1]] + T[i - 1][j];
-                } else {
-                    T[i][j] = T[i - 1][j];
+        for(int i=1; i<=nums.length; i++){
+            for(int j=0; j<=sum*2; j++){
+                int n = 0;
+                if (j-nums[i-1] >=0 ){
+                    n += dp[i-1][j-nums[i-1]];
                 }
+
+                if (j+nums[i-1] <= 2*sum){
+                    n += dp[i-1][j+nums[i-1]];
+                }
+
+                dp[i][j] = n;
             }
         }
 
-        if(sum - difference < 0) {
-            return 0;
-        } else {
-            int subsetSum = (sum - difference) / 2;
-            return T[arr.length][subsetSum];
-        }
+        return dp[nums.length][S+sum];
     }
 }
