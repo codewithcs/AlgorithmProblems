@@ -23,8 +23,11 @@ public class CountNumberOfSubsetsWithAGivenDifference {
             }
         }
 
-        int subsetSum = (sum - difference)/2;
-
-        return T[arr.length][subsetSum];
+        if(sum - difference < 0) {
+            return 0;
+        } else {
+            int subsetSum = (sum - difference) / 2;
+            return T[arr.length][subsetSum];
+        }
     }
 }

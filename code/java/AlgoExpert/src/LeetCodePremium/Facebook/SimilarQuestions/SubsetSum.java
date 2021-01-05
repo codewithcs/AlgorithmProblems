@@ -44,6 +44,7 @@ public class SubsetSum {
     }
 
     // Can do better in O(2*k) space and O(n*k) time. But we won't be able to create the solution.
+    // Have Tested this code and works.
     public static boolean checkSum2(int[] arr, int target, boolean[] even, boolean[] odd){
         for(int i=1; i < arr.length+1; i++){
             // Initialize the array to be filled in the next iteration.
