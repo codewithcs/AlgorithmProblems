@@ -14,12 +14,10 @@ What if elements of nums2 are stored on disk, and the memory is limited such tha
 cannot load all elements into the memory at once ?
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class IntersectionOfTwoArrays2 {
+        // O(n+m) time and space.
         public int[] intersect(int[] nums1, int[] nums2) {
             Map<Integer, Integer> map1 = new HashMap<>();
             Map<Integer, Integer> map2 = new HashMap<>();
@@ -53,60 +51,64 @@ public class IntersectionOfTwoArrays2 {
             return answer;
         }
 
+        // Can get away with using only 1 hash map. Works. Best solution.
+        // O(min(m, n)) space complexity and O(m + n) time.
         public int[] intersect2(int[] nums1, int[] nums2){
-            List<Integer> result = new ArrayList<>();
-            List<Integer> current = new ArrayList<>();
-            int i=0; int j=0;
-
-            boolean firstSmaller = nums1.length < nums2.length;
-            if(firstSmaller){
-                traverse(nums2, nums1, result, current, j, i);
-            } else {
-                traverse(nums1, nums2, result, current, j, i);
+            Map<Integer, Integer> map1 = new HashMap<>();
+            if(nums2.length < nums1.length){
+                int[] temp = nums1;
+                nums1 = nums2;
+                nums2 = temp;
             }
 
-            System.out.println("result.size() is : " + result.size());
+            // Assume nums1 is the smaller array.
+            List<Integer> result = new ArrayList<>();
+            for(int num: nums1){
+                if(map1.containsKey(num)){
+                    map1.put(num, map1.get(num) + 1);
+                } else{
+                    map1.put(num, 1);
+                }
+            }
+
+            for(int num: nums2){
+                if(map1.containsKey(num) && map1.get(num) > 0 ){
+                    result.add(num);
+                    map1.put(num, map1.get(num) - 1);
+                }
+            }
+
             int[] answer = new int[result.size()];
 
-            for(int k=0; k< answer.length; k++){
-                answer[k] = result.get(k);
+            for(int i=0; i< answer.length; i++){
+                answer[i] = result.get(i);
             }
+
             return answer;
         }
 
-        public void traverse(int[] nums1, int[] nums2, List<Integer> result, List<Integer> current, int j, int i){
-            boolean firstMatch = false;
-            while(i< nums1.length && j< nums2.length){ // nums2 is smaller.
-                System.out.println("i is : " + i);
-                System.out.println("j is : " + j);
-                System.out.println("nums1[i] is : " + nums1[i]);
-                System.out.println("nums2[j] is : " + nums2[j]);
+        // Assume the arrays are sorted.
+        public int[] intersect3(int[] nums1, int[] nums2) {
+            List<Integer> list = new ArrayList<>(); // Using a List instead of a Set.
+            Arrays.sort(nums1); Arrays.sort(nums2);
+            int i=0; int j=0;
 
+            while( i < nums1.length && j < nums2.length ) {
                 if(nums1[i] == nums2[j]){
-                    current.add(nums1[i]);
-                    i++; j++; firstMatch = true;
-                    //   System.out.println("current is : " + current);
-                    if(current.size() > result.size()){
-                        result = new ArrayList<>(current);
-                        System.out.println("result is : " + result);
-                    }
+                    list.add(nums1[i]);
+                    i++; j++;
+                } else if(nums1[i] < nums2[j]){
+                    i++;
                 } else {
-                    if(firstMatch){ // reset the pointer in smaller array.
-                        j = 0;
-                        if(current.size() > result.size()){
-                            System.out.println("current is : " + current);
-                            result = new ArrayList<>(current);
-                            System.out.println("result is : " + result);
-                            current = new ArrayList<>();
-                            System.out.println("current is : " + current);
-                            System.out.println("result is : " + result);
-                            System.out.println();
-                        }
-                        firstMatch = false;
-                    } else {
-                        i++;
-                    }
+                    j++;
                 }
             }
+
+            int[] result = new int[list.size()];
+            List<Integer> list1 = new ArrayList<>(list);
+            for(int k=0; k<result.length;k++){
+                result[k] = list1.get(k);
+            }
+            return result;
         }
 }
