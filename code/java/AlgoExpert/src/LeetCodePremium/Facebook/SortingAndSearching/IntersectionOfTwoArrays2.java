@@ -15,10 +15,45 @@ cannot load all elements into the memory at once ?
  */
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class IntersectionOfTwoArrays2 {
         public int[] intersect(int[] nums1, int[] nums2) {
+            Map<Integer, Integer> map1 = new HashMap<>();
+            Map<Integer, Integer> map2 = new HashMap<>();
+
+            List<Integer> result = new ArrayList<>();
+            for(int num: nums1){
+                if(map1.containsKey(num)){
+                    map1.put(num, map1.get(num) + 1);
+                } else{
+                    map1.put(num, 1);
+                }
+            }
+
+            for(int num: nums2){
+                if(map2.containsKey(num)){
+                    map2.put(num, map2.get(num) + 1);
+                } else{
+                    map2.put(num, 1);
+                }
+                if(map1.containsKey(num) && map2.get(num) <= map1.get(num)){
+                    result.add(num);
+                }
+            }
+
+            int[] answer = new int[result.size()];
+
+            for(int i=0; i< answer.length; i++){
+                answer[i] = result.get(i);
+            }
+
+            return answer;
+        }
+
+        public int[] intersect2(int[] nums1, int[] nums2){
             List<Integer> result = new ArrayList<>();
             List<Integer> current = new ArrayList<>();
             int i=0; int j=0;
