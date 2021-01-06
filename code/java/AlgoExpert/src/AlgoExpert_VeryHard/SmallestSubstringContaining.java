@@ -67,7 +67,7 @@ public class SmallestSubstringContaining {
                     continue;
                 }
 
-                if(substringCharCounts.get(leftChar).equals(targetCharCounts.get(leftChar))){
+                if(substringCharCounts.get(leftChar).equals(targetCharCounts.get(leftChar))){ // Important to use .equals() rather than ==
                     numUniqueCharsDone--;
                 }
                 decreaseCharCount(leftChar, substringCharCounts); // also decrease it in the hash table.
