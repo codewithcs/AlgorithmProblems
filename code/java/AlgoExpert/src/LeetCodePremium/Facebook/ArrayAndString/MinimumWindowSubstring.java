@@ -22,6 +22,8 @@ Follow up: Could you find an algorithm that runs in O(n) time?
 Cover similar questions.
  */
 public class MinimumWindowSubstring {
+
+    // O(n) time.
     public String minWindow(String s, String t) {
         if(s.length() < t.length()) {
             return "";
