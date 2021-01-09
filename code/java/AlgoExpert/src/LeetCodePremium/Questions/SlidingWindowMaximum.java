@@ -68,7 +68,8 @@ public class SlidingWindowMaximum {
 
     public void clean_deque(int i, int k) {
         // remove indexes of elements not from sliding window
-        if (!deq.isEmpty() && deq.getFirst() == i - k) { // Don't do deq.size() == k here.
+        // Very  very important to store indices in the deque.
+        if (!deq.isEmpty() && deq.getFirst() == i - k) {
             deq.removeFirst();
         }
 
@@ -79,6 +80,7 @@ public class SlidingWindowMaximum {
         }
     }
 
+    // Best Solution.
     public int[] maxSlidingWindow(int[] nums, int k) {
         int n = nums.length;
         if (n * k == 0) {
@@ -91,11 +93,12 @@ public class SlidingWindowMaximum {
         List<Integer> result = new ArrayList<>();
         this.nums = nums;
 
+        // As we iterate from i=k-1 to the end, each of the i represents new sliding window.
         for (int i = 0; i < nums.length; i++) {
             clean_deque(i, k);
             deq.addLast(i);
 
-            if(i>= k-1){
+            if(i>= k-1){ // Once we have processed k elements, then the front of the deque contains the maximum element.
                 result.add(nums[deq.getFirst()]);
             }
         }
@@ -105,5 +108,48 @@ public class SlidingWindowMaximum {
             answer[i] = result.get(i);
         }
         return answer;
+    }
+
+    // Approach 4: DP
+    public int[] maxSlidingWindow4(int[] nums, int k) {
+        int n = nums.length;
+        if (n * k == 0) {
+            return new int[0];
+        }
+        if (k == 1) {
+            return nums;
+        }
+
+        int [] left = new int[n];
+        left[0] = nums[0];
+
+        int [] right = new int[n];
+        right[n - 1] = nums[n - 1];
+
+        for (int i = 1; i < n; i++) {
+            // from left to right
+            if (i % k == 0) {
+                left[i] = nums[i];  // block_start
+            }
+            else {
+                left[i] = Math.max(left[i - 1], nums[i]);
+            }
+
+            // from right to left
+            int j = n - i - 1;
+            if ((j + 1) % k == 0) {
+                right[j] = nums[j];  // block_end
+            }
+            else {
+                right[j] = Math.max(right[j + 1], nums[j]);
+            }
+        }
+
+        int [] output = new int[n - k + 1];
+        for (int i = 0; i < n - k + 1; i++) {
+            output[i] = Math.max(left[i + k - 1], right[i]);
+        }
+
+        return output;
     }
 }
