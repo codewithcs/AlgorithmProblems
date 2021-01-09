@@ -68,7 +68,7 @@ public class SlidingWindowMaximum {
 
     public void clean_deque(int i, int k) {
         // remove indexes of elements not from sliding window
-        if (!deq.isEmpty() && deq.getFirst() == i - k) {
+        if (!deq.isEmpty() && deq.getFirst() == i - k) { // Don't do deq.size() == k here.
             deq.removeFirst();
         }
 
@@ -88,26 +88,22 @@ public class SlidingWindowMaximum {
             return nums;
         }
 
-        // init deque and output
+        List<Integer> result = new ArrayList<>();
         this.nums = nums;
-        int max_idx = 0;
-        for (int i = 0; i < k; i++) {
+
+        for (int i = 0; i < nums.length; i++) {
             clean_deque(i, k);
             deq.addLast(i);
-            // compute max in nums[:k]
-            if (nums[i] > nums[max_idx]){
-                max_idx = i;
+
+            if(i>= k-1){
+                result.add(nums[deq.getFirst()]);
             }
         }
-        int [] output = new int[n - k + 1];
-        output[0] = nums[max_idx];
 
-        // build output
-        for (int i  = k; i < n; i++) {
-            clean_deque(i, k);
-            deq.addLast(i);
-            output[i - k + 1] = nums[deq.getFirst()];
+        int[] answer = new int[result.size()];
+        for(int i=0; i< answer.length; i++){
+            answer[i] = result.get(i);
         }
-        return output;
+        return answer;
     }
 }
