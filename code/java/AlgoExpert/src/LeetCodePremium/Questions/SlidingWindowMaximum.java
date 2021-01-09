@@ -110,7 +110,7 @@ public class SlidingWindowMaximum {
         return answer;
     }
 
-    // Approach 4: DP
+    // Approach 4: DP, O(n) time and space.
     public int[] maxSlidingWindow4(int[] nums, int k) {
         int n = nums.length;
         if (n * k == 0) {
@@ -126,6 +126,7 @@ public class SlidingWindowMaximum {
         int [] right = new int[n];
         right[n - 1] = nums[n - 1]; // Imp initialization
 
+        /// Have to divide into n/k blocks. If n/k is not an integer then, n/k + 1.
         for (int i = 1; i < n; i++) {
             // from left to right
             if (i % k == 0) {
