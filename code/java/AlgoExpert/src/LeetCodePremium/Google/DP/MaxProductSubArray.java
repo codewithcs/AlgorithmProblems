@@ -32,7 +32,7 @@ public class MaxProductSubArray {
         for(int num : nums){
             product *= num;
             max = Math.max(product, max);
-            if(product == 0){ // Reset if we encounter 0. 
+            if(product == 0){ // Reset if we encounter 0.
                 product = 1;
             }
         }

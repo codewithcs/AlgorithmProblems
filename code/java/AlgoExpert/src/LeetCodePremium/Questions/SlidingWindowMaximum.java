@@ -121,10 +121,10 @@ public class SlidingWindowMaximum {
         }
 
         int [] left = new int[n];
-        left[0] = nums[0];
+        left[0] = nums[0]; // Important initialization
 
         int [] right = new int[n];
-        right[n - 1] = nums[n - 1];
+        right[n - 1] = nums[n - 1]; // Imp initialization
 
         for (int i = 1; i < n; i++) {
             // from left to right
