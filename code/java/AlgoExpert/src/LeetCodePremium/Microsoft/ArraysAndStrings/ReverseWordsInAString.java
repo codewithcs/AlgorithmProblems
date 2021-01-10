@@ -39,8 +39,31 @@ public class ReverseWordsInAString {
         return result.toString().trim();
     }
 
-    // Using O(1) space. 
+    // Using O(1) space.
     public String reverseWords3(String s) {
-        return "";
+        if(s.isEmpty()){
+            return "";
+        }
+
+        StringBuilder current = new StringBuilder();
+        StringBuilder result = new StringBuilder();
+
+        for(int i=s.length()-1 ; i>=0 ; i--){
+            char currentChar = s.charAt(i);
+
+            if(currentChar == ' '){
+                if(current.length() == 0 ){
+                    continue;
+                }
+                result.append(current.reverse() + " ");
+                current = new StringBuilder();
+            } else {
+                current.append(currentChar);
+            }
+
+        }
+
+        result.append(current.reverse());
+        return result.toString().trim();
     }
 }
