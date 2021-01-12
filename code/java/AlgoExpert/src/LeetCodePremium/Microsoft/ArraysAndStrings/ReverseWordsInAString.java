@@ -1,5 +1,8 @@
 package LeetCodePremium.Microsoft.ArraysAndStrings;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /*
 Given an input string s, reverse the order of the words.
 
@@ -21,6 +24,7 @@ Follow up:
 Could you solve it in-place with O(1) extra space?
  */
 public class ReverseWordsInAString {
+    // O(n) time and space.
     public String reverseWords(String s) {
         String[] words = s.split("\\s+");
         String result = "";
@@ -65,5 +69,37 @@ public class ReverseWordsInAString {
 
         result.append(current.reverse());
         return result.toString().trim();
+    }
+
+    public String reverseWords4(String s) {
+        int left = 0, right = s.length() - 1;
+
+        // Remove leading spaces
+        while (left <= right && s.charAt(left) == ' ') {
+            ++left;
+        }
+
+        // Remove trailing spaces
+        while (left <= right && s.charAt(right) == ' ') {
+            --right;
+        }
+
+        Deque<String> d = new ArrayDeque<>();
+        StringBuilder word = new StringBuilder();
+        // Push word by word in front of deque
+        while (left <= right) {
+            char c = s.charAt(left);
+
+            if ((word.length() != 0) && (c == ' ')) {
+                d.offerFirst(word.toString());
+                word.setLength(0);
+            } else if (c != ' ') {
+                word.append(c);
+            }
+            ++left;
+        }
+        d.offerFirst(word.toString());
+
+        return String.join(" ", d);
     }
 }
