@@ -7,7 +7,7 @@ find the largest square containing only 1's and return its area.
 Constraints:
 m == matrix.length
 n == matrix[i].length
-1 <= m, n <= 300
+1 <= m, n <= 300, n can be 0, so be careful.
 matrix[i][j] is '0' or '1'.
  */
 public class MaximalSquare {
@@ -17,16 +17,17 @@ public class MaximalSquare {
         int rows = matrix.length;
         int columns = matrix[0].length;
 
-        int minDimension = 1; int maxDimension = -1;
-        if(rows == columns){
+        int minDimension = 1;
+        int maxDimension = -1;
+        if (rows == columns) {
             maxDimension = rows;
-        } else if(rows < columns){
+        } else if (rows < columns) {
             maxDimension = rows;
         } else {
             maxDimension = columns;
         }
 
-        for(int i= minDimension; i<= maxDimension; i++){
+        for (int i = minDimension; i <= maxDimension; i++) {
 
         }
 
@@ -34,7 +35,7 @@ public class MaximalSquare {
     }
 
     public static void main(String[] args) {
-        char[][] matrix = { { '1', '1' }, { '1', '1' }};
+        char[][] matrix = {{'1', '1'}, {'1', '1'}};
         System.out.println(maximalSquare2(matrix));
     }
 
@@ -42,39 +43,39 @@ public class MaximalSquare {
         int largestSquare = 0;
         int currentSquare = 0;
 
-        for(int i=0; i< matrix.length ; i++){
-            for(int j=0; j< matrix[0].length; j++){
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
                 boolean oneNotFound = false;
 
-                if(matrix[i][j] == '1'){
+                if (matrix[i][j] == '1') {
                     currentSquare++;
-                    int row = i+1;
-                    int column = j+1;
-                    while(!oneNotFound && row < matrix.length && column < matrix[0].length && matrix[row][column] == '1'){
-                        for(int k = j; k<= column; k++){
-                            if(matrix[row][k] != '1'){
+                    int row = i + 1;
+                    int column = j + 1;
+                    while (!oneNotFound && row < matrix.length && column < matrix[0].length && matrix[row][column] == '1') {
+                        for (int k = j; k <= column; k++) {
+                            if (matrix[row][k] != '1') {
                                 oneNotFound = true;
                                 break;
                             }
                         }
 
-                        for(int k=i; k<= row; k++){
-                            if(matrix[k][column] != '1'){
+                        for (int k = i; k <= row; k++) {
+                            if (matrix[k][column] != '1') {
                                 oneNotFound = true;
                                 break;
                             }
                         }
 
-                        if(!oneNotFound){
+                        if (!oneNotFound) {
                             currentSquare++;
                         }
 
-                        row = row+1;
-                        column = column+1;
+                        row = row + 1;
+                        column = column + 1;
                     }
 
                     currentSquare *= currentSquare;
-                    if(currentSquare >= largestSquare){
+                    if (currentSquare >= largestSquare) {
                         largestSquare = currentSquare;
                     }
                 }
@@ -84,5 +85,49 @@ public class MaximalSquare {
         }
 
         return largestSquare;
+    }
+
+    public static int maximalSquare3(char[][] matrix) {
+        int rows = matrix.length, cols = rows > 0 ? matrix[0].length : 0;
+        int[][] dp = new int[rows + 1][cols + 1];
+        int maxsqlen = 0;
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= cols; j++) {
+                if (matrix[i - 1][j - 1] == '1') {
+                    dp[i][j] = Math.min(Math.min(dp[i][j - 1], dp[i - 1][j]), dp[i - 1][j - 1]) + 1;
+                    maxsqlen = Math.max(maxsqlen, dp[i][j]);
+                }
+            }
+        }
+        return maxsqlen * maxsqlen;
+    }
+
+    public static int maximalSquare4(char[][] matrix) {
+        int rows = matrix.length, cols = rows > 0 ? matrix[0].length : 0;
+        int[] odd = new int[cols+1];
+        int[] even = new int[cols+1];
+        int maxLength = 0;
+
+        for(int i=1; i<= rows; i++){
+            for(int j=1; j<= cols ; j++){
+                if(matrix[i-1][j-1] == '1'){
+                    if(i%2 == 1){
+                        odd[j] = Math.min(Math.min(odd[j-1], even[j-1]), even[j]) + 1;
+                        maxLength = Math.max(odd[j], maxLength);
+                    } else {
+                        even[j] = Math.min(Math.min(even[j-1], odd[j-1]), odd[j]) + 1;
+                        maxLength = Math.max(even[j], maxLength);
+                    }
+                }
+            }
+
+            if(i%2 == 1){
+                even = new int[cols+1];
+            } else{
+                odd = new int[cols+1];
+            }
+        }
+
+        return maxLength * maxLength;
     }
 }
