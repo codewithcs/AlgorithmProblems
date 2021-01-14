@@ -23,6 +23,8 @@ public class StringCompression {
         char[] chars = { 'a', 'a', 'b', 'b', 'c', 'c', 'c' };
         System.out.println(compress(chars));
     }
+
+    // O(n) time and O(1) space ?
     public static int compress(char[] chars) {
         int previousIndex = 0 ;
         int indexToWrite = 0;
@@ -37,7 +39,7 @@ public class StringCompression {
             } else {
                 chars[indexToWrite++] = charToWrite;
                 if(count > 1){
-                    String charCount = String.valueOf(count);
+                    String charCount = String.valueOf(count); // or can create a char[] using ("" + count).toCharArray()
                     for(int j=0; j< charCount.length(); j++){
                         chars[indexToWrite++] = charCount.charAt(j);
                     }
