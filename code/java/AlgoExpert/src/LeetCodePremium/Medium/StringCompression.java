@@ -19,7 +19,43 @@ Constraints:
 chars[i] is a lower-case English letter, upper-case English letter, digit, or symbol.
  */
 public class StringCompression {
-    public int compress(char[] chars) {
-        return 0;
+    public static void main(String[] args) {
+        char[] chars = { 'a', 'a', 'b', 'b', 'c', 'c', 'c' };
+        System.out.println(compress(chars));
+    }
+    public static int compress(char[] chars) {
+        int previousIndex = 0 ;
+        int indexToWrite = 0;
+        int count = 1;
+        char charToWrite = chars[0];
+
+        for(int i=1; i< chars.length; i++){
+            char current = chars[i];
+            if(current == chars[previousIndex]){
+                count++;
+                previousIndex = i;
+            } else {
+                chars[indexToWrite++] = charToWrite;
+                if(count > 1){
+                    String charCount = String.valueOf(count);
+                    for(int j=0; j< charCount.length(); j++){
+                        chars[indexToWrite++] = charCount.charAt(j);
+                    }
+                }
+                count = 1;
+                previousIndex = i;
+                charToWrite = current;
+            }
+        }
+
+        chars[indexToWrite++] = charToWrite;
+        if(count > 1){
+            String charCount = String.valueOf(count);
+            for(int j=0; j< charCount.length(); j++){
+                chars[indexToWrite++] = charCount.charAt(j);
+            }
+        }
+
+        return indexToWrite;
     }
 }
