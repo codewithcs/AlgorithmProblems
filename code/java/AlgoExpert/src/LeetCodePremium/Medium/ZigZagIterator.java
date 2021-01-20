@@ -119,7 +119,7 @@ public class ZigZagIterator {
             int index = 0;
             for (List<Integer> vec : this.vectors) {
                 if (vec.size() > 0) { /// Very Important Check
-                    
+
                     // <index_to_vec, index_to_element_within_vec>
                     this.queue.add(new Pair<Integer, Integer>(index, 0));
                 }
