@@ -10,6 +10,8 @@ The words are always separated by a single space.
 
 Follow up: Could you do it in-place without allocating extra space?
  */
+
+// O(n) time and O(1) space.
 public class ReverseWordsInAString2 {
     public void reverseWords(char[] s) {
         int i = 0;
