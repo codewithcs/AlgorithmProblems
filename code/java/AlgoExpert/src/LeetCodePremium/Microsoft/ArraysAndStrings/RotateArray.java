@@ -10,14 +10,14 @@ Could you do it in-place with O(1) extra space ?
 Constraints:
 1 <= nums.length <= 2 * 104
 -231 <= nums[i] <= 231 - 1
-0 <= k <= 105
+0 <= k <= 10^5
  */
 public class RotateArray {
     public static void main(String[] args) {
         rotate(new int[]{-1, -100, 3, 99}, 2);
     }
 
-    // This solution helped me to develop the thought process. 
+    // This solution helped me to develop the thought process.
     public static void rotate(int[] nums, int k) {
         if(nums.length < 2) return ;
         if(k==0 ) return ;
@@ -97,5 +97,48 @@ public class RotateArray {
         // We need the outer while loop to deal with the case of even length array.
         // For odd length array we can get away with single for loop.
         // For odd length array the program will finish by using just the inner do-while and for even length array, it will come multiple times to say line 82.
+    }
+
+    // O(n) time and O(n) space.
+    public void rotate3(int[] nums, int k) {
+        int[] a = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            a[(i + k) % nums.length] = nums[i];
+        }
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = a[i];
+        }
+    }
+
+    // Brute Force, O(nk) time and O(1) space.
+    public void rotate4(int[] nums, int k) {
+        k %= nums.length;
+        int temp, previous;
+        for (int i = 0; i < k; i++) {
+            previous = nums[nums.length - 1];
+            for (int j = 0; j < nums.length; j++) {
+                temp = nums[j];
+                nums[j] = previous;
+                previous = temp;
+            }
+        }
+    }
+
+    // O(n) time and O(1) space, Using reverse
+    public void rotate5(int[] nums, int k) {
+        k %= nums.length;
+        reverse(nums, 0, nums.length - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, nums.length - 1);
+    }
+
+    public void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
     }
 }
