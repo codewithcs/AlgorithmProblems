@@ -30,6 +30,62 @@ How would you address these problems?
 
 public class GameOfLife {
     public void gameOfLife(int[][] board) {
+        int rows = board.length;
+        int columns = board[0].length;
 
+        int[][] board2 = new int[rows][columns];
+
+        // Important Step.
+        for(int i=0; i< rows; i++){
+            for(int j=0; j< columns ; j++){
+                board2[i][j] = board[i][j];
+            }
+        }
+
+        for(int i=0; i< rows; i++){
+            for(int j=0; j< columns ; j++){
+                int neighbors = 0;
+                if(i-1>=0 && j-1 >= 0 && board[i-1][j-1] == 1){
+                    neighbors ++;
+                }
+                if(i-1>=0 && board[i-1][j] == 1){
+                    neighbors ++;
+                }
+                if(i-1>=0 && j+1 < columns && board[i-1][j+1] == 1){
+                    neighbors ++;
+                }
+                if(j-1 >= 0 && board[i][j-1] == 1){
+                    neighbors ++;
+                }
+                if(j+1 < columns && board[i][j+1] == 1){
+                    neighbors ++;
+                }
+                if(i+1< rows && j-1 >= 0 && board[i+1][j-1] == 1){
+                    neighbors ++;
+                }
+                if(i+1< rows && board[i+1][j] == 1){
+                    neighbors ++;
+                }
+                if(i+1 < rows && j+1 < columns && board[i+1][j+1] == 1){
+                    neighbors ++;
+                }
+
+                if(board[i][j] == 1){
+                    if(neighbors < 2 || neighbors > 3){
+                        board2[i][j] = 0;
+                    }else if(neighbors == 3){
+                        board2[i][j] = 1;
+                    }
+                } else if(neighbors == 3){
+                    board2[i][j] = 1;
+                }
+            }
+        }
+
+        for(int i=0; i< rows; i++){
+            for(int j=0; j< columns ; j++){
+                board[i][j] = board2[i][j];
+            }
+        }
     }
 }
