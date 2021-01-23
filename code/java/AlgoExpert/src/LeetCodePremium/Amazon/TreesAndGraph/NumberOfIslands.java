@@ -66,11 +66,14 @@ public class NumberOfIslands {
     // We can avoid using boolean by marking the current node as '0' if it was previously 1.
     // If recursive calls visit this node again, then we return 0 as it is '0' and not '1'.
     public static int helper2(int i, int j, char[][] grid){
-        if(grid[i][j] == '0') return 0;
-
         if(i<0 || j <0 || i>grid.length || j>grid[0].length){
             return 0 ;
         }
+
+        if(grid[i][j] == '0'){
+            return 0;
+        }
+
         grid[i][j] = '0';
 
         helper2(i-1, j, grid);

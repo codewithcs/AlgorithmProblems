@@ -23,7 +23,35 @@ isConnected[i][j] == isConnected[j][i]
  */
 
 public class NumberOfProvinces {
+
+    // O(n^2) time and O(n) space using both DFS and BFS.
     public int findCircleNum(int[][] isConnected) {
-        return 0;
+        int n = isConnected.length ;
+
+        int count = 0;
+
+        for(int i=0; i< n ; i++){
+            count += helper(i, n, isConnected);
+        }
+
+        return count;
     }
+
+    public int helper(int startingVertex, int n, int[][] isConnected){
+        if(isConnected[startingVertex][startingVertex] == -1){
+            return 0;
+        }
+
+        isConnected[startingVertex][startingVertex] = -1;
+
+        for(int k=0; k< n ; k++){ // Iterate over the neighbors.
+            if(isConnected[k][k] != -1 && isConnected[startingVertex][k] == 1){ // Neighbor has not been visited and there is an edge.
+                helper(k, n, isConnected);
+            }
+        }
+
+        return 1;
+    }
+
+    // Approach 3: Union-Find, O(n^3) time and O(n) space.
 }
