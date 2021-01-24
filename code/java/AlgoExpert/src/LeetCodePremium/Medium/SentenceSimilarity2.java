@@ -1,6 +1,8 @@
 package LeetCodePremium.Medium;
 
-import java.util.List;
+import javafx.util.Pair;
+
+import java.util.*;
 
 /*
 Given two sentences words1, words2 (each represented as an array of strings), and a list of similar word pairs pairs,
@@ -27,8 +29,70 @@ The length of pairs will not exceed 2000.
 The length of each pairs[i] will be 2.
 The length of each words[i] and pairs[i][j] will be in the range [1, 20]
  */
+
+// Similarity relation being transitive and symmetric hints that we can use an undirected graph.
 public class SentenceSimilarity2 {
     public boolean areSentencesSimilarTwo(String[] words1, String[] words2, List<List<String>> pairs) {
-        return false;
+        if(words1.length != words2.length){
+            return false;
+        }
+
+        Map<String, Set<String>> map = new HashMap<>();
+        Set<String> visited = new HashSet<>();
+
+        for(List<String> current: pairs){
+            String first = current.get(0);
+            String second = current.get(1);
+
+            if(!map.containsKey(first)) {
+                map.put(first, new HashSet<>());
+            }
+
+            map.get(first).add(second);
+
+            if(!map.containsKey(second)) {
+                map.put(second, new HashSet<>());
+            }
+
+            map.get(second).add(first);
+        }
+
+        for(int i=0; i< words1.length ; i++){
+            String start = words1[i];
+            String end = words2[i];
+
+            if(start.equals(end)){ // Need to check this here as well as it can happen that these words are not in the hashmap which would lead to return result result of false.
+                continue;
+            }
+
+            if(!helper(start, end, map, visited)){
+                return false;
+            }
+
+            visited = new HashSet<>();
+        }
+
+        return true;
+    }
+
+    public boolean helper(String start, String end, Map<String, Set<String>> map, Set<String> visited){
+        if(visited.contains(start) || !map.containsKey(start)){
+            return false;
+        }
+
+        if(start.equals(end)) {
+            return true;
+        }
+
+        visited.add(start);
+
+        boolean found = false;
+        for(String neighbor: map.get(start)){
+            if(!visited.contains(neighbor)){
+                found = found || helper(neighbor, end, map, visited);
+            }
+        }
+
+        return found;
     }
 }
