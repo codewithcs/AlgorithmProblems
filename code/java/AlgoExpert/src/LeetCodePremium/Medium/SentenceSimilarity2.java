@@ -76,11 +76,11 @@ public class SentenceSimilarity2 {
     }
 
     public boolean helper(String start, String end, Map<String, Set<String>> map, Set<String> visited){
-        if(visited.contains(start) || !map.containsKey(start)){
+        if(visited.contains(start) || !map.containsKey(start)){ // Cycle or "start" is not present in the hashmap.
             return false;
         }
 
-        if(start.equals(end)) {
+        if(start.equals(end)) { // This will also form the base case of recursion when there is a path from start to end.
             return true;
         }
 

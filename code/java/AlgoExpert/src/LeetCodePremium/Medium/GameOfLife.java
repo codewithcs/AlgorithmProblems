@@ -29,6 +29,8 @@ How would you address these problems?
  */
 
 public class GameOfLife {
+
+    // O(mn) space and time.
     public void gameOfLife(int[][] board) {
         int rows = board.length;
         int columns = board[0].length;
@@ -36,56 +38,166 @@ public class GameOfLife {
         int[][] board2 = new int[rows][columns];
 
         // Important Step.
-        for(int i=0; i< rows; i++){
-            for(int j=0; j< columns ; j++){
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
                 board2[i][j] = board[i][j];
             }
         }
 
-        for(int i=0; i< rows; i++){
-            for(int j=0; j< columns ; j++){
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
                 int neighbors = 0;
-                if(i-1>=0 && j-1 >= 0 && board[i-1][j-1] == 1){
-                    neighbors ++;
+                if (i - 1 >= 0 && j - 1 >= 0 && board[i - 1][j - 1] == 1) {
+                    neighbors++;
                 }
-                if(i-1>=0 && board[i-1][j] == 1){
-                    neighbors ++;
+                if (i - 1 >= 0 && board[i - 1][j] == 1) {
+                    neighbors++;
                 }
-                if(i-1>=0 && j+1 < columns && board[i-1][j+1] == 1){
-                    neighbors ++;
+                if (i - 1 >= 0 && j + 1 < columns && board[i - 1][j + 1] == 1) {
+                    neighbors++;
                 }
-                if(j-1 >= 0 && board[i][j-1] == 1){
-                    neighbors ++;
+                if (j - 1 >= 0 && board[i][j - 1] == 1) {
+                    neighbors++;
                 }
-                if(j+1 < columns && board[i][j+1] == 1){
-                    neighbors ++;
+                if (j + 1 < columns && board[i][j + 1] == 1) {
+                    neighbors++;
                 }
-                if(i+1< rows && j-1 >= 0 && board[i+1][j-1] == 1){
-                    neighbors ++;
+                if (i + 1 < rows && j - 1 >= 0 && board[i + 1][j - 1] == 1) {
+                    neighbors++;
                 }
-                if(i+1< rows && board[i+1][j] == 1){
-                    neighbors ++;
+                if (i + 1 < rows && board[i + 1][j] == 1) {
+                    neighbors++;
                 }
-                if(i+1 < rows && j+1 < columns && board[i+1][j+1] == 1){
-                    neighbors ++;
+                if (i + 1 < rows && j + 1 < columns && board[i + 1][j + 1] == 1) {
+                    neighbors++;
                 }
 
-                if(board[i][j] == 1){
-                    if(neighbors < 2 || neighbors > 3){
+                if (board[i][j] == 1) {
+                    if (neighbors < 2 || neighbors > 3) {
                         board2[i][j] = 0;
-                    }else if(neighbors == 3){
+                    } else if (neighbors == 3) {
                         board2[i][j] = 1;
                     }
-                } else if(neighbors == 3){
+                } else if (neighbors == 3) {
                     board2[i][j] = 1;
                 }
             }
         }
 
-        for(int i=0; i< rows; i++){
-            for(int j=0; j< columns ; j++){
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
                 board[i][j] = board2[i][j];
             }
         }
     }
+
+    // O(mn) time and O(1) space.
+    public void gameOfLife2(int[][] board) {
+        int rows = board.length;
+        int columns = board[0].length;
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                int neighbors = 0;
+                if (i - 1 >= 0 && j - 1 >= 0 && (board[i - 1][j - 1] == 1 || board[i - 1][j - 1] == -1 ) ) {
+                    neighbors++;
+                }
+                if (i - 1 >= 0 && (board[i - 1][j] == 1 || board[i-1][j] == -1 )) {
+                    neighbors++;
+                }
+                if (i - 1 >= 0 && j + 1 < columns && (board[i - 1][j + 1] == 1 || board[i-1][j+1] == -1) ){
+                    neighbors++;
+                }
+                if (j - 1 >= 0 && (board[i][j - 1] == 1 || board[i][j-1] == -1 )) {
+                    neighbors++;
+                }
+                if (j + 1 < columns && (board[i][j + 1] == 1 || board[i][j+1] == -1)) {
+                    neighbors++;
+                }
+                if (i + 1 < rows && j - 1 >= 0 && (board[i + 1][j - 1] == 1 || board[i+1][j-1] == -1)) {
+                    neighbors++;
+                }
+                if (i + 1 < rows && (board[i + 1][j] == 1 || board[i+1][j] == -1)) {
+                    neighbors++;
+                }
+                if (i + 1 < rows && j + 1 < columns && (board[i + 1][j + 1] == 1 || board[i+1][j+1] == -1)) {
+                    neighbors++;
+                }
+
+                if (board[i][j] == 1 ) {
+                    if (neighbors < 2 || neighbors > 3) {
+                        board[i][j] = -1;  // 1 to 0
+                    }
+                } else if (neighbors == 3) { // 0 to +1
+                    board[i][j] = 2;
+                }
+            }
+        }
+
+        for(int i=0; i< rows; i++){
+            for(int j=0; j< columns ; j++){
+                if(board[i][j] == -1){
+                    board[i][j] = 0;
+                } else if (board[i][j] == 2){
+                    board[i][j] = 1;
+                }
+            }
+        }
+    }
+
+    // Replacing 8 ifs in a loop.
+    public void gameOfLife3(int[][] board) {
+        // Neighbors array to find 8 neighboring cells for a given cell
+        int[] neighbors = {0, 1, -1};
+
+        int rows = board.length;
+        int cols = board[0].length;
+
+        // Iterate through board cell by cell.
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+
+                // For each cell count the number of live neighbors.
+                int liveNeighbors = 0;
+
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        if (!(neighbors[i] == 0 && neighbors[j] == 0)) { // Out of 9 values we are only interested in 8.
+                            int r = (row + neighbors[i]);
+                            int c = (col + neighbors[j]);
+
+                            // Check the validity of the neighboring cell.
+                            // and whether it was originally a live cell.
+                            if ((r < rows && r >= 0) && (c < cols && c >= 0) && (Math.abs(board[r][c]) == 1)) { // Using absolute value to denote +1 or -1.
+                                liveNeighbors += 1;
+                            }
+                        }
+                    }
+                }
+
+                // Rule 1 or Rule 3
+                if ((board[row][col] == 1) && (liveNeighbors < 2 || liveNeighbors > 3)) {
+                    // -1 signifies the cell is now dead but originally was live.
+                    board[row][col] = -1;
+                }
+                // Rule 4
+                if (board[row][col] == 0 && liveNeighbors == 3) {
+                    // 2 signifies the cell is now live but was originally dead.
+                    board[row][col] = 2;
+                }
+            }
+        }
+
+        // Get the final representation for the newly updated board.
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                if (board[row][col] > 0) {
+                    board[row][col] = 1;
+                } else {
+                    board[row][col] = 0;
+                }
+            }
+        }
+    }
+
 }
