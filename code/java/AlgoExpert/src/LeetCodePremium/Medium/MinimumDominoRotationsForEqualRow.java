@@ -119,10 +119,12 @@ public class MinimumDominoRotationsForEqualRow {
                 map1.put(A[i], 0);
             }
             map1.put(A[i], map1.get(A[i]) + 1);
+        }
 
-//            if(!map1.containsKey(B[i])){
-//                map1.put(B[i], 0);
-//            }
+        for(int i=0; i< length ; i++){ // Adding this logic to prevent key checks on hashmap.
+            if(!map1.containsKey(B[i])){
+                map1.put(B[i], 0);
+            }
         }
 
         for(int i=0; i< length; i++){
@@ -133,26 +135,23 @@ public class MinimumDominoRotationsForEqualRow {
         }
 
         for(int i=0; i< length ; i++){
-            if(A[i] != B[i]){
-                int max = map1.get(A[i]) > map2.get(B[i]) ? A[i] : B[i];
+            if(!map2.containsKey(A[i])){
+                map2.put(A[i], 0);
+            }
+        }
 
-                if(map1.containsKey(max) && map2.containsKey(max)){
+
+        for(int i=0; i< length ; i++){
+            if(A[i] != B[i]){
+                int max = map1.get(A[i]) >= map2.get(B[i]) ? A[i] : B[i]; // Added equality here.
+
                     if( (map1.get(max) > map2.get(max) && max == B[i] )  || map1.get(max) < map2.get(max) && max == A[i] ){
                         // Update hash map
                         map1.put(A[i], map1.get(A[i]) - 1);
                         map2.put(B[i], map2.get(B[i]) - 1);
 
-                        if(!map1.containsKey(B[i])){
-                            map1.put(B[i], 1);
-                        } else {
-                            map1.put(B[i], map1.get(B[i]) + 1);
-                        }
-
-                        if(!map2.containsKey(A[i])){
-                            map2.put(A[i], 1);
-                        } else {
-                            map2.put(A[i], map2.get(A[i]) + 1);
-                        }
+                        map1.put(B[i], map1.get(B[i]) + 1);
+                        map2.put(A[i], map2.get(A[i]) + 1);
 
                         int temp = A[i];
                         A[i] = B[i];
@@ -162,7 +161,6 @@ public class MinimumDominoRotationsForEqualRow {
                 }
 
             }
-        }
 
         int num = A[0]; boolean equal = true;
         for(int i=1; i< A.length ; i++){
