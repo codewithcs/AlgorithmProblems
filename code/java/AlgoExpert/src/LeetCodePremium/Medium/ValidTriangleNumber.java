@@ -11,7 +11,23 @@ The integers in the given array are in the range of [0, 1000].
  */
 
 public class ValidTriangleNumber {
+
+    // O(n^3) time. 
     public int triangleNumber(int[] nums) {
-        return 0;
+        int count = 0;
+
+        for(int i=0; i< nums.length ; i++){
+            int first = nums[i];
+            for(int j=i+1;  j <nums.length; j++){
+                int second = nums[j];
+                for(int k=j+1; k< nums.length; k++){
+                    int third = nums[k];
+                    if(first + second> third && first+third > second && second+third> first){
+                        count ++;
+                    }
+                }
+            }
+        }
+        return count;
     }
 }
