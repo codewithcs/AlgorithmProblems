@@ -27,8 +27,8 @@ public class MinimumDominoRotationsForEqualRow {
         System.out.println(minDominoRotations(A, B));
     }
 
-    // This also works now by adding equality. O(n) time and O(n) space.
-    // Like a Greedy approach.
+    // This also works now by adding equality. O(n) time and O(1) space.
+    // Like a Greedy approach. Can use a 1d arrays of size 7 instead of hashmap.
     public static int minDominoRotations(int[] A, int[] B) {
         Map<Integer, Integer> map1 = new HashMap<>();
         Map<Integer, Integer> map2 = new HashMap<>();
@@ -294,5 +294,64 @@ public class MinimumDominoRotationsForEqualRow {
         if(swaps1 == -1) return swaps2;
         if(swaps2 == -1) return swaps1;
         return Math.min(swaps1, swaps2);
+    }
+
+
+    // Using 1d arrays for storing counts instead of HashMap.
+    public int minDominoRotations6(int[] A, int[] B) {
+        int[] countA = new int[7];
+        int[] countB = new int[7];
+
+        for (int i = 0; i < A.length; i++) {
+            ++countA[A[i]];
+            ++countB[B[i]];
+        }
+
+        int length = A.length;
+        int swaps = 0;
+
+        for(int i=0; i< length ; i++){
+            if(A[i] != B[i]){
+                int max = countA[A[i]] >= countB[B[i]] ? A[i] : B[i]; // Added equality here.
+
+                if( (countA[max] > countB[max] && max == B[i] )  || countA[max] < countB[max] && max == A[i] ){
+                    // Update Arrays
+                    countA[A[i]]--;
+                    countB[B[i]]--;
+
+                    countA[B[i]]++;
+                    countB[A[i]]++;
+
+                    // Important to do the swap after updating hash maps.
+                    int temp = A[i];
+                    A[i] = B[i];
+                    B[i] = temp;
+                    swaps ++;
+                }
+            }
+
+        }
+
+        int num = A[0]; boolean equal = true;
+        for(int i=1; i< A.length ; i++){
+            if(num != A[i]){
+                equal = false;
+                break;
+            }
+        }
+
+        if(equal){
+            return swaps >= 0 ? swaps : -1;
+        }
+
+        equal = true; num = B[0];
+        for(int i=1; i< B.length ; i++){
+            if(num != B[i]){
+                equal = false;
+                break;
+            }
+        }
+
+        return equal && swaps >= 0 ? swaps : -1;
     }
 }
