@@ -51,7 +51,7 @@ public class ValidTriangleNumber {
     public int binarySearch(int left, int right, int[] nums, int value){
         while(right >= left && right< nums.length){
             int mid = left + (right-left)/2;
-            if(nums[mid] < value){ // Valid Triangle for this mid. 
+            if(nums[mid] < value){ // Valid Triangle for this mid.
                 left = mid+1;
             } else {
                 right = mid-1;
