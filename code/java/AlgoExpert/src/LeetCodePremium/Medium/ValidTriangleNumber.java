@@ -43,7 +43,7 @@ public class ValidTriangleNumber {
             for(int j=i+1; j<nums.length-1 && nums[i] != 0; j++){
                 k = binarySearch(k, nums.length-1, nums, nums[i] + nums[j]);
                 count += k-j-1;
-            }
+            } // We can start from the previous value of k.
         }
         return count;
     }
@@ -61,6 +61,7 @@ public class ValidTriangleNumber {
     }
 
     // Linear Scan, O(n^2) time and O(log n) space.
+    // Sorting takes O(log n) space.
     public int triangleNumber3(int[] nums) {
         int count = 0;
         Arrays.sort(nums);
@@ -76,7 +77,8 @@ public class ValidTriangleNumber {
         return count;
     }
 
-    // Similar to 3 Number Sum
+    // Similar to 3 Number Sum: Nice Solution.
+    // Starting from the end is a clever way.
     public static int triangleNumber4(int[] A) {
         Arrays.sort(A);
         int count = 0, n = A.length;

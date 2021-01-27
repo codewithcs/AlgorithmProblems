@@ -35,7 +35,7 @@ public class Three_3SumSmaller {
 
         while(left< right){
             if(nums[left] + nums[right] < target){
-                count += right-left; // current number of triplets.
+                count += right-left; // current number of triplets. We add (right-left) as left < right. i< j < k
                 left++;
             } else {
                 right--;
@@ -57,9 +57,9 @@ public class Three_3SumSmaller {
 
     private int twoSumSmaller(int[] nums, int startIndex, int target) {
         int sum = 0;
-        for (int i = startIndex; i < nums.length - 1; i++) {
-            int j = binarySearch(nums, i, target - nums[i]);
-            sum += j - i;
+        for (int j = startIndex; j < nums.length - 1; j++) {
+            int k = binarySearch(nums, j, target - nums[j]);
+            sum += k - j;
         }
         return sum;
     }
@@ -68,8 +68,8 @@ public class Three_3SumSmaller {
         int left = startIndex;
         int right = nums.length - 1;
         while (left < right) {
-            int mid = (left + right + 1) / 2;
-            if (nums[mid] < target) {
+            int mid = (left + right + 1) / 2; // Important Condition.
+            if (nums[mid] < target) { // Go towards right half.
                 left = mid;
             } else {
                 right = mid - 1;
