@@ -82,7 +82,7 @@ public class ValidTriangleNumber {
     public static int triangleNumber4(int[] A) {
         Arrays.sort(A);
         int count = 0, n = A.length;
-        for (int i=n-1; i>=2 ; i--) {
+        for (int i=n-1; i>=2 ; i--) { // Can start from i=2 as well using the same inner logic.
             int left = 0, right = i-1;
             while (left < right) {
                 if (A[left] + A[right] > A[i]) {
