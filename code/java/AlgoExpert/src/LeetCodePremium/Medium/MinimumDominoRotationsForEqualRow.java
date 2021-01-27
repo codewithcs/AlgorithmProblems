@@ -201,14 +201,14 @@ public class MinimumDominoRotationsForEqualRow {
 
         int ans =  A.length;
 
+        // If there exists a solution, the equal values will be either A[0] or B[0].
         for (int i = 1; i <= 6; i++) {
             if (countA[i] + countB[i] - countSame[i] == A.length) {
-                int min = Math.min (countA[i], countB[i]) - countSame[i];
-                ans = Math.min (ans, min);
+                return Math.min (countA[i] - countSame[i], countB[i] - countSame[i]);
             }
         }
 
-        return ans == A.length ? -1 : ans;
+        return -1;
     }
 
     /*

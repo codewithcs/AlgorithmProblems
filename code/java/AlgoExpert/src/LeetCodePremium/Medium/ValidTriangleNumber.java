@@ -36,14 +36,59 @@ public class ValidTriangleNumber {
     // Using Binary Search, O(n^2*log n) time and O(log n) space.
     public int triangleNumber2(int[] nums) {
         Arrays.sort(nums);
+        int count = 0;
+        for(int i=0; i< nums.length-2; i++){
+            int k = i+2;
 
-        return 0;
+            for(int j=i+1; j<nums.length-1 && nums[i] != 0; j++){
+                k = binarySearch(k, nums.length-1, nums, nums[i] + nums[j]);
+                count += k-j-1;
+            }
+        }
+        return count;
+    }
+
+    public int binarySearch(int left, int right, int[] nums, int value){
+        while(right >= left && right< nums.length){
+            int mid = left + (right-left)/2;
+            if(nums[mid] < value){ // Valid Triangle for this mid. 
+                left = mid+1;
+            } else {
+                right = mid-1;
+            }
+        }
+        return left;
     }
 
     // Linear Scan, O(n^2) time and O(log n) space.
     public int triangleNumber3(int[] nums) {
+        int count = 0;
         Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 2; i++) {
+            int k = i + 2;
+            for (int j = i + 1; j < nums.length - 1 && nums[i] != 0; j++) {
+                while (k < nums.length && nums[i] + nums[j] > nums[k])
+                    k++;
+                count += k - j - 1;
+            }
+        }
+        return count;
+    }
 
-        return 0;
+    // Similar to 3 Number Sum
+    public static int triangleNumber4(int[] A) {
+        Arrays.sort(A);
+        int count = 0, n = A.length;
+        for (int i=n-1;i>=2;i--) {
+            int l = 0, r = i-1;
+            while (l < r) {
+                if (A[l] + A[r] > A[i]) {
+                    count += r-l;
+                    r--;
+                }
+                else l++;
+            }
+        }
+        return count;
     }
 }
