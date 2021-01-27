@@ -67,8 +67,9 @@ public class ValidTriangleNumber {
         for (int i = 0; i < nums.length - 2; i++) {
             int k = i + 2;
             for (int j = i + 1; j < nums.length - 1 && nums[i] != 0; j++) {
-                while (k < nums.length && nums[i] + nums[j] > nums[k])
+                while (k < nums.length && nums[i] + nums[j] > nums[k]) {
                     k++;
+                }
                 count += k - j - 1;
             }
         }
@@ -79,16 +80,18 @@ public class ValidTriangleNumber {
     public static int triangleNumber4(int[] A) {
         Arrays.sort(A);
         int count = 0, n = A.length;
-        for (int i=n-1;i>=2;i--) {
-            int l = 0, r = i-1;
-            while (l < r) {
-                if (A[l] + A[r] > A[i]) {
-                    count += r-l;
-                    r--;
+        for (int i=n-1; i>=2 ; i--) {
+            int left = 0, right = i-1;
+            while (left < right) {
+                if (A[left] + A[right] > A[i]) {
+                    count += right-left;
+                    right--;
+                } else {
+                    left++;
                 }
-                else l++;
             }
         }
+
         return count;
     }
 }

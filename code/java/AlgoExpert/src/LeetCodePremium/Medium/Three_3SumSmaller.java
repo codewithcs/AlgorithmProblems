@@ -1,5 +1,7 @@
 package LeetCodePremium.Medium;
 
+import java.util.Arrays;
+
 /*
 Given an array of n integers nums and an integer target,
 find the number of index triplets i, j, k with 0 <= i < j < k < n that
@@ -14,7 +16,65 @@ n == nums.length
 -100 <= target <= 100
  */
 public class Three_3SumSmaller {
+
+    // O(n^2) + O(n*log n) = O(n^2) time
     public int threeSumSmaller(int[] nums, int target) {
-        return 0;
+        Arrays.sort(nums); int count = 0;
+
+        for(int i=0; i< nums.length-2; i++){
+            count += twoSumSmaller(i+1, target-nums[i], nums);
+        }
+
+        return count;
+    }
+
+    public int twoSumSmaller(int startIndex, int target, int[] nums){
+        int count = 0;
+        int left = startIndex;
+        int right = nums.length-1;
+
+        while(left< right){
+            if(nums[left] + nums[right] < target){
+                count += right-left; // current number of triplets.
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return count;
+    }
+
+    // O(n^2*log n) time.
+    public int threeSumSmaller2(int[] nums, int target) {
+        Arrays.sort(nums);
+        int sum = 0;
+        for (int i = 0; i < nums.length - 2; i++) {
+            sum += twoSumSmaller(nums, i + 1, target - nums[i]);
+        }
+        return sum;
+    }
+
+    private int twoSumSmaller(int[] nums, int startIndex, int target) {
+        int sum = 0;
+        for (int i = startIndex; i < nums.length - 1; i++) {
+            int j = binarySearch(nums, i, target - nums[i]);
+            sum += j - i;
+        }
+        return sum;
+    }
+
+    private int binarySearch(int[] nums, int startIndex, int target) {
+        int left = startIndex;
+        int right = nums.length - 1;
+        while (left < right) {
+            int mid = (left + right + 1) / 2;
+            if (nums[mid] < target) {
+                left = mid;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return left;
     }
 }
