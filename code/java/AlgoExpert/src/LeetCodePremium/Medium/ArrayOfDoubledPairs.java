@@ -138,6 +138,7 @@ public class ArrayOfDoubledPairs {
                 }
             }
         }
+
         return count.size() == 0;
     }
 }
