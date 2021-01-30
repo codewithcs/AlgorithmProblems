@@ -1,5 +1,7 @@
 package LeetCodePremium.Medium;
 
+import java.util.Random;
+
 /*
 You are given an array of positive integers w where w[i]
 describes the weight of ith index (0-indexed).
@@ -20,11 +22,26 @@ Constraints:
 pickIndex will be called at most 10000 times.
  */
 public class RandomPickWithHeight {
+
+    double[] probability ;
     public RandomPickWithHeight(int[] w) {
+        probability = new double[w.length];
+        int sum = 0;
+        for(int num: w){
+            sum += num;
+        }
+
+        for(int i=0; i< probability.length; i++){
+            probability[i] = (double)w[i] /sum;
+        }
 
     }
 
     public int pickIndex() {
+        Random random = new Random();
+        int randomIndex = random.nextInt(probability.length); // [0, w.length-1]
+
+
         return 0;
     }
 }
