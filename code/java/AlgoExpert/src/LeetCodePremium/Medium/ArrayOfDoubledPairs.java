@@ -68,12 +68,14 @@ public class ArrayOfDoubledPairs {
         return -1;
     }
 
+    // Special Case: [-33, 0] and odd zeros
     public boolean canReorderDoubled2(int[] arr) {
-        Arrays.sort(arr); // O(n*log n) time and O(log n) space so that we can form maximum number of double pairs.
+        // O(n*log n) time and O(log n) space so that we can form maximum number of double pairs.
+        Arrays.sort(arr);
         Map<Integer, Integer> map = new HashMap<>();
-        int pairs = 0;
 
-        // O(n)
+        int count = 0;
+
         for(int i=0; i< arr.length; i++){
             if(!map.containsKey(arr[i])){
                 map.put(arr[i], 1);
@@ -82,19 +84,23 @@ public class ArrayOfDoubledPairs {
             }
         }
 
-        // O(n)
         for(int i=0; i< arr.length; i++){
             if(map.containsKey(2*arr[i])){
-                if(map.get(2*arr[i]) > 0 && map.get(arr[i]) > 0){
-                    pairs++;
+                if(map.get(arr[i]) > 0){
                     map.put(arr[i], map.get(arr[i])-1);
-                    map.put(2*arr[i],  map.get(2*arr[i])-1);
+
+                    if(map.get(2*arr[i]) > 0){
+                        count += 1;
+                        map.put(2*arr[i],  map.get(2*arr[i])-1);
+                    } else {
+                        map.put(arr[i], map.get(arr[i])+1);
+                    }
                 }
             }
 
         }
 
-        return pairs == arr.length/2 ;
+        return count == arr.length/2 ;
     }
 
     // O(n) solution,

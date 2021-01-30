@@ -29,6 +29,8 @@ public class MinimumDominoRotationsForEqualRow {
 
     // This also works now by adding equality. O(n) time and O(1) space.
     // Like a Greedy approach. Can use a 1d arrays of size 7 instead of hashmap.
+
+    // We only swap two numbers when we benefit from that swap. Greedy
     public static int minDominoRotations(int[] A, int[] B) {
         Map<Integer, Integer> map1 = new HashMap<>();
         Map<Integer, Integer> map2 = new HashMap<>();
