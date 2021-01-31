@@ -78,7 +78,7 @@ public class RandomPickWithHeight {
                 } else if(target > cumulativeSum[mid+1]){
                     low = mid+1;
                 } else if(target <= cumulativeSum[mid]){
-                    high = mid-1;
+                    high = mid; // important and tricky step, becomes clear when debugging. 
                 }
             }
 
