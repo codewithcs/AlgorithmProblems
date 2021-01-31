@@ -23,24 +23,24 @@ pickIndex will be called at most 10000 times.
  */
 public class RandomPickWithHeight {
 
-    int[] cummulativeSum;
+    int[] cumulativeSum;
 
     public RandomPickWithHeight(int[] w) {
-        cummulativeSum = new int[w.length];
-        cummulativeSum[0] = w[0];
-        for (int i = 1; i < cummulativeSum.length; i++) {
-            cummulativeSum[i] = cummulativeSum[i - 1] + w[i];
+        cumulativeSum = new int[w.length];
+        cumulativeSum[0] = w[0];
+        for (int i = 1; i < cumulativeSum.length; i++) {
+            cumulativeSum[i] = cumulativeSum[i - 1] + w[i];
         }
     }
 
     public int pickIndex() {
         // Random random = new Random();
-        double randomNumber = Math.random() * cummulativeSum[cummulativeSum.length - 1];
+        double randomNumber = Math.random() * cumulativeSum[cumulativeSum.length - 1];
         int low = 0;
-        int high = cummulativeSum.length - 1;
+        int high = cumulativeSum.length - 1;
         while (low < high) {
             int mid = low + (high - low) / 2;
-            if (randomNumber > cummulativeSum[mid]) {
+            if (randomNumber > cumulativeSum[mid]) {
                 low = mid + 1;
             } else {
                 high = mid;
