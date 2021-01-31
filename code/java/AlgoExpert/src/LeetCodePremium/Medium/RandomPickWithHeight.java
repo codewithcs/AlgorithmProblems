@@ -48,4 +48,43 @@ public class RandomPickWithHeight {
         }
         return low;
     }
+
+    // Approach 2:
+    public void initialize(int[] w){
+        cumulativeSum = new int[w.length+1];
+        for (int i = 1; i < cumulativeSum.length; i++) {
+            cumulativeSum[i] = cumulativeSum[i - 1] + w[i-1];
+        }
+    }
+
+    public int pickIndex2(){
+        double randomNumber = Math.random() * cumulativeSum[cumulativeSum.length - 1];
+        int low = 0;
+        int high = cumulativeSum.length - 1;
+        return binarySearch(low, high, randomNumber, cumulativeSum);
+    }
+
+    int binarySearch(int low, int high, double target, int[] cumulativeSum){
+        int mid = low + (high-low)/2;
+
+        while(high > low){
+            if(mid == 0){
+                if(target >= cumulativeSum[mid] && target <= cumulativeSum[mid+1]){
+                    return mid;
+                }
+            } else {
+                if(target > cumulativeSum[mid] && target <= cumulativeSum[mid+1]){
+                    return mid;
+                } else if(target > cumulativeSum[mid+1]){
+                    low = mid+1;
+                } else if(target <= cumulativeSum[mid]){
+                    high = mid-1;
+                }
+            }
+
+            mid = low + (high-low)/2;
+        }
+
+        return mid;
+    }
 }
