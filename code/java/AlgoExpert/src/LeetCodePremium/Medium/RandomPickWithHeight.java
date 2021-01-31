@@ -23,8 +23,15 @@ pickIndex will be called at most 10000 times.
  */
 public class RandomPickWithHeight {
 
+    public static void main(String[] args) {
+        System.out.println("Random number is : " + Math.random()*30);
+        System.out.println("Random is : " + new Random().nextInt(30));
+    }
+
+
     int[] cumulativeSum;
 
+    // O(n) time and O(n) space.
     public RandomPickWithHeight(int[] w) {
         cumulativeSum = new int[w.length];
         cumulativeSum[0] = w[0];
@@ -33,6 +40,7 @@ public class RandomPickWithHeight {
         }
     }
 
+    // O(logN) time and O(1) space
     public int pickIndex() {
         // Random random = new Random();
         double randomNumber = Math.random() * cumulativeSum[cumulativeSum.length - 1];
@@ -59,6 +67,10 @@ public class RandomPickWithHeight {
 
     public int pickIndex2(){
         double randomNumber = Math.random() * cumulativeSum[cumulativeSum.length - 1];
+        // can also use an int,
+        //  int randomNumber = new Random().nextInt(cumulativeSum[cumulativeSum.length - 1]) + 1;
+        // Have to add +1 when using Random class.
+
         int low = 0;
         int high = cumulativeSum.length - 1;
         return binarySearch(low, high, randomNumber, cumulativeSum);
