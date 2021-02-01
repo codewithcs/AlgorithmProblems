@@ -46,6 +46,20 @@ public class LeftmostColumnWithAtLeastAOne {
         int rows = dimensions.get(0);
         int columns = dimensions.get(1);
 
-        return 0;
+        int currentRow = 0; int currentColumn = columns-1;
+        int answer = Integer.MAX_VALUE;
+
+        while(currentRow >= 0 && currentColumn >= 0 && currentRow < rows && currentColumn < columns){
+            if(binaryMatrix.get(currentRow, currentColumn) == 1){
+                if(currentColumn < answer){
+                    answer = currentColumn;
+                }
+                currentColumn--;
+            } else {
+                currentRow++;
+            }
+        }
+
+        return answer == Integer.MAX_VALUE ? -1 : answer ;
     }
 }
