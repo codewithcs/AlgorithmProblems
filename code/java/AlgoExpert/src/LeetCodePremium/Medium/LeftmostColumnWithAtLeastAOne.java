@@ -42,6 +42,10 @@ interface BinaryMatrix{
 
 public class LeftmostColumnWithAtLeastAOne {
     public int leftMostColumnWithOne(BinaryMatrix binaryMatrix) {
+        List<Integer> dimensions = binaryMatrix.dimensions;
+        int rows = dimensions.get(0);
+        int columns = dimensions.get(1);
+
         return 0;
     }
 }
