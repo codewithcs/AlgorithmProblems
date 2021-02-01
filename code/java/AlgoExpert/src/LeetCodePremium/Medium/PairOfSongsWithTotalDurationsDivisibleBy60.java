@@ -76,7 +76,7 @@ public class PairOfSongsWithTotalDurationsDivisibleBy60 {
     }
 
     public int numPairsDivisibleBy60_4(int[] time) {
-        int array[] = new int[60];
+        int[] array = new int[60];
         int retVal = 0;
         for(int i : time) {
             int n = i % 60;
