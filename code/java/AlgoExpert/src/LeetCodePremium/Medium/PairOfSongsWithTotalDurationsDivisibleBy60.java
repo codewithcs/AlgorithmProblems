@@ -31,7 +31,7 @@ public class PairOfSongsWithTotalDurationsDivisibleBy60 {
         return pairs;
     }
 
-    // Based on 2-Sum logic. 
+    // Based on 2-Sum logic.
     public int numPairsDivisibleBy60_2(int[] time) {
         int count = 0;
         Map<Integer, Integer> map = new HashMap<>();
@@ -49,6 +49,33 @@ public class PairOfSongsWithTotalDurationsDivisibleBy60 {
     }
 
     public int numPairsDivisibleBy60_3(int[] time) {
+        int count = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int t : time) {
+
+            // Special Case: When t is 60. First do the search, then add to the hashmap.
+            if(t % 60 == 0){
+                if(map.containsKey(0)){
+                    count += map.get(0);
+                }
+            } else {
+                int numberToSearch = 60 - t % 60;
+                if(map.containsKey(numberToSearch)){
+                    count = count + map.get(numberToSearch);
+                }
+            }
+
+            if(!map.containsKey(t % 60)){
+                map.put(t % 60, 1);
+            } else {
+                map.put(t % 60, map.get(t % 60) + 1);
+            }
+        }
+
+        return count;
+    }
+
+    public int numPairsDivisibleBy60_4(int[] time) {
         int array[] = new int[60];
         int retVal = 0;
         for(int i : time) {
