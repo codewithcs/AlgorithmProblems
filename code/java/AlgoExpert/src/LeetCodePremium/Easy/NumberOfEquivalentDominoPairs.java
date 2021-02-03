@@ -14,6 +14,6 @@ Constraints:
  */
 public class NumberOfEquivalentDominoPairs {
     public int numEquivDominoPairs(int[][] dominoes) {
-        return 0; 
+        return 0;
     }
 }
