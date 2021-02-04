@@ -194,6 +194,7 @@ public class ShortestUnsortedContinuousSubarray {
                 end = Math.max(end, i);
             }
         }
+
         return (end - start >= 0 ? end - start + 1 : 0);
     }
 
@@ -216,6 +217,7 @@ public class ShortestUnsortedContinuousSubarray {
             }
             stack.push(i);
         }
+
         return right - left > 0 ? right - left + 1 : 0;
     }
 }
