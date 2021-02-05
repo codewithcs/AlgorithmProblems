@@ -1,5 +1,6 @@
 package LeetCodePremium.Easy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -22,6 +23,35 @@ nums is sorted in ascending order.
  */
 public class SummaryRanges {
     public List<String> summaryRanges(int[] nums) {
-        return null;
+        List<String> result = new ArrayList<>();
+
+        if(nums.length == 0){
+            return result;
+        }
+
+        String current = "" + nums[0];
+        int currentLength = 1; // chain length.
+
+        for(int i=1; i< nums.length ;i++){
+            if(nums[i] == nums[i-1] + 1){
+                currentLength++;
+            } else {
+                if(currentLength > 1){
+                    result.add(current + "->" + nums[i-1]);
+                } else {
+                    result.add(current);
+                }
+                current = "" + nums[i];
+                currentLength = 1;
+            }
+        }
+
+        if(currentLength == 1){
+            result.add(current);
+        } else if(currentLength > 1){
+            result.add(current + "->" + nums[nums.length-1]);
+        }
+
+        return result;
     }
 }
