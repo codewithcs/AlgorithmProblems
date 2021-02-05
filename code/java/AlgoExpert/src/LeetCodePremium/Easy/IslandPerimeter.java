@@ -80,6 +80,7 @@ public class IslandPerimeter {
     }
 
     // Simple Counting, O(mn) time and O(1) space.
+    // Look for surrounding cells.
     public int islandPerimeter2(int[][] grid) {
         int rows = grid.length;
         int cols = grid[0].length;
@@ -123,6 +124,8 @@ public class IslandPerimeter {
     }
 
     // Better Counting, O(mn) time and O(1) space.
+    // More efficient than previous.
+    // Rather than checking 4 surrounding neighbors, we only need to check 2 neighbors (LEFT and UP)
     public int islandPerimeter3(int[][] grid) {
         int rows = grid.length;
         int cols = grid[0].length;
