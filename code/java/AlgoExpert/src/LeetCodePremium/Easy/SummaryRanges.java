@@ -54,4 +54,37 @@ public class SummaryRanges {
 
         return result;
     }
+
+    public List<String> summaryRanges2(int[] nums) {
+        List<String> result = new ArrayList<>();
+
+        if(nums.length == 0){
+            return result;
+        }
+
+        StringBuilder current = new StringBuilder("" + nums[0]);
+        int currentLength = 1; // chain length.
+
+        for(int i=1; i< nums.length ;i++){
+            if(nums[i] == nums[i-1] + 1){
+                currentLength++;
+            } else {
+                if(currentLength > 1){
+                    result.add(current.append("->").append(nums[i - 1]).toString());
+                } else {
+                    result.add(current.toString());
+                }
+                current = new StringBuilder("" + nums[i]);
+                currentLength = 1;
+            }
+        }
+
+        if(currentLength == 1){
+            result.add(current.toString());
+        } else if(currentLength > 1){
+            result.add(current.append("->").append(nums[nums.length - 1]).toString());
+        }
+
+        return result;
+    }
 }
