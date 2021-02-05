@@ -79,7 +79,7 @@ public class IslandPerimeter {
         return perimeter;
     }
 
-    // Simple Counting
+    // Simple Counting, O(mn) time and O(1) space.
     public int islandPerimeter2(int[][] grid) {
         int rows = grid.length;
         int cols = grid[0].length;
@@ -114,7 +114,7 @@ public class IslandPerimeter {
                         right = grid[r][c+1];
                     }
 
-                    result += 4-(up+left+right+down);
+                    result += 4 - (up+left+right+down);
                 }
             }
         }
@@ -122,7 +122,7 @@ public class IslandPerimeter {
         return result;
     }
 
-    // Better Counting
+    // Better Counting, O(mn) time and O(1) space.
     public int islandPerimeter3(int[][] grid) {
         int rows = grid.length;
         int cols = grid[0].length;
