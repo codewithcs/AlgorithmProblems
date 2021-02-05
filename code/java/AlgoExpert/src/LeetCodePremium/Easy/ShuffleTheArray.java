@@ -47,7 +47,7 @@ public class ShuffleTheArray {
                 nums[k] = nums[--k];
             }
             nums[k] = temp;
-            i+=2; //After each correction i need to increamnt by2
+            i+=2; //After each correction i need to increment by2
             j++; // J is increased by 1
         }
 
