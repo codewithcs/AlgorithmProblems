@@ -1,8 +1,10 @@
 package LeetCodePremium.Medium;
 
 
+import java.util.Arrays;
+
 /*
-You are given a binary matrix matrix of size m x n, and you are allowed to rearrange
+You are given a binary matrix of size m x n, and you are allowed to rearrange
 the columns of the matrix in any order.
 
 Return the area of the largest submatrix within matrix where every element of the
@@ -16,6 +18,11 @@ matrix[i][j] is 0 or 1.
  */
 public class LargestSubmatrixWithRearrangements {
     public int largestSubmatrix(int[][] matrix) {
+
+        for(int i=0; i< matrix.length; i++){
+            Arrays.sort(matrix[i]);
+        }
+
         return 0;
     }
 }
