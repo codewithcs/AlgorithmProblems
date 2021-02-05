@@ -16,6 +16,7 @@ Find the maximum area of an island in the given 2D array.
 Note: The length of each dimension in the given grid does not exceed 50.
 
 Is this question similar to number of islands ?
+Google
  */
 public class MaxAreaOfIsland {
     public int maxAreaOfIsland(int[][] grid) {
