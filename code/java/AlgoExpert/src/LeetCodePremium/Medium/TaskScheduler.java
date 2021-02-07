@@ -41,8 +41,16 @@ public class TaskScheduler {
         return idle_time + tasks.length;
     }
 
-    public int leastInterval2(char[] tasks, int n) {
-        if (n == 0) return tasks.length;
+    public static void main(String[] args) {
+        char[]  tasks = { 'A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'D', 'D', 'E', 'C'};
+        int n = 2;
+        System.out.println(leastInterval2(tasks, n));
+    }
+
+    public static int leastInterval2(char[] tasks, int n) {
+        if (n == 0) {
+            return tasks.length;
+        }
 
         Map<Character, Integer> taskToCount = new HashMap<>();
         for (char c : tasks) {
@@ -50,21 +58,37 @@ public class TaskScheduler {
         }
 
         Queue<Integer> queue = new PriorityQueue<>((i1, i2) -> i2 - i1);
-        for (char c : taskToCount.keySet()) queue.offer(taskToCount.get(c));
+        for (char c : taskToCount.keySet()) {
+            queue.offer(taskToCount.get(c));
+        }
 
         Map<Integer, Integer> coolDown = new HashMap<>();
         int currentTime = 0;
 
         while (!queue.isEmpty() || !coolDown.isEmpty()) {
+            System.out.println();
+            System.out.println("currentTime is : " + currentTime);
+            System.out.println("coolDown.containsKey(currentTime - n - 1) is : " + coolDown.containsKey(currentTime - n - 1));
+            System.out.println("currentTime - n - 1 is : " + (currentTime-n -1) );
+
             if (coolDown.containsKey(currentTime - n - 1)) {
                 queue.offer(coolDown.remove(currentTime - n - 1));
+                // remove() returns the value for the passed in key.
+                // Add this value to the head of the queue.
             }
+
             if (!queue.isEmpty()) {
-                int left = queue.poll() - 1; 
+                int value = queue.poll(); // remove the head. 
+                System.out.println("value at top of the queue is : " + value);
+                int left = value - 1;
                 if (left != 0) {
                     coolDown.put(currentTime, left);
+                    System.out.println("currentTime is : " + currentTime);
+                    System.out.println("left is : " + left);
+                    System.out.println();
                 }
             }
+
             currentTime++;
         }
 
