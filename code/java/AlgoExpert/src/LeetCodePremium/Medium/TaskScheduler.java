@@ -1,8 +1,6 @@
 package LeetCodePremium.Medium;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /*
 Given a characters array tasks, representing the tasks a CPU needs to do,
@@ -42,4 +40,35 @@ public class TaskScheduler {
 
         return idle_time + tasks.length;
     }
+
+    public int leastInterval2(char[] tasks, int n) {
+        if (n == 0) return tasks.length;
+
+        Map<Character, Integer> taskToCount = new HashMap<>();
+        for (char c : tasks) {
+            taskToCount.put(c, taskToCount.getOrDefault(c, 0) + 1);
+        }
+
+        Queue<Integer> queue = new PriorityQueue<>((i1, i2) -> i2 - i1);
+        for (char c : taskToCount.keySet()) queue.offer(taskToCount.get(c));
+
+        Map<Integer, Integer> coolDown = new HashMap<>();
+        int currentTime = 0;
+
+        while (!queue.isEmpty() || !coolDown.isEmpty()) {
+            if (coolDown.containsKey(currentTime - n - 1)) {
+                queue.offer(coolDown.remove(currentTime - n - 1));
+            }
+            if (!queue.isEmpty()) {
+                int left = queue.poll() - 1; 
+                if (left != 0) {
+                    coolDown.put(currentTime, left);
+                }
+            }
+            currentTime++;
+        }
+
+        return currentTime;
+    }
+
 }
