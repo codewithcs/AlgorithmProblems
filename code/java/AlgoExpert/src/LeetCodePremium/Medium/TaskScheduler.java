@@ -60,7 +60,9 @@ public class TaskScheduler {
         // count the most frequent tasks
         int n_max = 0;
         for (int f : frequencies) {
-            if (f == f_max) n_max++;
+            if (f == f_max) {
+                n_max++;
+            }
         }
 
         return Math.max(tasks.length, (f_max - 1) * (n + 1) + n_max);
