@@ -21,6 +21,8 @@ tasks[i] is upper-case English letter.
 The integer n is in the range [0, 100].
  */
 public class TaskScheduler {
+
+    // Greedy Approach.
     public int leastInterval(char[] tasks, int n) {
         int[] frequencies = new int[26];
         for (char t : tasks) {
@@ -41,13 +43,36 @@ public class TaskScheduler {
         return idle_time + tasks.length;
     }
 
+    // Math
+    public int leastInterval2(char[] tasks, int n) {
+        // frequencies of the tasks
+        int[] frequencies = new int[26];
+        for (int t : tasks) {
+            frequencies[t - 'A']++;
+        }
+
+        // max frequency
+        int f_max = 0;
+        for (int f : frequencies) {
+            f_max = Math.max(f_max, f);
+        }
+
+        // count the most frequent tasks
+        int n_max = 0;
+        for (int f : frequencies) {
+            if (f == f_max) n_max++;
+        }
+
+        return Math.max(tasks.length, (f_max - 1) * (n + 1) + n_max);
+    }
+
     public static void main(String[] args) {
         char[]  tasks = { 'A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'D', 'D', 'E', 'C'};
         int n = 2;
-        System.out.println(leastInterval2(tasks, n));
+        System.out.println(leastInterval3(tasks, n));
     }
 
-    public static int leastInterval2(char[] tasks, int n) {
+    public static int leastInterval3(char[] tasks, int n) {
         if (n == 0) {
             return tasks.length;
         }
@@ -78,7 +103,7 @@ public class TaskScheduler {
             }
 
             if (!queue.isEmpty()) {
-                int value = queue.poll(); // remove the head. 
+                int value = queue.poll(); // remove the head.
                 System.out.println("value at top of the queue is : " + value);
                 int left = value - 1;
                 if (left != 0) {
