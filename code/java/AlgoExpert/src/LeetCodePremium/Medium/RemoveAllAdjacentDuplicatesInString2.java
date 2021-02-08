@@ -21,9 +21,11 @@ Constraints:
 s only contains lower case English letters.
 */
 public class RemoveAllAdjacentDuplicatesInString2 {
-
+    public static void main(String[] args) {
+        System.out.println( removeDuplicates("deeedbbcccbdaa", 3));
+    }
     // Check All substrings of length k ?
-    public String removeDuplicates(String s, int k) {
+    public static String removeDuplicates(String s, int k) {
         if(k > s.length()){
             return "";
         }
@@ -34,9 +36,9 @@ public class RemoveAllAdjacentDuplicatesInString2 {
         do{
             foundAtLeastOne = false;
 
-            for(int i=0; i< s.length()-k+1; i++) {
+            for(int i=0; i< sb.length()-k+1; i++) {
                 boolean found = true;
-                char current = s.charAt(i);
+                char current = sb.charAt(i);
                 for(int j = i+1; j<=i+k-1 ; j++){
                     if(current != sb.charAt(j)){
                         found = false;
