@@ -15,6 +15,19 @@ S consists only of English lowercase letters.
  */
 public class RemoveAllAdjacentDuplicatesInString {
     public String removeDuplicates(String S) {
-        return "";
+        StringBuilder sb = new StringBuilder(S);
+        boolean foundAtLeastOne = false;
+
+        do{
+            foundAtLeastOne = false;
+            for(int i=0; i< sb.length()-1; i++){
+                if(sb.charAt(i) == sb.charAt(i+1)){
+                    sb = new StringBuilder(sb.substring(0, i) + sb.substring(i+2));
+                    foundAtLeastOne = true;
+                }
+            }
+        } while(foundAtLeastOne);
+
+        return sb.toString();
     }
 }
