@@ -54,25 +54,25 @@ public class RemoveAllAdjacentDuplicatesInString2 {
     }
 
 
-    // Approach 2:
-    public String removeDuplicates2(String s, int k) {
+    // Approach 2: O(n) time and O(n) space.
+    public String removeDuplicates2_Optimized(String s, int k) {
         StringBuilder sb = new StringBuilder(s);
         int[] count = new int[sb.length()];
-        count[0] = 1;
         for(int i=1; i< sb.length(); i++){
-            if(sb.charAt(i) == sb.charAt(i-1)){
+            if(i==0 || sb.charAt(i) != sb.charAt(i-1)){
+                count[i] = 1;
+            } else {
                 count[i] = count[i-1] + 1;
                 if(count[i] == k){
                     sb.delete(i-k+1, i+1);
-                    count = new int[sb.length()];
+                    i = i - k;
+                    /* count = new int[sb.length()]; // No need to re-initialize.
                     if(sb.length() == 0){
                         break;
                     }
                     count[0] = 1;
-                    i=0;  // Important Step as we will need to re-fill the count values.
+                    i=0; */  // Important Step as we will need to re-fill the count values.
                 }
-            } else {
-                count[i] = 1;
             }
         }
 
@@ -80,8 +80,9 @@ public class RemoveAllAdjacentDuplicatesInString2 {
     }
 
     // Using a single variable for the counts.
-    // O(n^2/k) time complexity, O(1) space. 
-    public String removeDuplicates2_Optimized(String s, int k) {
+    // O(n^2/k) time complexity, O(1) space.
+    // We scan the string no more than n/k times.
+    public String removeDuplicates2(String s, int k) {
         StringBuilder sb = new StringBuilder(s);
         int length = -1;
         while (length != sb.length()) { // If the length of the string builder did not change in the for loop, then false.
