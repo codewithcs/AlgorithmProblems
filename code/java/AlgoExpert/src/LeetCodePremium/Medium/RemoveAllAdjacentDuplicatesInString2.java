@@ -1,7 +1,5 @@
 package LeetCodePremium.Medium;
 
-import javafx.util.Pair;
-
 /*
 Given a string s, a k duplicate removal consists of choosing k adjacent and
 equal letters from s and removing them causing the left and the right side
@@ -27,13 +25,11 @@ public class RemoveAllAdjacentDuplicatesInString2 {
     // Check All substrings of length k ?
     public static String removeDuplicates(String s, int k) {
         // Ask the interviewer about the case: k > s.length(), I think we should return s.
-
         StringBuilder sb = new StringBuilder(s);
         boolean foundAtLeastOne = false;
 
         do{
             foundAtLeastOne = false;
-
             for(int i=0; i< sb.length()-k+1; i++) {
                 boolean found = true;
                 char current = sb.charAt(i);
@@ -53,4 +49,5 @@ public class RemoveAllAdjacentDuplicatesInString2 {
 
         return sb.toString();
     }
+
 }

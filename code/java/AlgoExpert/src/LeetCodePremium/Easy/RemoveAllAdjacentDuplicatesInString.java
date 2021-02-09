@@ -30,4 +30,35 @@ public class RemoveAllAdjacentDuplicatesInString {
 
         return sb.toString();
     }
+
+    // 2 Pointer approach.
+    public String removeDuplicates2(String S) {
+        int i = 0, j = 0;
+        char[] res = S.toCharArray();
+        for (; j < res.length; j++, i++) {
+            res[i] = res[j];
+            if (i > 0 && res[i-1] == res[j]){
+                i -= 2;
+            }
+        }
+        return new String(res, 0, i);
+    }
+
+    // Stack solution, O(n) time where n is a string length and O(n-d) space.
+    // d is the total length for all duplicates.
+    public String removeDuplicates3(String S) {
+        StringBuilder sb = new StringBuilder();
+        int sbLength = 0;
+
+        for(char character : S.toCharArray()) {
+            if (sbLength != 0 && character == sb.charAt(sbLength - 1)) { // check whether stack is empty or not.
+                sb.deleteCharAt(sbLength-- - 1);
+            } else {
+                sb.append(character);
+                sbLength++;
+            }
+        }
+
+        return sb.toString();
+    }
 }
