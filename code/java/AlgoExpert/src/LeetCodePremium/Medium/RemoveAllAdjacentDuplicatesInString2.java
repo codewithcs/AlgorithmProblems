@@ -26,9 +26,7 @@ public class RemoveAllAdjacentDuplicatesInString2 {
     }
     // Check All substrings of length k ?
     public static String removeDuplicates(String s, int k) {
-        if(k > s.length()){
-            return "";
-        }
+        // Ask the interviewer about the case: k > s.length(), I think we should return s.
 
         StringBuilder sb = new StringBuilder(s);
         boolean foundAtLeastOne = false;
