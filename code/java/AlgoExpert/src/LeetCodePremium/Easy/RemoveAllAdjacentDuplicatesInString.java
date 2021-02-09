@@ -61,4 +61,19 @@ public class RemoveAllAdjacentDuplicatesInString {
 
         return sb.toString();
     }
+
+    public String removeDuplicates4(String S) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(S.charAt(0));
+
+        for(int i=1; i< S.length(); i++){
+            if(sb.length() > 0  && S.charAt(i) == sb.charAt(sb.length()-1)){
+                sb.deleteCharAt(sb.length()-1);
+            } else {
+                sb.append(S.charAt(i));
+            }
+        }
+
+        return sb.toString();
+    }
 }
