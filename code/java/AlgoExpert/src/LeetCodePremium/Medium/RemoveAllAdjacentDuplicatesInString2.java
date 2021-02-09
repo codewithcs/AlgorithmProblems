@@ -80,10 +80,11 @@ public class RemoveAllAdjacentDuplicatesInString2 {
     }
 
     // Using a single variable for the counts.
+    // O(n^2/k) time complexity, O(1) space. 
     public String removeDuplicates2_Optimized(String s, int k) {
         StringBuilder sb = new StringBuilder(s);
         int length = -1;
-        while (length != sb.length()) { // If the length of the string builder did not change in the for loop, then false.  
+        while (length != sb.length()) { // If the length of the string builder did not change in the for loop, then false.
             length = sb.length();
             for (int i = 0, count = 1; i < sb.length(); ++i) {
                 if (i == 0 || sb.charAt(i) != sb.charAt(i - 1)) {
