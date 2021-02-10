@@ -103,11 +103,15 @@ public class RemoveAllAdjacentDuplicatesInString2 {
     }
 
     // Approach 3: Stack, O(n) time and O(n) space.
+    // We only care about the current count of current duplicate sequence
+    // That is why we can use a stack here or dynamic array here.
+    // Optimization for fixed length count array.
     public String removeDuplicates3(String s, int k) {
         StringBuilder sb = new StringBuilder(s);
         Stack<Integer> counts = new Stack<>();
+
         for (int i = 0; i < sb.length(); ++i) {
-            if (i == 0 || sb.charAt(i) != sb.charAt(i - 1)) {
+            if (i == 0 || sb.charAt(i) != sb.charAt(i - 1)) { // When i=0, stack will be empty.
                 counts.push(1);
             } else {
                 int incremented = counts.pop() + 1;
@@ -119,6 +123,7 @@ public class RemoveAllAdjacentDuplicatesInString2 {
                 }
             }
         }
+
         return sb.toString();
     }
 
@@ -139,6 +144,7 @@ public class RemoveAllAdjacentDuplicatesInString2 {
             if (counts.empty() || s.charAt(i) != counts.peek().ch) {
                 counts.push(new Pair(1, s.charAt(i)));
             } else {
+                //counts.peek().cnt++;
                 if (++counts.peek().cnt == k) {
                     counts.pop();
                 }
@@ -147,6 +153,7 @@ public class RemoveAllAdjacentDuplicatesInString2 {
 
         StringBuilder b = new StringBuilder();
 
+        // Construction of the string from stack.
         while (!counts.empty()) {
             Pair p = counts.pop();
             for (int i = 0; i < p.cnt; i++) {
@@ -158,7 +165,7 @@ public class RemoveAllAdjacentDuplicatesInString2 {
     }
 
 
-    // 2 Pointer, Slow and Fast pointers, O(n) time and O(n) space. 
+    // 2 Pointer, Slow and Fast pointers, O(n) time and O(n) space.
     public String removeDuplicates5(String s, int k) {
         Stack<Integer> counts = new Stack<>();
         char[] sa = s.toCharArray();
