@@ -18,6 +18,9 @@ public class RemoveDuplicateLetters {
         System.out.println(removeDuplicateLetters("acbac"));
     }
 
+    // O(n) time complexity and O(1) space. Each character is visited at most twice,
+    // once by i and another time by j.
+    // O(1) space because the alphabets count is constant 26.
     public static String removeDuplicateLetters(String s) {
         int[] count = new int[26]; // since the string contains lowercase characters.
 
@@ -79,7 +82,7 @@ public class RemoveDuplicateLetters {
                 char charToDelete = sb.charAt(i);
                 found = true;
 
-                StringBuilder previous = new StringBuilder(s); // Important to use the new operator.
+                StringBuilder previous = new StringBuilder(sb); // Important to use the new operator.
                 sb.deleteCharAt(i);
                 count.put(charToDelete, count.get(charToDelete)-1);
                 recurse(sb, list, count);
