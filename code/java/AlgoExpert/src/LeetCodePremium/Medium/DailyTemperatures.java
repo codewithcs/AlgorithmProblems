@@ -37,9 +37,10 @@ public class DailyTemperatures {
         return output;
     }
 
+    // Iterate Backwards.
     public int[] dailyTemperatures2(int[] T) {
         int[] ans = new int[T.length];
-        Stack<Integer> stack = new Stack();
+        Stack<Integer> stack = new Stack<>();
         for (int i = T.length - 1; i >= 0; --i) {
             while (!stack.isEmpty() && T[i] >= T[stack.peek()]) {
                 stack.pop();
@@ -50,6 +51,28 @@ public class DailyTemperatures {
         return ans;
     }
 
+    // Thinking about jumps. Nice use of keeping global maximum value. 
+    public int[] dailyTemperatures4(int[] T) {
+        int n = T.length;
+        int[] res = new int[n];
+        res[n - 1] = 0;
+
+        int max = Integer.MIN_VALUE;
+        for (int i = n - 1; i >= 0; --i) {
+            if (T[i] >= max) { // just set max and by default the answer for this index will be 0.
+                max = T[i];
+            } else { // If my current element is less than the max, then it is guaranteed that there will be a solution for this element.
+                int index = i + 1;
+                while (T[i] >= T[index]) {
+                    index += res[index];
+                }
+                res[i] = index - i;
+            }
+        }
+        return res;
+    }
+
+    // Iterate forwards.
     public int[] dailyTemperatures3(int[] T) {
         int[] result = new int[T.length];
         Stack<Integer> stack = new Stack<>(); // Make it a stack of indices.
