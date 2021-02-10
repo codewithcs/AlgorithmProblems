@@ -14,34 +14,47 @@ Constraints:
 s consists of lowercase English letters.
  */
 public class RemoveDuplicateLetters {
-    public String removeDuplicateLetters(String s) {
-        Map<Character, Integer> count = new HashMap<>();
+    public static void main(String[] args) {
+        System.out.println(removeDuplicateLetters("cbacdcbc"));
+    }
+    
+    public static String removeDuplicateLetters(String s) {
+        int[] count = new int[26]; // since the string contains lowercase characters.
         StringBuilder sb = new StringBuilder(s);
 
-        for(char c: s.toCharArray()){
-            count.put(c, count.getOrDefault(c, 0) + 1);
+        for(int i=0; i< s.length(); i++){
+            count[s.charAt(i)- 'a']++;
         }
-
-
-        Stack<Character> stack = new Stack<>();
-
-        for(char c: s.toCharArray()){
-            if(count.get(c) == 1 ){
-
-            } else {
-
-            }
-        }
-
 
         StringBuilder result = new StringBuilder();
-        while(!stack.isEmpty()){
-            result.append(stack.pop());
+        Set<Character> visited = new HashSet<>();
+
+        for(int i=0; i< sb.length(); i++){
+            if(result.length() == 0 || sb.charAt(i) > result.charAt(result.length()-1) && !visited.contains(sb.charAt(i))){
+                result.append(sb.charAt(i));
+                visited.add(sb.charAt(i));
+            } else {
+                int j = result.length()-1;
+
+                while(j>=0 && count[sb.charAt(j) - 'a'] > 1){
+                    char c = sb.charAt(j);
+                    result.deleteCharAt(j);
+                    visited.remove(c); /// return a boolean
+                    count[c-'a']--;
+                    j--;
+                }
+
+                if(!visited.contains(sb.charAt(i))){
+                    result.append(sb.charAt(i));
+                    visited.add(sb.charAt(i));
+                }
+            }
         }
 
         return result.toString();
     }
 
+    // Output Limit Exceeded for "thesqtitxyetpxloeevdeqifkz"
     public String removeDuplicateLetters2(String s) {
         Map<Character, Integer> count = new HashMap<>();
         StringBuilder sb = new StringBuilder(s);
@@ -59,14 +72,13 @@ public class RemoveDuplicateLetters {
 
     public void recurse(StringBuilder sb, List<String> list, Map<Character, Integer> count){
         boolean found = false;
-        System.out.println("sb  is : " + sb);
 
         for(int i=0; i< sb.length(); i++){
             if(count.get(sb.charAt(i)) > 1){
                 char charToDelete = sb.charAt(i);
                 found = true;
 
-                StringBuilder previous = new StringBuilder(sb); // Important to use the new operator.gi
+                StringBuilder previous = new StringBuilder(sb); // Important to use the new operator.
                 sb.deleteCharAt(i);
                 count.put(charToDelete, count.get(charToDelete)-1);
                 recurse(sb, list, count);
@@ -78,6 +90,5 @@ public class RemoveDuplicateLetters {
         if(!found){
             list.add(sb.toString());
         }
-
     }
 }
