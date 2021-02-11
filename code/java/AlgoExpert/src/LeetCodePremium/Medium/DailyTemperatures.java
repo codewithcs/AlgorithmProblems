@@ -51,7 +51,7 @@ public class DailyTemperatures {
         return ans;
     }
 
-    // Thinking about jumps. Nice use of keeping global maximum value. 
+    // Thinking about jumps. Nice use of keeping global maximum value.
     public int[] dailyTemperatures4(int[] T) {
         int n = T.length;
         int[] res = new int[n];
