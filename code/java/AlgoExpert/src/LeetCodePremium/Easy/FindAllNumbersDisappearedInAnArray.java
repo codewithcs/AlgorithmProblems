@@ -39,6 +39,8 @@ public class FindAllNumbersDisappearedInAnArray {
         for (int i = 0; i < nums.length; i++) {
             // Treat the value as the new index
             int newIndex = Math.abs(nums[i]) - 1;
+            // Important to take absolute as we don't want to make a negative number as positive
+            // as there can be duplicates.
 
             // Check the magnitude of value at this new index
             // If the magnitude is positive, make it negative

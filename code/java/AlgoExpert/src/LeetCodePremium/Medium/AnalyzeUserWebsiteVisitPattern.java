@@ -24,6 +24,11 @@ Note:
 7. No user visits two websites at the same time.
  */
 
+/*
+["dowg","dowg","dowg"]
+[158931262,562600350,148438945]
+["y","l","y"]
+ */
 class Pair {
     int time;
     String web;
@@ -47,35 +52,34 @@ public class AnalyzeUserWebsiteVisitPattern {
         // Count map to record every 3 combination occurring time for the different user.
         Map<String, Integer> count = new HashMap<>();
         String res = "";
+
         for (String key : map.keySet()) {
             Set<String> set = new HashSet<>();
             // this set is to avoid visit the same 3-seq in one user
             List<Pair> list = map.get(key);
-            Collections.sort(list, (a, b)->(a.time - b.time)); // Sort by time
+            list.sort(Comparator.comparingInt(a -> a.time)); /// Need to sort as the given input may not be sorted in timestamps.
 
             // Brute force O(N ^ 3)
-            for (int i = 0; i < list.size(); i++) {
-                for (int j = i + 1; j < list.size(); j++) {
+            for (int i = 0; i < list.size()-2; i++) {
+                for (int j = i + 1; j < list.size()-1; j++) {
                     for (int k = j + 1; k < list.size(); k++) {
                         String str = list.get(i).web + " " + list.get(j).web + " " + list.get(k).web;
                         if (!set.contains(str)) {
                             count.put(str, count.getOrDefault(str, 0) + 1);
                             set.add(str);
                         }
+
+                        // If the count is equal, then see lexicographic order.
                         if (res.equals("") || count.get(res) < count.get(str) || (count.get(res).equals(count.get(str)) && res.compareTo(str) > 0)) {
-                            // make sure the right lexicographic order
                             res = str;
                         }
                     }
                 }
             }
         }
+
         // grab the right answer
         String[] r = res.split(" ");
-        List<String> result = new ArrayList<>();
-        for (String str : r) {
-            result.add(str);
-        }
-        return result;
+        return new ArrayList<>(Arrays.asList(r));
     }
 }
