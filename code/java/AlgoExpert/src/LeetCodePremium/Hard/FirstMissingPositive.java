@@ -45,4 +45,48 @@ public class FirstMissingPositive {
 
         return max+1;
     }
+
+    // O(n) time and O(1) space. Makes use of "uniqueness" and missing elements.
+    public int firstMissingPositive2(int[] nums) {
+        int n = nums.length;
+
+        if(nums.length ==0 ){
+            return 1;
+        }
+
+        boolean is1Present = false;
+
+        for (int num : nums) {
+            if (num == 1) {
+                is1Present = true;
+                break;
+            }
+        }
+
+        if(!is1Present) {
+            return 1;
+        }
+
+        for(int i=0; i< nums.length; i++){
+            if(nums[i] <= 0 || nums[i] > n){
+                nums[i] = 1;
+            }
+        }
+
+        for(int i=0; i< nums.length ; i++){
+            int newIndex = Math.abs(nums[i]) - 1;
+
+            if(nums[newIndex] > 0){
+                nums[newIndex] = -nums[newIndex];
+            }
+        }
+
+        for(int i=0; i< nums.length; i++){
+            if(nums[i] > 0){
+                return i+1;
+            }
+        }
+
+        return n+1 ;
+    }
 }
