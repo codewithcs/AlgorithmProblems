@@ -15,17 +15,32 @@ Could you do it without extra space and in O(n) runtime?
  */
 public class FindAllDuplicatesInAnArray {
 
-    // O(n) space and O(n) time. 
+    // O(n) space and O(n) time.
     public List<Integer> findDuplicates(int[] nums) {
         List<Integer> list = new ArrayList<>();
         Set<Integer> set = new HashSet<>();
-        for(int i=0 ; i< nums.length ; i++){
-            if(!set.contains(nums[i])){
-                set.add(nums[i]);
+        for (int num : nums) {
+            if (!set.contains(num)) {
+                set.add(num);
             } else {
-                list.add(nums[i]);
+                list.add(num);
             }
-         }
+        }
+        return list;
+    }
+
+    // O(n) time and O(1) space.
+    public List<Integer> findDuplicates2(int[] nums) {
+        List<Integer> list = new ArrayList<>();
+
+        for(int i=0 ; i< nums.length ; i++){
+            int newIndex = Math.abs(nums[i]) - 1;
+            if(nums[newIndex] < 0 ) {
+                list.add(newIndex + 1);
+            } else {
+                nums[newIndex] = -nums[newIndex];
+            }
+        }
         return list;
     }
 }
