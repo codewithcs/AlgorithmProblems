@@ -51,7 +51,7 @@ public class AnalyzeUserWebsiteVisitPattern {
 
         // Count map to record every 3 combination occurring time for the different user.
         Map<String, Integer> count = new HashMap<>();
-        String res = "";
+        String res = ""; // Final Answer.
 
         for (String key : map.keySet()) {
             Set<String> set = new HashSet<>();
