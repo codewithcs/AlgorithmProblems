@@ -16,6 +16,8 @@ Could you do it without extra space and in O(n) runtime?
 public class FindAllDuplicatesInAnArray {
 
     // O(n) space and O(n) time.
+    // This can also lead to O(n^2) time in the worst case
+    // as lookup in a hash set can degrade to O(n) in the worst case.
     public List<Integer> findDuplicates(int[] nums) {
         List<Integer> list = new ArrayList<>();
         Set<Integer> set = new HashSet<>();
