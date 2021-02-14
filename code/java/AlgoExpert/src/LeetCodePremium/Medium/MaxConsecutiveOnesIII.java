@@ -14,6 +14,11 @@ Note:
  */
 
 public class MaxConsecutiveOnesIII {
+
+
+    // O(n) time and O(1) space
+    // In the worst case, we might end up visiting every element of array twice,
+    // once by left pointer and once by right pointer.
     public int longestOnes(int[] A, int K) {
         int left = 0, right = 0;
         while ( right < A.length) {
@@ -22,6 +27,7 @@ public class MaxConsecutiveOnesIII {
             if (A[right] == 0) {
                 K--;
             }
+            
             // A negative K denotes we have consumed all allowed flips and window has
             // more than allowed zeros, thus increment left pointer by 1 to keep the window size same.
             if (K < 0) {
@@ -34,7 +40,7 @@ public class MaxConsecutiveOnesIII {
 
             right++;
         }
-        
+
         return right - left;
     }
 }
