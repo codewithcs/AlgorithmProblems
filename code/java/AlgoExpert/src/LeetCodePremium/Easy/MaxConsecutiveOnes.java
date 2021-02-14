@@ -31,4 +31,38 @@ public class MaxConsecutiveOnes {
         }
         return max;
     }
+
+    // Simpler version of above, both are O(n) time and O(1) space.
+    public int findMaxConsecutiveOnes2(int[] nums) {
+        int length = 0;
+        int max = 0;
+        for(int i=0; i< nums.length; i++){
+            if(nums[i] == 1){
+                length++;
+            } else {
+                max = Math.max(max, length);
+                length = 0;
+            }
+        }
+
+        max = Math.max(max, length);
+        return max;
+    }
+
+    // Bit different logic.
+    public int findMaxConsecutiveOnes3(int[] nums) {
+        int max_ones, current_ones;
+        max_ones = current_ones = 0;
+
+        for (int number: nums) {
+            if (number == 1) {
+                current_ones++;
+                if (current_ones > max_ones) max_ones = current_ones;
+            } else {
+                current_ones = 0;
+            }
+        }
+        
+        return max_ones;
+    }
 }
