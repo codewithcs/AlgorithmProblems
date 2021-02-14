@@ -62,7 +62,7 @@ public class MaxConsecutiveOnes {
                 current_ones = 0;
             }
         }
-        
+
         return max_ones;
     }
 }

@@ -15,6 +15,26 @@ Note:
 
 public class MaxConsecutiveOnesIII {
     public int longestOnes(int[] A, int K) {
-        return 0;
+        int left = 0, right = 0;
+        while ( right < A.length) {
+            // If we included a zero in the window we reduce the value of K.
+            // Since K is the maximum zeros allowed in a window.
+            if (A[right] == 0) {
+                K--;
+            }
+            // A negative K denotes we have consumed all allowed flips and window has
+            // more than allowed zeros, thus increment left pointer by 1 to keep the window size same.
+            if (K < 0) {
+                // If the left element to be thrown out is zero we increase K.
+                if (A[left] == 0) {
+                    K++;
+                }
+                left++;
+            }
+
+            right++;
+        }
+        
+        return right - left;
     }
 }
