@@ -10,6 +10,10 @@ Constraints:
 nums[i] is either 0 or 1.
  */
 public class LongestSubarrayOf1sAfterDeletingOneElement {
+
+    // Breaking the problem into 2 parts.
+    // First generate chains without deleting anything.
+    // Then try to delete the 0 which is between two 1s.
     public int longestSubarray(int[] nums) {
         int[] lengths = new int[nums.length];
         // lengths[i]: Length of chain ending at index i.
@@ -55,5 +59,46 @@ public class LongestSubarrayOf1sAfterDeletingOneElement {
         }
 
         return maxLength;
+    }
+
+    // O(n) time and O(1) space solution, Clean code.
+    // We need prevCnt for the situation [1, 1, 0, 1]
+    // If we have [1, 0, 0, 1] then previous count will be 0 for last 1.
+    public int longestSubarray2(int[] nums) {
+        int prevCnt = 0, cnt = 0, res = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 1) {
+                cnt++;
+            } else {
+                res = Math.max(res, cnt + prevCnt); // global maximum
+                prevCnt = cnt; // Setting these variables for the next iteration.
+                cnt = 0;
+            }
+        }
+
+        res = Math.max(res, cnt + prevCnt);
+        return res == nums.length ? res - 1 : res;  //if all ones, must remove one;
+    }
+
+    // Sliding Window Solution: See Max Consecutive Ones III problem.
+    public int longestSubarray3(int[] A) {
+        int i = 0;
+        int k = 1;
+        int res = 0;
+
+        for (int j = 0; j < A.length; ++j) {
+            if (A[j] == 0) {
+                k--;
+            }
+            while (k < 0) {
+                if (A[i] == 0) {
+                    k++;
+                }
+                i++;
+            }
+            res = Math.max(res, j - i);
+        }
+
+        return res;
     }
 }
