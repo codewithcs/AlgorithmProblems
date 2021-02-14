@@ -11,6 +11,49 @@ nums[i] is either 0 or 1.
  */
 public class LongestSubarrayOf1sAfterDeletingOneElement {
     public int longestSubarray(int[] nums) {
-        return 0;
+        int[] lengths = new int[nums.length];
+        // lengths[i]: Length of chain ending at index i.
+        int maxLength = 0;
+
+        for(int i=0; i< nums.length; i++){
+            if(i==0){
+                if(nums[i] == 1){
+                    lengths[i] = 1;
+                }
+            } else {
+                if(nums[i] == 1){
+                    if(nums[i-1] == 1){
+                        lengths[i] = 1 + lengths[i-1];
+                    } else {
+                        lengths[i] = 1;
+                    }
+                }
+            }
+            maxLength = Math.max(maxLength, lengths[i]);
+        }
+
+        // Have to delete at least 1 element
+        if(maxLength == nums.length) {
+            return maxLength - 1;
+        }
+
+        for(int i=1; i< nums.length-1 ; i++){
+            if(nums[i] == 0){
+                if(nums[i+1] == 1 && nums[i-1] == 1){
+                    int currentLength = 1 + lengths[i-1]; // have to delete the 0, that is why we add just 1 and not 2.
+                    for(int j=i+2; j< nums.length; j++){
+                        if(nums[j] != 1){
+                            break;
+                        } else {
+                            currentLength++; // continuous chain
+                        }
+                    }
+
+                    maxLength = Math.max(maxLength, currentLength);
+                }
+            }
+        }
+
+        return maxLength;
     }
 }
