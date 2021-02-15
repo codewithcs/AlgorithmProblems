@@ -63,6 +63,7 @@ public class ConstructBinaryTreeFromPreOrderAndInOrderTraversal {
         return root;
     }
 
+    // Don't need to use preEnd.
     public TreeNode buildTree2(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd, Map<Integer, Integer> inMap) {
         if(preStart > preEnd || inStart > inEnd) {
             return null;
