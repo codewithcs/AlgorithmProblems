@@ -20,6 +20,7 @@ class TreeNode{
         this.val = val; this.left = left; this.right = right;
     }
 }
+
 public class ConstructBinaryTreeFromPreOrderAndInOrderTraversal {
 
     // Approach 1: Simple Recursive Solution.
