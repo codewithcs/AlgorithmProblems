@@ -28,7 +28,10 @@ public class ConstructBinaryTreeFromPreOrderAndInOrderTraversal {
         return helper(0, 0, inorder.length - 1, preorder, inorder);
     }
 
+    // preStart is the root pointer in pre order traversal.
+    // We need inStart and inEnd to separate left and right sub trees.
     public TreeNode helper(int preStart, int inStart, int inEnd, int[] preorder, int[] inorder) {
+        // Base Case.
         if (preStart > preorder.length - 1 || inStart > inEnd) {
             return null;
         }
@@ -43,7 +46,8 @@ public class ConstructBinaryTreeFromPreOrderAndInOrderTraversal {
 
         root.left = helper(preStart + 1, inStart, inIndex - 1, preorder, inorder);
         root.right = helper(preStart + inIndex - inStart + 1, inIndex + 1, inEnd, preorder, inorder);
-
+        // inIndex-inStart+1 is the length of the left subtree.
+        // right subtree root will start from the index = preStart + (length of left sub tree)
         return root;
     }
 
@@ -52,7 +56,7 @@ public class ConstructBinaryTreeFromPreOrderAndInOrderTraversal {
         Map<Integer, Integer> inMap = new HashMap<>();
 
         for(int i = 0; i < inorder.length; i++) {
-            inMap.put(inorder[i], i);
+            inMap.put(inorder[i], i); // Store for inorder[] as we will need to map from pre order to inorder
         }
 
         TreeNode root = buildTree2(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, inMap);
@@ -65,7 +69,7 @@ public class ConstructBinaryTreeFromPreOrderAndInOrderTraversal {
         }
 
         TreeNode root = new TreeNode(preorder[preStart]);
-        int inRoot = inMap.get(root.val);
+        int inRoot = inMap.get(root.val); // Rather than iterating, we get the index in O(1).
         int numsLeft = inRoot - inStart;
 
         root.left = buildTree2(preorder, preStart + 1, preStart + numsLeft, inorder, inStart, inRoot - 1, inMap);
