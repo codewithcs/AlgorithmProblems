@@ -100,7 +100,7 @@ public class MinimumIncrementToMakeArrayUnique {
         return res;
     }
 
-    // Without Sorting, using a tree map. 
+    // Without Sorting, using a tree map.
     public int minIncrementForUnique5(int[] A) {
         TreeMap<Integer, Integer> count = new TreeMap<>();
         for (int a : A) count.put(a, count.getOrDefault(a, 0) + 1);
@@ -108,7 +108,7 @@ public class MinimumIncrementToMakeArrayUnique {
         int res = 0, need = 0;
         for (int x: count.keySet()) {
             int v = count.get(x);
-            res += v * Math.max(need - x, 0) + v * (v - 1) / 2;
+            res += v * Math.max(need - x, 0) + v * (v - 1) / 2; // see this formula.
             need = Math.max(need, x) + v;
         }
 
