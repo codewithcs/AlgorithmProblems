@@ -17,6 +17,7 @@ Note:
 
 public class MinimumIncrementToMakeArrayUnique {
     // Time Limit Exceeded. Do not need to sort as it does not help.
+    // O(n) time and space.
     public int minIncrementForUnique(int[] A) {
         if (A.length == 0) {
             return 0;
@@ -75,6 +76,42 @@ public class MinimumIncrementToMakeArrayUnique {
     }
 
     public int minIncrementForUnique3(int[] A) {
-        return 0; 
+        Arrays.sort(A);
+        int res = 0, need = 0;
+        for (int a : A) {
+            res += Math.max(need - a, 0);
+            need = Math.max(a, need) + 1;
+        }
+        return res;
+    }
+
+    // Cleaner from above.
+    public int minIncrementForUnique4(int[] A) {
+        if(A == null || A.length == 0){
+            return 0;
+        }
+        Arrays.sort(A);
+        int res = 0, prev = A[0];
+        for(int i = 1; i < A.length; i++){
+            int expect = prev + 1;
+            res = res + A[i] > expect ? 0 : expect - A[i];
+            prev = Math.max(expect, A[i]);
+        }
+        return res;
+    }
+
+    // Without Sorting, using a tree map. 
+    public int minIncrementForUnique5(int[] A) {
+        TreeMap<Integer, Integer> count = new TreeMap<>();
+        for (int a : A) count.put(a, count.getOrDefault(a, 0) + 1);
+
+        int res = 0, need = 0;
+        for (int x: count.keySet()) {
+            int v = count.get(x);
+            res += v * Math.max(need - x, 0) + v * (v - 1) / 2;
+            need = Math.max(need, x) + v;
+        }
+
+        return res;
     }
 }
