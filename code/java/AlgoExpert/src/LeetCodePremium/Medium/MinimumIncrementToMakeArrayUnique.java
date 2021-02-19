@@ -1,8 +1,6 @@
 package LeetCodePremium.Medium;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /*
 Given an array of integers A, a move consists of choosing any A[i],
@@ -16,15 +14,16 @@ Note:
 0 <= A.length <= 40000
 0 <= A[i] < 40000
  */
+
 public class MinimumIncrementToMakeArrayUnique {
-    // Time Limit Exceeded. 
+    // Time Limit Exceeded.
     public int minIncrementForUnique(int[] A) {
         if (A.length == 0) {
             return 0;
         }
 
         Set<Integer> unique = new HashSet<>();
-        Arrays.sort(A);
+        Arrays.sort(A); /// O(n*log n)
         int minIncrement = 0;
         unique.add(A[0]);
         for (int i = 1; i < A.length; i++) {
@@ -38,7 +37,39 @@ public class MinimumIncrementToMakeArrayUnique {
         return minIncrement;
     }
 
+    // A: [3, 2, 1, 2, 1, 7], without sorting. 
     public int minIncrementForUnique2(int[] A) {
-        return 0;
+        if(A.length == 0){
+            return 0;
+        }
+
+        Set<Integer> unique = new HashSet<>();
+        Map<Integer, Integer> count = new HashMap<>();
+        int minIncrements = 0;
+        for(int num: A){
+            if(!count.containsKey(num)){
+                count.put(num , 1);
+            } else {
+                count.put(num, count.get(num) + 1 );
+            }
+        }
+
+        for(int num: A){
+            if(count.get(num) == 1){
+                unique.add(num);
+            }
+        }
+
+        // unique: {3, 7}, duplicates: {1, 2}
+        for(int i=0; i< A.length; i++){
+            if(count.get(A[i]) > 1) { // checking on previous value.
+                while(unique.contains(A[i])){
+                    A[i]++; minIncrements++;
+                }
+            }
+            unique.add(A[i]); // In the end A[i] is a unique element of the set.
+        }
+
+        return minIncrements;
     }
 }
