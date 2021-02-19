@@ -11,4 +11,7 @@ Constraints:
 0 <= limit <= 10^9
  */
 public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
+    public int longestSubarray(int[] nums, int limit) {
+        return 0;
+    }
 }
