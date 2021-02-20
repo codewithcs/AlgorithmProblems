@@ -1,7 +1,6 @@
 package LeetCodePremium.Medium;
 
-import java.util.Collections;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /*
 Given an array of integers nums and an integer limit, return the size of the
@@ -65,7 +64,7 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
                 res = Math.max(res, i - left + 1);
             } else {
                 int right = i - 1;
-                min = max = nums[i];
+                min = max = nums[i]; // Now we will lose track of left pointer, so find the min and max in [L, R] satisfying the constraint.
                 while (left < right && Math.abs(nums[i] - nums[right]) <= limit) {
                     min = Math.min(nums[right], min);
                     max = Math.max(nums[right], max);
@@ -81,28 +80,81 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
 
 
     public int longestSubarray2(int[] nums, int limit) {
-        int start = 0;
-        int end = 0;
+        int left = 0;
+        int right = 0;
         int res = 1;
 
-        PriorityQueue<Integer> minQ = new PriorityQueue<Integer>();
-        PriorityQueue<Integer> maxQ = new PriorityQueue<Integer>(Collections.reverseOrder());
+        PriorityQueue<Integer> minQ = new PriorityQueue<>();
+        PriorityQueue<Integer> maxQ = new PriorityQueue<>((a, b) -> b - a);
 
-        while (start <= end && end < nums.length) {
-            minQ.offer(nums[end]);
-            maxQ.offer(nums[end]);
+        while (left <= right && right < nums.length) {
+            minQ.offer(nums[right]);
+            maxQ.offer(nums[right]);
             int minNum = minQ.peek();
             int maxNum = maxQ.peek();
             if (maxNum - minNum <= limit) {
-                end++;
-                res = Math.max(res, end - start);
+                right++;
+                res = Math.max(res, right - left);
             } else {
-                minQ.remove(nums[start]);
-                maxQ.remove(nums[start]);
-                start++;
-                end++; // When ">limit" you also need to change your end, if you do not do so, you will push the same number twice.
+                minQ.remove(nums[left]);
+                maxQ.remove(nums[left]);
+                left++;
+                right++; // When ">limit" you also need to change your right, if you do not do so, you will push the same number twice.
+                // Also we need to find maximum sliding window, so we increment both pointers.
             }
         }
+
         return res;
+    }
+
+    // O(nlogn) time and  O(n) space.
+    public int longestSubarray3(int[] A, int limit) {
+        int i = 0, j;
+
+        TreeMap<Integer, Integer> m = new TreeMap<>();
+
+        for (j = 0; j < A.length; j++) {
+            m.put(A[j], 1 + m.getOrDefault(A[j], 0));
+            if (m.lastEntry().getKey() - m.firstEntry().getKey() > limit) {
+                m.put(A[i], m.get(A[i]) - 1);
+                if (m.get(A[i]) == 0) {
+                    m.remove(A[i]);
+                }
+                i++;
+            }
+        }
+
+        return j - i;
+    }
+
+    // Using 2 Dequeues, O(n) time and O(n) space.
+    public int longestSubarray4(int[] A, int limit) {
+        Deque<Integer> maxd = new ArrayDeque<>();
+        Deque<Integer> mind = new ArrayDeque<>();
+        int i = 0, j;
+
+        for (j = 0; j < A.length; ++j) {
+            while (!maxd.isEmpty() && A[j] > maxd.peekLast()){
+                maxd.pollLast();
+            }
+            while (!mind.isEmpty() && A[j] < mind.peekLast()){
+                mind.pollLast();
+            }
+
+            maxd.add(A[j]);
+            mind.add(A[j]);
+
+            if (maxd.peek() - mind.peek() > limit) {
+                if (maxd.peek() == A[i]){
+                    maxd.poll();
+                }
+                if (mind.peek() == A[i]){
+                    mind.poll();
+                }
+                ++i;
+            }
+        }
+
+        return j - i;
     }
 }
