@@ -1,5 +1,8 @@
 package LeetCodePremium.Medium;
 
+import java.util.Collections;
+import java.util.PriorityQueue;
+
 /*
 Given an array of integers nums and an integer limit, return the size of the
 longest non-empty subarray such that the absolute difference between any two
@@ -46,7 +49,7 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
         return maxSize;
     }
 
-    // O(n*k) time and O(1) space.
+    // O(n^2) time in the worst case and O(1) space.
     public int longestSubarray(int[] nums, int limit) {
         if (nums == null || nums.length == 0) {
             return 0;
@@ -72,6 +75,34 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
             }
         }
 
+        return res;
+    }
+
+
+
+    public int longestSubarray2(int[] nums, int limit) {
+        int start = 0;
+        int end = 0;
+        int res = 1;
+
+        PriorityQueue<Integer> minQ = new PriorityQueue<Integer>();
+        PriorityQueue<Integer> maxQ = new PriorityQueue<Integer>(Collections.reverseOrder());
+
+        while (start <= end && end < nums.length) {
+            minQ.offer(nums[end]);
+            maxQ.offer(nums[end]);
+            int minNum = minQ.peek();
+            int maxNum = maxQ.peek();
+            if (maxNum - minNum <= limit) {
+                end++;
+                res = Math.max(res, end - start);
+            } else {
+                minQ.remove(nums[start]);
+                maxQ.remove(nums[start]);
+                start++;
+                end++; // When ">limit" you also need to change your end, if you do not do so, you will push the same number twice.
+            }
+        }
         return res;
     }
 }
