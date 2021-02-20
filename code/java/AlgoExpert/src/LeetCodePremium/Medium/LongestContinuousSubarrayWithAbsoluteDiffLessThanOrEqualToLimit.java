@@ -120,7 +120,7 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
                 if (m.get(A[i]) == 0) {
                     m.remove(A[i]);
                 }
-                i++;
+                i++; // When we are incrementing i, we are incrementing j as well, that is why j-i is max in the end.
             }
         }
 
