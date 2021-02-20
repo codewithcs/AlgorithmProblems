@@ -13,6 +13,6 @@ elements in their original order.
  */
 public class ConstrainedSubsequenceSum {
     public int constrainedSubsetSum(int[] nums, int k) {
-        return 0; 
+        return 0;
     }
 }
