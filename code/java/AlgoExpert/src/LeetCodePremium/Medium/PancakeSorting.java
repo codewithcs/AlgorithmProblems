@@ -1,5 +1,6 @@
 package LeetCodePremium.Medium;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -24,6 +25,46 @@ All integers in arr are unique (i.e. arr is a permutation of the integers from 1
 
 public class PancakeSorting {
     public List<Integer> pancakeSort(int[] arr) {
-        return null;
+        List<Integer> result = new ArrayList<>();
+
+        // Find the largest number not at correct index.
+        int index = findIncorrectIndex(arr);
+
+        while(index != -1){
+            reverse(arr, index);
+            result.add(index+1);
+            reverse(arr, arr[0]-1);
+            result.add(arr[0]);
+            index = findIncorrectIndex(arr);
+        }
+
+        return result;
+    }
+
+    public int findIncorrectIndex(int[] arr){
+        int max = 0;
+        int maxIndex = -1;
+
+        for(int i=0 ; i<= arr.length-1 ; i++){
+            if(arr[i] != i+1){
+                if(arr[i] > max){
+                    max = arr[i];
+                    maxIndex = i;
+                }
+            }
+        }
+
+        return maxIndex;
+    }
+
+    public void reverse(int[] arr, int index){
+        int left =0 ;
+        int right = index;
+        while(left < right){
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++; right--;
+        }
     }
 }
