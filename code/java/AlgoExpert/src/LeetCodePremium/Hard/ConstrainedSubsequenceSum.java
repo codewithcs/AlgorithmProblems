@@ -10,9 +10,16 @@ A subsequence of an array is obtained by
 deleting some number of elements
 (can be zero) from the array, leaving the remaining
 elements in their original order.
+
+Constraints:
+1 <= k <= nums.length <= 10^5
+-10^4 <= nums[i] <= 10^4
  */
 public class ConstrainedSubsequenceSum {
     public int constrainedSubsetSum(int[] nums, int k) {
+
+
+
         return 0;
     }
 }

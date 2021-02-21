@@ -116,7 +116,7 @@ public class LongestContinuousSubarrayWithAbsoluteDiffLessThanOrEqualToLimit {
         for (j = 0; j < A.length; j++) {
             m.put(A[j], 1 + m.getOrDefault(A[j], 0));
 
-            // Violation. 
+            // Violation.
             if (m.lastEntry().getKey() - m.firstEntry().getKey() > limit) {
                 m.put(A[i], m.get(A[i]) - 1);
                 if (m.get(A[i]) == 0) {
