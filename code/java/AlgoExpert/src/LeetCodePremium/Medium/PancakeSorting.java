@@ -67,4 +67,87 @@ public class PancakeSorting {
             left++; right--;
         }
     }
+
+    /// Approach 2:
+    public List<Integer> pancakeSort2(int[] arr) {
+        List<Integer> result = new ArrayList<>();
+
+        // Find the largest number not at correct index.
+        for(int i=0 ; i< arr.length ; i++){
+            int maxNumberIndex = findMaximumIndex(i, arr);
+            reverse(arr, i, maxNumberIndex);
+            result.add(maxNumberIndex+1);
+        }
+
+        reverse(arr, 0, arr.length-1);
+
+        result.add(arr.length);
+        return result;
+    }
+
+    public int findMaximumIndex(int start, int[] arr){
+        int max = arr[start];
+        int maxIndex = -1;
+
+        for(int i=start+1 ; i<= arr.length-1 ; i++){
+            if(arr[i] > max){
+                max = arr[i];
+                maxIndex = i;
+            }
+        }
+
+        return maxIndex;
+    }
+
+    public void reverse(int[] arr, int start, int index){
+        int left = start ;
+        int right = index;
+
+        while(left < right){
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++; right--;
+        }
+    }
+
+    // Approach 3: array value in [1, arr.length]
+    public List<Integer> pancakeSort3(int[] arr) {
+        List<Integer> result = new ArrayList<>();
+
+        for(int i= arr.length; i>=1; i--){
+            int index = findIndex(i, arr);
+
+            if(index != i-1){ // if i is at wrong index.
+                flip(arr, index+1);
+                result.add(index+1);
+                flip(arr, i);
+                result.add(i);
+            }
+        }
+
+        return result;
+    }
+
+    public void flip(int[] arr, int k){
+        int start = 0; int end = k-1;
+        while(start< end){
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++; end--;
+        }
+    }
+
+    public int findIndex(int num, int[] arr){
+        int index = -1;
+        for(int i=0; i< arr.length; i++){
+            if(arr[i] == num ){
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
 }
