@@ -58,7 +58,7 @@ public class ThirdMaximumNumber {
         return set.size() < 3 ? Collections.max(set) : Collections.min(set);
     }
 
-    // O(n) time and O(1) space. Concept of "visited" by using a set. 
+    // O(n) time and O(1) space. Concept of "visited" by using a set.
     public int thirdMax3(int[] nums) {
         Set<Integer> seenMaximums = new HashSet<>();
 
@@ -84,5 +84,38 @@ public class ThirdMaximumNumber {
             }
         }
         return maximum;
+    }
+
+    // Running 3 maximums.
+    public int thirdMax4(int[] nums) {
+        long max1 = Long.MIN_VALUE;
+        long max2 = Long.MIN_VALUE;
+        long max3 = Long.MIN_VALUE;
+
+        // loop the array
+        for(int num  : nums){
+            if(num > max1){
+                max3 = max2;
+                max2 = max1;
+                max1 = num;
+            }else if(num == max1){
+                // skip the equal values.
+            }else if(num > max2){
+                max3 = max2;
+                max2 = num;
+            }else if(num == max2){
+            }
+            else if(num > max3){
+                max3 = num;
+            }else if(num == max3){
+            }
+        }
+
+        // if less than three max values
+        if(max3 == Long.MIN_VALUE){
+            return (int)max1;
+        }
+
+        return (int)max3;
     }
 }
