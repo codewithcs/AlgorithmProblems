@@ -1,5 +1,9 @@
 package LeetCodePremium.Easy;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 /*
 Given integer array nums, return the third maximum number in this array.
 If the third maximum does not exist, return the maximum number.
@@ -9,7 +13,76 @@ Constraints:
 -2^31 <= nums[i] <= 2^31 - 1
  */
 public class ThirdMaximumNumber {
+    public static void main(String[] args) {
+        System.out.println(Math.pow(2, 31) -1 == Integer.MAX_VALUE);
+    }
+
+    // O(n) time and O(n) space.
     public int thirdMax(int[] nums) {
-        return 0;
+        // Put the input integers into a HashSet.
+        Set<Integer> setNums = new HashSet<>();
+
+        // O(n)
+        for (int num : nums) setNums.add(num);
+
+        // Find the maximum, O(n)
+        int maximum = Collections.max(setNums);
+
+        // Check whether or not this is a case where we
+        // need to return the *maximum*.
+        if (setNums.size() < 3) {
+            return maximum;
+        }
+
+        // Otherwise, continue on to finding the third maximum.
+        setNums.remove(maximum); // O(1)
+        int secondMaximum = Collections.max(setNums);
+        setNums.remove(secondMaximum);
+        return Collections.max(setNums);
+    }
+
+
+    // O(n) time and O(1) space.
+    public int thirdMax2(int[] nums) {
+        Set<Integer> set = new HashSet<>(); // holds <=3 items at a time.
+
+        // O(n) in total.
+        for(int num: nums){
+            set.add(num); // O(1)
+            if(set.size() > 3){
+                int min = Collections.min(set); // O(1)
+                set.remove(min);
+            }
+        }
+
+        return set.size() < 3 ? Collections.max(set) : Collections.min(set);
+    }
+
+    // O(n) time and O(1) space. Concept of "visited" by using a set. 
+    public int thirdMax3(int[] nums) {
+        Set<Integer> seenMaximums = new HashSet<>();
+
+        for (int i = 0; i < 3; i++) {
+            Integer curMaximum = maxIgnoringSeenMaximums(nums, seenMaximums);
+            if (curMaximum == null) {
+                return Collections.max(seenMaximums);
+            }
+            seenMaximums.add(curMaximum);
+        }
+
+        return Collections.min(seenMaximums);
+    }
+
+    private Integer maxIgnoringSeenMaximums(int[] nums, Set<Integer> seenMaximums) {
+        Integer maximum = null;
+        for (int num : nums) {
+            if (seenMaximums.contains(num)) {
+                continue;
+            }
+            if (maximum == null || num > maximum) {
+                maximum = num;
+            }
+        }
+        return maximum;
     }
 }
