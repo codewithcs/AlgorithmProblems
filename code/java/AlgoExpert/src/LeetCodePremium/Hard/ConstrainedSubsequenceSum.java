@@ -121,7 +121,7 @@ public class ConstrainedSubsequenceSum {
 
             queue.addLast(i); // will come after while
 
-            if(!queue.isEmpty() && queue.peek() < i- k +1 ){ // if and while are independent. 
+            if(!queue.isEmpty() && queue.peek() < i- k +1 ){ // if and while are independent.
                 queue.poll();
             }
         }
