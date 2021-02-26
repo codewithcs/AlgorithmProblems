@@ -37,23 +37,67 @@ public class DesignBrowserHistory {
 
 class BrowserHistory {
 
-    List<String> list = new ArrayList<>();
-    String current = "";
+    class Node{
+        String name;
+        Node next;
+        Node prev;
+
+        public Node(String name){
+            this.name = name; next = null ; prev = null;
+        }
+    }
+
+    Node head ; Node current = null; Node tail;
     public BrowserHistory(String homepage) {
-        list = new ArrayList<>();
-        list.add(homepage);
+        head = new Node(homepage);
+        current = head;
+        tail = head;
     }
 
+    // Add new node in doubly linked list.
     public void visit(String url) {
-        list.add(url);
-
+        Node newNode = new Node(url);
+        if(current.next != null){ // Remove Bindings. No need to do this as we won't have the reference for current.next and it will be garbage collected.
+            current.next.prev = null;
+        }
+        current.next = newNode;
+        newNode.prev = current;
+        current = newNode;
+        tail = current;
     }
 
+    // Iterate backwards on linked list. O(min(steps, length))
     public String back(int steps) {
-        return "";
+        Node n = current;
+
+        while(steps > 0 && n != null){
+            n = n.prev;
+            steps--;
+        }
+
+        current = n;
+
+        if(n == null){
+            current = head;
+        }
+
+        return current.name;
     }
 
+    // Iterate forward on linked list. O(min(steps, length))
     public String forward(int steps) {
-        return "";
+        Node n = current;
+        while(steps > 0 && n != null){
+            n = n.next;
+            steps--;
+        }
+
+        current = n;
+
+        if(n == null){
+            current = tail;
+        }
+
+        return current.name;
     }
 }

@@ -9,6 +9,6 @@ If it is not possible to rearrange the string, return an empty string "".
  */
 public class RearrangeStringKDistanceApart {
     public String rearrangeString(String s, int k) {
-        return ""; 
+        return "";
     }
 }
