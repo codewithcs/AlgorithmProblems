@@ -37,6 +37,8 @@ public class DesignBrowserHistory {
 
 class BrowserHistory {
 
+
+    // Note: head pointer is never removed. And the linked list contains one node at minimum.
     class Node{
         String name;
         Node next;
@@ -92,7 +94,7 @@ class BrowserHistory {
             steps--;
         }
 
-        current = n;
+        current = n; // important to to do this before if.
 
         if(n == null){
             current = tail;
@@ -100,4 +102,33 @@ class BrowserHistory {
 
         return current.name;
     }
+
+
+    // Approach 2: Using an ArrayList
+    class BrowserHistory2 {
+        int currentIndex = 0;
+        List<String> history = new ArrayList<>();
+
+        public BrowserHistory2(String homepage) {
+            history.add(homepage);
+        }
+
+        public void visit(String url) {
+            // Clear the unwanted browser history
+            history.subList(currentIndex + 1, history.size()).clear();
+            history.add(url);
+            currentIndex++;
+        }
+
+        public String back(int steps) {
+            currentIndex = Math.max(currentIndex - steps, 0);
+            return history.get(currentIndex);
+        }
+
+        public String forward(int steps) {
+            currentIndex = Math.min(currentIndex + steps, history.size() - 1);
+            return history.get(currentIndex);
+        }
+    }
+
 }
