@@ -54,7 +54,7 @@ public class MinimumPathSum {
         return dp[0][0];
     }
 
-    // Approach 1: Brute Force, O(2^(m+n)) time and O(m+n) space. 
+    // Approach 1: Brute Force, O(2^(m+n)) time and O(m+n) space.
     public int calculate(int[][] grid, int i, int j) {
         if (i == grid.length || j == grid[0].length) return Integer.MAX_VALUE;
         if (i == grid.length - 1 && j == grid[0].length - 1) return grid[i][j];
