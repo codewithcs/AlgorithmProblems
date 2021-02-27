@@ -37,7 +37,7 @@ public class TweetCountsPerFrequency {
             map = new HashMap<>();
         }
 
-        // No need to sort List<Integer> as we are mapping times to buckets. 
+        // No need to sort List<Integer> as we are mapping times to buckets.
         public void recordTweet(String tweetName, int time) {
             if(!map.containsKey(tweetName)){
                 map.put(tweetName, new ArrayList<>());
