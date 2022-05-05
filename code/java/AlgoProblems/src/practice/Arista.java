@@ -30,33 +30,33 @@ public class Arista {
     public static String convertString(String input){
         if(input.length() == 2 || input.length() == 3) return input;
 
-        int length = input.length(); String output = "";
+        int length = input.length(); StringBuilder output = new StringBuilder();
 
         if(length %3 == 0 ){
             for(int i=0 ; i<length; i=i+3){
-                output += input.substring(i, i+3) + " ";
+                output.append(input, i, i + 3).append(" ");
             }
 
         }else if(length % 3 == 2){
             String x = input.substring(length-2, length) ;
 
             for(int i=0; i<=length-3 ; i=i+3){
-                output += input.substring(i, i+3) + " ";
+                output.append(input, i, i + 3).append(" ");
             }
 
-            output = output + x ;
+            output.append(x);
 
         } else if(length % 3 == 1){
             String x = input.substring(length-4, length-2)+ " " +input.substring(length-2, length) ;
 
             for(int i=0; i<=length-5 ; i=i+3){
                 System.out.println("i is : " + i);
-                output += input.substring(i, i+3) + " ";
+                output.append(input, i, i + 3).append(" ");
             }
 
-            output = output + x;
+            output.append(x);
         }
 
-        return output.trim();
+        return output.toString().trim();
     }
 }

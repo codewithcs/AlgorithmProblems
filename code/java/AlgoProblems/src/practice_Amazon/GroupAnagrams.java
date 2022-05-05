@@ -88,7 +88,7 @@ public class GroupAnagrams {
     }
 
 
-    // Brute Force 
+    // Brute Force
     public List<List<String>> groupAnagrams2(String[] strs) {
         List<List<String>> answer = new ArrayList<>();
         boolean[] isPresentInAGroup = new boolean[strs.length];

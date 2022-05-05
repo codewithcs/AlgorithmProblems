@@ -49,5 +49,52 @@ public class QuickSelect {
 		}
 		
 	}
+
+
+
+	public static int quickselect2(int[] array, int k) {
+		// Write your code here.
+		return partition2(0,array.length-1,array,k);
+	}
+
+	public static int partition2(int start, int end, int[] array, int k){
+
+		int pivot=start;
+		int right=end;
+		int left=start+1;
+
+		while(left<=right){
+			if(array[left]>array[pivot] && array[right]< array[pivot]){
+				swap(left,right,array);
+				left++;
+				right--;
+			}
+
+			else if(array[left]<=array[pivot])
+				left++;
+			else
+				right--;
+		}
+
+		swap(pivot,right,array);
+
+		if(right==k-1){
+			return array[right];
+		}
+		else if(right<k-1){
+			return partition2(right+1,end,array,k);
+		}
+		else{
+			return partition2(start,right-1,array,k);
+		}
+
+	}
+
+	public static void swap(int i,int j, int[] array){
+		int temp=array[j];
+		array[j]=array[i];
+		array[i]=temp;
+
+	}
 	
 }
