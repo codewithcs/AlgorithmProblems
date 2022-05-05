@@ -1,4 +1,4 @@
-package LeetCode.Hard;
+package LeetCode.Hard.Strings;
 
 /*
 Given a non-empty string s and an integer k,
