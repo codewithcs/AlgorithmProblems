@@ -36,4 +36,8 @@ public class CaesarCipherEncryptor {
         int newLetterCode = alphabet.indexOf(letter) + key;
         return alphabet.charAt(newLetterCode % 26);
     }
+
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
 }

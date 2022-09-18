@@ -53,4 +53,8 @@ public class BranchSums {
         branchSums2(root.left, sums, currentSum );
         branchSums2(root.right, sums, currentSum );
     }
+
+    public static void main(String[] args) {
+        System.out.println("Hello");
+    }
 }

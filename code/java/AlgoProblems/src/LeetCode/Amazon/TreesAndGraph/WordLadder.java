@@ -18,6 +18,9 @@ You may assume no duplicates in the word list.
 You may assume beginWord and endWord are non-empty and are not the same.
  */
 
+
+
+
 // contains() method of HashSet takes O(1), ArrayList: O(n)
 // Regular Breadth First Search: Powerful concept. It is like we have to reach from some start node to end node.
 public class WordLadder {
@@ -119,5 +122,9 @@ public class WordLadder {
         }
 
         return 0;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Hello ");
     }
 }
